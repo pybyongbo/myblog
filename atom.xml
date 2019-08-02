@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://blog.901web.com</id>
-    <title>前端技术小测博客</title>
-    <updated>2019-08-02T08:08:24.506Z</updated>
+    <title>pybyongbo的技术博客</title>
+    <updated>2019-08-02T08:16:44.785Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://blog.901web.com"/>
     <link rel="self" href="http://blog.901web.com/atom.xml"/>
     <subtitle>温故而知新</subtitle>
     <logo>http://blog.901web.com/images/avatar.png</logo>
     <icon>http://blog.901web.com/favicon.ico</icon>
-    <rights>All rights reserved 2019, 前端技术小测博客</rights>
+    <rights>All rights reserved 2019, pybyongbo的技术博客</rights>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
         <id>http://blog.901web.com/post/hello-gridea</id>
