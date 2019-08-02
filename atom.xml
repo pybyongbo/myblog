@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://wanghui.901web.com</id>
+    <id>http://blog.901web.com</id>
     <title>前端技术小测博客</title>
-    <updated>2019-08-02T07:30:07.379Z</updated>
+    <updated>2019-08-02T08:07:38.865Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="http://wanghui.901web.com"/>
-    <link rel="self" href="http://wanghui.901web.com/atom.xml"/>
+    <link rel="alternate" href="http://blog.901web.com"/>
+    <link rel="self" href="http://blog.901web.com/atom.xml"/>
     <subtitle>温故而知新</subtitle>
-    <logo>http://wanghui.901web.com/images/avatar.png</logo>
-    <icon>http://wanghui.901web.com/favicon.ico</icon>
+    <logo>http://blog.901web.com/images/avatar.png</logo>
+    <icon>http://blog.901web.com/favicon.ico</icon>
     <rights>All rights reserved 2019, 前端技术小测博客</rights>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>http://wanghui.901web.com/post/hello-gridea</id>
-        <link href="http://wanghui.901web.com/post/hello-gridea">
+        <id>http://blog.901web.com/post/hello-gridea</id>
+        <link href="http://blog.901web.com/post/hello-gridea">
         </link>
         <updated>2018-12-11T16:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
