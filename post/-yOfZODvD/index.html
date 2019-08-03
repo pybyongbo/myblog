@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1564805339859">
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1564805655086">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://blog.901web.com">
-        <img src="https://blog.901web.com/images/avatar.png?v=1564805339859" class="site-logo">
+        <img src="https://blog.901web.com/images/avatar.png?v=1564805655086" class="site-logo">
         <h1 class="site-title">pyb永波的技术博客</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -103,7 +103,8 @@
             
             <div class="post-content">
               <p>对于做web开发的我们,文件上传需求肯定不会陌生,也会经常遇到.不过在解决文件上传的问题的时候,有时候也不是完全是有前端的问题,同时我们可能还需要懂点服务器相关的知识,才能够很好的和后端联调,程序出现了问题,也能够迅速的定位问题的,然后很好的解决.有时候服务器端限制了文件上传的大小限制,或者前端上传文件Ajax超时了等等.所有出现了问题我们就得慢慢的一步步的来排查啦~</p>
-<p>上周在做公司内部系统的时候,就遇到了一个文件上传的.说起来还挺坑爹的,也有自己的一部分原因吧.没有测试一些异常情况,文件过大或者网络过慢,请求超时了.一直没有上传成功.发布到线上了,同时在批量上传商品的时候却不成功.导致系统无法使用文件批量上传.最后找到开发反馈,然后这块的前端是我负责的.于是后果直接可想而知啦.肯定对我的印象不太好啦,赶紧查看问题的根源,于是跟后端对接起来,打个分支,修复问题,重新发版,完美结束.<!-- more --></p>
+<!-- more -->
+<p>上周在做公司内部系统的时候,就遇到了一个文件上传的.说起来还挺坑爹的,也有自己的一部分原因吧.没有测试一些异常情况,文件过大或者网络过慢,请求超时了.一直没有上传成功.发布到线上了,同时在批量上传商品的时候却不成功.导致系统无法使用文件批量上传.最后找到开发反馈,然后这块的前端是我负责的.于是后果直接可想而知啦.肯定对我的印象不太好啦,赶紧查看问题的根源,于是跟后端对接起来,打个分支,修复问题,重新发版,完美结束.</p>
 <h3 id="定位问题">定位问题</h3>
 <p>于是乎我就打开了本地环境测试,确实上传大文件的时候无法上传,开始我一直以为是服务器端做了文件大小的限制.我自己用小一点的文件上传却是可以上传成功的.而如果换成同时发的那个文件,感觉就没有成功.浏览器端抛出了一个警告⚠️提示.</p>
 <pre><code class="language-javascript">Provisional headers are shown
