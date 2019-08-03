@@ -750,3 +750,11 @@ a {
   font-size: 16px;
   margin: 4px 8px;
 }
+
+      .sidebar {
+        width: 280px;
+      }
+      .main-container {
+        margin-left: 280px;
+      }
+    
