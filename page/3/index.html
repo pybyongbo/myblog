@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1564819413631">
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1564819735957">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://blog.901web.com">
-        <img src="https://blog.901web.com/images/avatar.png?v=1564819413631" class="site-logo">
+        <img src="https://blog.901web.com/images/avatar.png?v=1564819735957" class="site-logo">
         <h1 class="site-title">pyb永波的技术博客</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -107,7 +107,9 @@
                   2015-07-26
                 </div>
                 <div class="post-abstract">
-                  
+                  <p>网络应用程序，分为前端和后端两个部分。当前的发展趋势，就是前端设备层出不穷（手机、平板、桌面电脑、其他专用设备......）。<br>
+因此，必须有一种统一的机制，方便不同的前端设备与后端进行通信。这导致API构架的流行.</p>
+
                 </div>
               </div>
               
@@ -122,7 +124,8 @@
                   2015-07-20
                 </div>
                 <div class="post-abstract">
-                  
+                  <p>最近在接触移动端前端开发的相关工作任务,自己在制作前端页面的过程中遇到了不少的坑,今天有时间就特意的总结一下在这次项目中遇到的相关问题.</p>
+
                 </div>
               </div>
               
@@ -137,7 +140,9 @@
                   2015-05-17
                 </div>
                 <div class="post-abstract">
-                  
+                  <p>记得上周发表过一篇关于php分页函数的封装和相关ajax分页效果的探讨的文章.但是之后在测试的过程中发现最后的一个滚动加载的ajax分页效果有个bug.<br>
+加载到页面的数据不是完全正确,有时候还会有重复加载的一种情况出现.本周末在家里看腾讯的前端团队的博客的时候,发现文章列表也用了滚屏加载的技术,于是就趁着周末有时间,恰巧有碰到这个问题,就重新研究了一下.</p>
+
                 </div>
               </div>
               
@@ -180,15 +185,6 @@
 </tr>
 </tbody>
 </table>
-<h3 id="代码块">代码块</h3>
-<pre><code class="language-sql">CREATE TABLE IF NOT EXISTS `admin` (   
-`id` int(6) unsigned NOT NULL auto_increment,   
-`username` varchar(50) NOT NULL default '',   
-`password` varchar(100) default NULL,   
-PRIMARY KEY (`id`)   
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
-</code></pre>
 
                 </div>
               </div>
@@ -209,7 +205,9 @@ PRIMARY KEY (`id`)
                   2015-05-10
                 </div>
                 <div class="post-abstract">
-                  
+                  <p>ajax(jquery,php,json数据格式)分页效果的彻底研究.周末放假休息,在家没有什么事情,就研究了下ajax分页的效果.虽然折腾了蛮长时间,但是通过自己的思考和整理,还是学到了不少的知识.</p>
+<p>其中涉及到的知识点还蛮多的.看似一个简单的效果还是的多多尝试.就一个普通的ajax分页效果,我尝试着扩展了下网上常见的一些效果,也涉及到一些基础的php和数据库知识.</p>
+
                 </div>
               </div>
               
@@ -224,7 +222,8 @@ PRIMARY KEY (`id`)
                   2015-04-10
                 </div>
                 <div class="post-abstract">
-                  
+                  <p>js循环遍历后台返回的数据,然后拼接HTML代码动态添加到DOM结构中,是前端开发中经常遇到的,自己在接触过的项目中经常有这种需求,用jquery来循环就更加方便了,后台返回给我们的json数据,我们只需要使用jquery的each方法很容易遍历.</p>
+
                 </div>
               </div>
               
@@ -239,7 +238,8 @@ PRIMARY KEY (`id`)
                   2015-02-12
                 </div>
                 <div class="post-abstract">
-                  
+                  <p>**2014年(也是我的本命年)**就这么匆匆的过去了,2015年悄无声息的早已到来,过完年后来上班,把之前记录在日记本上面的过去一年的一些感想和经历发布到个人博客上面.</p>
+
                 </div>
               </div>
               
@@ -254,7 +254,8 @@ PRIMARY KEY (`id`)
                   2015-02-11
                 </div>
                 <div class="post-abstract">
-                  
+                  <p>Markdown的一些基本语法,插入图片相关</p>
+
                 </div>
               </div>
               
@@ -269,7 +270,9 @@ PRIMARY KEY (`id`)
                   2015-02-10
                 </div>
                 <div class="post-abstract">
-                  
+                  <p>有时候hexo部署后,CNAME会被自动删除</p>
+<p>之前自己在部署发布的时候,就遇到过这个问题,每次部署之后,手动的在github上面手动的添加CNAME文件.</p>
+
                 </div>
               </div>
               
@@ -284,7 +287,8 @@ PRIMARY KEY (`id`)
                   2015-02-10
                 </div>
                 <div class="post-abstract">
-                  
+                  <p><strong>Raysnote</strong>是一款简洁而优秀的在线笔记工具，同时支持HTML富文本编辑和markdown语法，界面简洁优雅，中文排版优秀，具有优秀的书写和阅读体验。</p>
+
                 </div>
               </div>
               

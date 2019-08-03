@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.901web.com</id>
     <title>pyb永波的技术博客</title>
-    <updated>2019-08-03T08:03:43.022Z</updated>
+    <updated>2019-08-03T08:08:59.821Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.901web.com"/>
     <link rel="self" href="https://blog.901web.com/atom.xml"/>
@@ -39,10 +39,8 @@
         </link>
         <updated>2019-02-20T08:30:22.000Z</updated>
         <summary type="html"><![CDATA[<p>如今数据驱动视图的框架已经成为前端开发的主流，如 react、vue、angular 等，当然还包括我们用的 regular。这些框架大大提高了我们的开发效率，但同时现在的页面结构越来越复杂，虽然有这些 mv*的框架，但如果我们使用不当，也会造成状态数据管理混乱，代码难以维护的困扰。</p>
-<p>因此组件化的思想就是为了提高开发效率和后期维护的效率。在做 SAAS 与腾讯企点合作的一个任务时候,遇到一个小问题.调用接口,在父组件里面完成,在子组件中通过 Props 获取.然后子组件的值修改更新通过<code>$emit</code>传达给父组件来更新.</p>
 ]]></summary>
         <content type="html"><![CDATA[<p>如今数据驱动视图的框架已经成为前端开发的主流，如 react、vue、angular 等，当然还包括我们用的 regular。这些框架大大提高了我们的开发效率，但同时现在的页面结构越来越复杂，虽然有这些 mv*的框架，但如果我们使用不当，也会造成状态数据管理混乱，代码难以维护的困扰。</p>
-<p>因此组件化的思想就是为了提高开发效率和后期维护的效率。在做 SAAS 与腾讯企点合作的一个任务时候,遇到一个小问题.调用接口,在父组件里面完成,在子组件中通过 Props 获取.然后子组件的值修改更新通过<code>$emit</code>传达给父组件来更新.</p>
 ]]></content>
     </entry>
     <entry>
