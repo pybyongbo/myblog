@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>标签列表 | pyb永波的技术博客</title>
+<title>Mysql相关 | pyb永波的技术博客</title>
 <meta name="description" content="温故而知新">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -97,54 +97,83 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          <h2 class="tag-list-title">标签列表</h2>
-          <div class="tags-container">
-            
-              <a class="tag" href="https://blog.901web.com/tag/vuereactnodejs-bu-shu">VUE+React+NodeJS部署</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/sheng-huo-lu-you">生活旅游</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/nian-zhong-zong-jie">年终总结</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/B8l2tKSTi">Gridea</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/mysql-xiang-guan">Mysql相关</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/javascript-bi-ji">Javascript笔记</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/async-he-await">Async和Await</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/yi-bu-cao-zuo">异步操作</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/xiao-cheng-xu">小程序</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/web-huan-cun">web缓存</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/mac-xiang-guan">Mac相关</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/yi-dong-duan">移动端</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/ajax-kua-yu-jsonp">ajax 跨域 jsonp</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/git">Git</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/github-xiang-guan">Github相关</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/gong-zuo-bi-ji">工作笔记</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/api-she-ji">API设计</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/ajax-jia-zai">Ajax加载</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/jquery">jQuery</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/json">JSON</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/markdown-yu-fa">Markdown语法</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/hexo-ji-zhu">hexo技术</a>
-            
-          </div>
+          <h2 class="current-tag">标签: Mysql相关</h2>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://blog.901web.com/post/PUYmoruQL">
+                  <h2 class="post-title">mysql语句中去除重复的记录条数小结</h2>
+                </a>
+                <div class="post-date">
+                  2018-11-17
+                </div>
+                <div class="post-abstract">
+                  <p>mysql语句中去除重复的记录条数小结</p>
+<p>今天在上网查阅sql语句的相关资料的时候,在自学IT网上面看到一道sql基础语句的面试题目,于是自己就在电脑上面测试了下,结果看似满基础的东西,却还是卡克了,最后在于同事的讨论中终于还是搞定了这个小问题,在下午不是很忙的时候,便抽出一点时间来整理下这道题目,做个相关的总结,面得以后自己又搞忘记了.也方便以后相关的查阅.</p>
+
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://blog.901web.com/post/W__iPAHvT">
+                  <h2 class="post-title">mysql copy表或表数据常用的语句整理汇总</h2>
+                </a>
+                <div class="post-date">
+                  2015-05-17
+                </div>
+                <div class="post-abstract">
+                  <h2 id="mysql-copy表或表数据常用的语句整理汇总">mysql copy表或表数据常用的语句整理汇总.</h2>
+<p>假如我们有以下这样一个表：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">id</th>
+<th style="text-align:right">username</th>
+<th style="text-align:center">password</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:right">admin</td>
+<td style="text-align:center">******</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:right">sameer</td>
+<td style="text-align:center">******</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:right">stewart</td>
+<td style="text-align:center">******</td>
+</tr>
+</tbody>
+</table>
+<h3 id="代码块">代码块</h3>
+<pre><code class="language-sql">CREATE TABLE IF NOT EXISTS `admin` (   
+`id` int(6) unsigned NOT NULL auto_increment,   
+`username` varchar(50) NOT NULL default '',   
+`password` varchar(100) default NULL,   
+PRIMARY KEY (`id`)   
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+</code></pre>
+
+                </div>
+              </div>
+              
+            </article>
+          
+
+          <div class="pagination-container">
+  
+  
+</div>
+
         </div>
       </div>
     </div>

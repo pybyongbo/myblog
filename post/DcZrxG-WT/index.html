@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>标签列表 | pyb永波的技术博客</title>
+<title>JS常用API,项目笔记汇总 | pyb永波的技术博客</title>
 <meta name="description" content="温故而知新">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -97,54 +97,60 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          <h2 class="tag-list-title">标签列表</h2>
-          <div class="tags-container">
+          <div class="post-detail">
+            <h2 class="post-title">JS常用API,项目笔记汇总</h2>
+            <div class="post-date">2018-11-01</div>
             
-              <a class="tag" href="https://blog.901web.com/tag/vuereactnodejs-bu-shu">VUE+React+NodeJS部署</a>
+            <div class="post-content">
+              <p>ES6的一些方法最近在项目中经常的用到,空闲的时候,自己对一些常用的API进行了整理和对比.虽然有的特效浏览器支持不是太友好,但是可以通过<code>babel</code>进行转换.还有一些常用的ES6方法,例如find,findIndex,以及一些数组的方法, 文档持续更新中...</p>
+<!-- more -->
+<h4 id="扩展运算符三个">扩展运算符:三个...</h4>
+<p>合并数组</p>
+<pre><code class="language-javascript">let arr1 = [1, 2], arr2 = [3, 4];
+arr1.push(...arr2);//把 arr2合并到arr1的尾部,arr1改变
+arr1.unshift(...arr2); //把 arr2合并到arr1的顶部部,arr1改变
+[...arr1,...arr2]; //生成一个由arr1和arr2组成的新数组,原数组不变.
+</code></pre>
+<p>笔记截图:<br>
+<img src="https://images.901web.com/hexoblog/jsdemo1.gif" alt="其他模块" title="控制台截图"></p>
+<h4 id="复制对象">复制对象:</h4>
+<pre><code class="language-javascript">let obj = {a:1};
+{...obj,b:2} //返回一个新的对象,{a:1,b:2},obj对象不变
+//等价于下面的写法
+Object.assign({},obj,{b:2}) //返回一个新的对象,{a:1,b:2},obj对象不变
+//另外 Object.assign还有一个用法
+Object.assign(obj,{b:2})// 返回obj对象并且新增加了b属性：{a: 1, b: 2}  obj对象改变
+// 由于使用的chrome浏览器还不支持第一种用法，只能演示Object.assign。项目中使用babel转换
+
+</code></pre>
+<p>笔记截图:<br>
+<img src="https://images.901web.com/hexoblog/jsdemo3.gif" alt="其他模块" title="控制台截图"></p>
+
+            </div>
             
-              <a class="tag" href="https://blog.901web.com/tag/sheng-huo-lu-you">生活旅游</a>
+              <div class="tag-container">
+                
+                  <a href="https://blog.901web.com/tag/javascript-bi-ji" class="tag">
+                    Javascript笔记
+                  </a>
+                
+              </div>
             
-              <a class="tag" href="https://blog.901web.com/tag/nian-zhong-zong-jie">年终总结</a>
             
-              <a class="tag" href="https://blog.901web.com/tag/B8l2tKSTi">Gridea</a>
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/kQE6wAtoN">
+                  <h3 class="post-title">
+                    Async和Await用法以及Promise的理解
+                  </h3>
+                </a>
+              </div>
             
-              <a class="tag" href="https://blog.901web.com/tag/mysql-xiang-guan">Mysql相关</a>
+
             
-              <a class="tag" href="https://blog.901web.com/tag/javascript-bi-ji">Javascript笔记</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/async-he-await">Async和Await</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/yi-bu-cao-zuo">异步操作</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/xiao-cheng-xu">小程序</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/web-huan-cun">web缓存</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/mac-xiang-guan">Mac相关</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/yi-dong-duan">移动端</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/ajax-kua-yu-jsonp">ajax 跨域 jsonp</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/git">Git</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/github-xiang-guan">Github相关</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/gong-zuo-bi-ji">工作笔记</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/api-she-ji">API设计</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/ajax-jia-zai">Ajax加载</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/jquery">jQuery</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/json">JSON</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/markdown-yu-fa">Markdown语法</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/hexo-ji-zhu">hexo技术</a>
-            
+
           </div>
+
         </div>
       </div>
     </div>

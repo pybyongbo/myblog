@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>Gridea | pyb永波的技术博客</title>
+<title>web缓存 | pyb永波的技术博客</title>
 <meta name="description" content="温故而知新">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -97,27 +97,64 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          <h2 class="current-tag">标签: Gridea</h2>
+          <h2 class="current-tag">标签: web缓存</h2>
           
             <article class="post-item">
               <div class="left">
-                <a href="https://blog.901web.com/post/hello-gridea">
-                  <h2 class="post-title">Hello Gridea</h2>
+                <a href="https://blog.901web.com/post/-yOfZODvD">
+                  <h2 class="post-title">文件上传线上bug排查记录</h2>
                 </a>
                 <div class="post-date">
-                  2018-12-12
+                  2018-07-10
                 </div>
                 <div class="post-abstract">
-                  <p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+                  
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://blog.901web.com/post/iH-MX5WKs">
+                  <h2 class="post-title">HTTP强缓存和协商缓存web缓存相关</h2>
+                </a>
+                <div class="post-date">
+                  2018-03-20
+                </div>
+                <div class="post-abstract">
+                  <h3 id="科普一">科普一</h3>
+<pre><code class="language-html">从输入网址到页面呈现过程：
+1、浏览器输入：`www.leadbank.com` 通过DNS(网域名称系统)解析成IP地址: `103.6.220.58`
+2、客户端与服务器建立TCP/IP协议
+3、传输层向服务器发送请求协议（HTTP/HTTPS/FTP等）
+4、服务器响应请求，返回指定的URL数据或错误信息（如果设定重定向则重定向到新的URL地址）（Nginx反向代理）
+5、客户端下载对应文件后：解析HTML以构建DOM树 –&gt; 构建渲染树 –&gt; 布局渲染树 –&gt; 绘制渲染树，最后呈现给用户
+
+&gt; DNS解析优先顺序: 先读缓存--Hosts文件--路由缓存--DNS缓存--根域名
+&gt; DNS劫持：从DNS缓存数据库里找时被恶意改为其他的网址,所以请求到的是其他网址
+&gt; Nginx反向代理：客户端请求Nginx服务，Nginx请求应用服务器，返回数据给到客户端，访问量大的网站一般采用Nginx反向代理，确保一台服务器挂了还有其他服务器正常运行，用户依旧可以正常使用。
+</code></pre>
 
                 </div>
               </div>
               
-                <a class="right" href="https://blog.901web.com/post/hello-gridea">
-                  <div class="feature-container" style="background-image: url('https://blog.901web.com/post-images/hello-gridea.png')">
-                  </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://blog.901web.com/post/lh9oKr2Ld">
+                  <h2 class="post-title">移动端M站搜索历史记录小结</h2>
                 </a>
+                <div class="post-date">
+                  2017-04-29
+                </div>
+                <div class="post-abstract">
+                  <h2 id="写在前面">写在前面</h2>
+<p>新的一年里,很久都没有写东西了,也没有更新自己的博客,2017年已经过去了快四分之一了.这一年感觉自己变得越来越懒惰了.今年来了就开始做公司的M站.差不多经历了一个多余的时间,一个从无到有的M站诞生了,东西虽然做出来了,然而却并不理想.各方面的原因都有吧.我也不想为自己的问题找借口了,好好总结下,希望在下次的项目中能够尽量少出问题,保证质量能够做得更好...</p>
+
+                </div>
+              </div>
               
             </article>
           

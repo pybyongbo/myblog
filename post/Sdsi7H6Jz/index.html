@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>微信小程序之初体验 | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1564805003004">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1564805003004" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">微信小程序之初体验</h2>
+            <div class="post-date">2018-07-29</div>
+            
+            <div class="post-content">
+              <p>微信小程序已经开放个人注册有一段时间啦.做web开发的应该都不陌生,也有不少公司为自己的产品开发了相关的小程序.基于微信庞大的用户量,来引流.最近自己也开始在研究小程序相关的知识,体验了一下小程序的开发,说实话,有web前端开发的基础,入门小程序开发不难.但是如果真正的去写那些小程序的API倒还是有一定的难度,好在我们目前大部分人都还是停留在使用API的程度上.对着API文档进行相关的开发.</p>
+<p>目前我自己为了学习小程序开发,也自己写了一个入门级别的小程序.已经上线了.在小程序入口可以搜索到的.一个美容美甲的小程序.搜索<code>晨浠</code>关键词 即可搜索得到的.</p>
+<!-- more -->
+<p>在新建小程序项目的时候,我们如果要发布上线的话,需要注册的.注册的账号不可以与微信公众平台账号是同一个,要分开的.在微信公众平台注册后小程序后,管理中心应该就有APPID,我们如果要使用真机生成二维码浏览的话,就需要在新建的时候填入这里的APPID.</p>
+<p>初次新建,目录下包含以下三个文件app.js(必须),app.json(必须),app.wxss(非必须)</p>
+<h3 id="目录结构">目录结构</h3>
+<p><strong>pages</strong>目录用来装页面，下面的每个一级子目录就是一个页面（该目录下包含该页面的wxml、wxss、js、json）</p>
+<p><strong>utils</strong>目录下的util.js定义了一些方法常量（const），一般采用es6的语法来编写;所有的页面page都是注册在app.json中的,这样才可以访问的.window定义了小程序的全局样式。</p>
+<h3 id="逻辑页面">逻辑页面</h3>
+<p>在app.js中进行小程序的注册：App()；<br>
+在登录页的js（一般为index.js）获取应用实例：const app = getApp()，这样就可以在之后的页面js中直接用app常量来访问这个小程序实例了</p>
+<p>注册页面：<br>
+在每个页面里面都有js来注册该页面（Page函数）：</p>
+<pre><code class="language-javascript">Page({
+  data: {
+    //页面数据
+    text: &quot;This is page data.&quot;
+  },
+  onLoad: function(options) {
+    //生命周期：页面加载
+  },
+  onReady: function() {
+    //生命周期：页面初次渲染完成
+  },
+  onShow: function() {
+    //生命周期：页面显示
+  },
+  onHide: function() {
+    //生命周期：页面隐藏
+  },
+  onUnload: function() {
+    //生命周期：页面卸载
+  },
+  onPullDownRefresh: function() {
+    //事件处理函数：页面下拉
+  },
+  onReachBottom: function() {
+    //事件处理函数：上拉触底
+  },
+  onShareAppMessage: function () {
+   //事件处理函数：右上角转发
+  },
+  onPageScroll: function() {
+    //事件处理函数：页面滚动
+  },
+    // 以下是自定义函数
+  viewTap: function() {
+    this.setData({
+   //为data赋值
+      text: 'Set some data for updating view.'
+    })
+  },
+  customData: {
+    hi: 'MINA'
+  }
+})
+</code></pre>
+<p><strong>注意：</strong><br>
+在onLoad/onShow生命周期函数中可以添加一个参数options，这个参数表示从上个页面传过来的参数值，就和get请求url地址中的参数类似。<br>
+这里涉及到小程序的场景值应用，用户通过不同途径访问小程序时，我们都可以通过options.scene获取场景值，然后开发者会根据用户场景值的不同来重定向到某个特定的页面。</p>
+<p>页面路由<br>
+打开新页面：</p>
+<pre><code class="language-html">wx.navigateTo({url:'test?id=1'}) OR &lt;navigator url=&quot;test?id=1&quot;&gt;跳转&lt;/navigator&gt;
+</code></pre>
+<p>页面重定向：</p>
+<pre><code class="language-html">wx.redirectTo({url:'test?id=1'})
+</code></pre>
+<p>经过测试，打开新页面会直接跳到指定页面，而页面重定向中间会卡到主界面在跳到指定页面。</p>
+<p>模块化<br>
+小程序中的模块化，w3c的教程中有说明，采用的依旧是es6中的语法格式：</p>
+<h3 id="视图层">视图层</h3>
+<p>WXML:</p>
+<p>数据绑定：使用&quot;Mustache&quot;语法（双大括号）将变量包起来---{{ message }}<br>
+列表渲染：</p>
+<pre><code class="language-html">&lt;view wx:for=&quot;{{msg}}&quot; &gt; {{index}} : {{item.message}}  &lt;/view&gt; 
+</code></pre>
+<p>msg在js文件中是一个object[]，自然每一项都有index和item.key(变量的值)条件渲染：</p>
+<pre><code class="language-html">&lt;view wx:if=&quot;{{boolean}}&quot; &gt; text &lt;/view&gt; 
+</code></pre>
+<p>如果boolean的值为真，则内部的text才会渲染出来，反之则不渲染（wx:elif、wx:else）<br>
+模板：小程序的模板可以定义在当前页面的，并在当前页面调用（import后面会提）<br>
+事件：移动端不同于PC端，移动端你能想到的差不多只有一个事件--点击事件（bindtap=&quot;tapName&quot;）<br>
+除此之外就是其他的touch事件了（冒泡事件）以及组件自定义的事件如submit、input事件。<br>
+值得一提的是，bind事件绑定不会阻止冒泡，而catch事件绑定会阻止冒泡。</p>
+<p>另外有点要说明下的,每个页面文件下可以有一个page.json文件的.这个可以单独的设置该页面的一些特定的(例如页面标题,标题栏颜色等设置)<br>
+开始的时候在Data中定义页面变量,然后在某些情况下面去改变定义的值:</p>
+<pre><code class="language-javascript">this.setData({
+   showContact: true
+ })
+</code></pre>
+<p>还有一点就是对于要请求接口的地址,我们要在后台配置对应的域名才可请求成功的.并且得是https的.<br>
+另外自己正在用thinkphp写一个简单的后台的.管理预约信息列表和发布内容的更新,正在测试之中.预约成功的提示邮件信息已经弄好啦..<br>
+最后附上小程序的github地址和相关的截图吧~哈哈:</p>
+<p>https://github.com/pybyongbo/xiaochengxu_meirong (前端文件)</p>
+<p>http://zq.901web.com/ (后台地址)</p>
+<p>项目截图:<br>
+<img src="https://images.901web.com/hexoblog/0729-1.png" alt="首页图片" title="首页"><br>
+<br><br>
+<img src="https://images.901web.com/hexoblog/0729-2.png" alt="产品展示列表" title="首页产品展示"><br>
+<br><br>
+<img src="https://images.901web.com/hexoblog/0729-3.png" alt="预约我" title="预约我"><br>
+<br><br>
+<img src="https://images.901web.com/hexoblog/0729-4.png" alt="联系我" title="联系我"></p>
+<p>预约成功邮件提醒:<br>
+<img src="https://images.901web.com/hexoblog/IMG_1256.PNG" alt="邮件提示" title="邮件列表"><br>
+<br><br>
+<img src="https://images.901web.com/hexoblog/IMG_1257.PNG" alt="邮件详情内容" title="邮件详情内容"></p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://blog.901web.com/tag/xiao-cheng-xu" class="tag">
+                    小程序
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/-yOfZODvD">
+                  <h3 class="post-title">
+                    文件上传线上bug排查记录
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>
