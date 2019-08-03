@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.901web.com</id>
     <title>pyb永波的技术博客</title>
-    <updated>2019-08-03T04:05:00.365Z</updated>
+    <updated>2019-08-03T04:07:26.337Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.901web.com"/>
     <link rel="self" href="https://blog.901web.com/atom.xml"/>
@@ -16,6 +16,14 @@
         <link href="https://blog.901web.com/post/mqxqFqcxv">
         </link>
         <updated>2019-06-26T03:30:22.000Z</updated>
+        <summary type="html"><![CDATA[<p>我们在用vue,或者react做单页应用的时候,部署到线上的时候,一般采用nginx作为web服务器,<br>
+之前也部署过nodejs项目,用的PM2+Nginx,(用PM2启动,Nginx做反向代理),单页应用还没尝试过,第一次部署单页应用也遇到了不少问题,不过在悉心的请教和搜索,查找相关问题下面,解决了问题.在此做一个简单的笔记记录,加深自己的印象.</p>
+<p>我们在开发单页应用的时候,一般都是分为不同的环境,开发环境和线上环境会有不同的配置文件,开发环境,我们要方便调试,进行热更新,懒加载,显示报错信息等.线上环境则需要压缩代码,屏蔽错误提示,提高性能等.所有我们会执行不同的配置文件进行打包生成.这里我就不多说啦.网上有很多相关的教程,大家可以自行参考学习.</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>我们在用vue,或者react做单页应用的时候,部署到线上的时候,一般采用nginx作为web服务器,<br>
+之前也部署过nodejs项目,用的PM2+Nginx,(用PM2启动,Nginx做反向代理),单页应用还没尝试过,第一次部署单页应用也遇到了不少问题,不过在悉心的请教和搜索,查找相关问题下面,解决了问题.在此做一个简单的笔记记录,加深自己的印象.</p>
+<p>我们在开发单页应用的时候,一般都是分为不同的环境,开发环境和线上环境会有不同的配置文件,开发环境,我们要方便调试,进行热更新,懒加载,显示报错信息等.线上环境则需要压缩代码,屏蔽错误提示,提高性能等.所有我们会执行不同的配置文件进行打包生成.这里我就不多说啦.网上有很多相关的教程,大家可以自行参考学习.</p>
+]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[近期生活状态的感想和总结]]></title>

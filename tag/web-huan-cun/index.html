@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1564805003004">
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1564805241188">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://blog.901web.com">
-        <img src="https://blog.901web.com/images/avatar.png?v=1564805003004" class="site-logo">
+        <img src="https://blog.901web.com/images/avatar.png?v=1564805241188" class="site-logo">
         <h1 class="site-title">pyb永波的技术博客</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -124,17 +124,12 @@
                 </div>
                 <div class="post-abstract">
                   <h3 id="科普一">科普一</h3>
-<pre><code class="language-html">从输入网址到页面呈现过程：
-1、浏览器输入：`www.leadbank.com` 通过DNS(网域名称系统)解析成IP地址: `103.6.220.58`
-2、客户端与服务器建立TCP/IP协议
-3、传输层向服务器发送请求协议（HTTP/HTTPS/FTP等）
-4、服务器响应请求，返回指定的URL数据或错误信息（如果设定重定向则重定向到新的URL地址）（Nginx反向代理）
-5、客户端下载对应文件后：解析HTML以构建DOM树 –&gt; 构建渲染树 –&gt; 布局渲染树 –&gt; 绘制渲染树，最后呈现给用户
-
-&gt; DNS解析优先顺序: 先读缓存--Hosts文件--路由缓存--DNS缓存--根域名
-&gt; DNS劫持：从DNS缓存数据库里找时被恶意改为其他的网址,所以请求到的是其他网址
-&gt; Nginx反向代理：客户端请求Nginx服务，Nginx请求应用服务器，返回数据给到客户端，访问量大的网站一般采用Nginx反向代理，确保一台服务器挂了还有其他服务器正常运行，用户依旧可以正常使用。
-</code></pre>
+<p>从输入网址到页面呈现过程：<br>
+1、浏览器输入：<code>www.leadbank.com</code> 通过DNS(网域名称系统)解析成IP地址: <code>103.6.220.58</code><br>
+2、客户端与服务器建立TCP/IP协议<br>
+3、传输层向服务器发送请求协议（HTTP/HTTPS/FTP等）<br>
+4、服务器响应请求，返回指定的URL数据或错误信息（如果设定重定向则重定向到新的URL地址）（Nginx反向代理）<br>
+5、客户端下载对应文件后：解析HTML以构建DOM树 –&gt; 构建渲染树 –&gt; 布局渲染树 –&gt; 绘制渲染树，最后呈现给用户</p>
 
                 </div>
               </div>
