@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.901web.com</id>
     <title>pyb永波的技术博客</title>
-    <updated>2019-08-21T09:43:39.855Z</updated>
+    <updated>2019-08-21T09:45:46.701Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.901web.com"/>
     <link rel="self" href="https://blog.901web.com/atom.xml"/>
@@ -17,18 +17,10 @@
         </link>
         <updated>2019-08-21T01:30:20.000Z</updated>
         <summary type="html"><![CDATA[<p>网站接入第三方登录流程功能很常见,我们可以用第三方账号登录网站,这里主要简单介绍下整个设计思路和相关流程走通.项目DEMO示例只做了github和baidu账号的第三方登录.其他账号都大同小异的~</p>
-<ul>
-<li>后端nodejs+mysql+thinkjs</li>
-<li>前端样式Bootstrap</li>
-</ul>
-<p>设计的数据库是由两个表进行相关的关联,一个用户表(user),一个第三方登录的信息表(oauth),其中user.id与oauth.uid进行关联~</p>
+<p>设计的数据库是由两个表进行相关的关联,一个用户表(user),一个第三方登录的信息表(oauth),其中user.id与oauth.uid进行关联,可以获取到用户第三方账号的信息~</p>
 ]]></summary>
         <content type="html"><![CDATA[<p>网站接入第三方登录流程功能很常见,我们可以用第三方账号登录网站,这里主要简单介绍下整个设计思路和相关流程走通.项目DEMO示例只做了github和baidu账号的第三方登录.其他账号都大同小异的~</p>
-<ul>
-<li>后端nodejs+mysql+thinkjs</li>
-<li>前端样式Bootstrap</li>
-</ul>
-<p>设计的数据库是由两个表进行相关的关联,一个用户表(user),一个第三方登录的信息表(oauth),其中user.id与oauth.uid进行关联~</p>
+<p>设计的数据库是由两个表进行相关的关联,一个用户表(user),一个第三方登录的信息表(oauth),其中user.id与oauth.uid进行关联,可以获取到用户第三方账号的信息~</p>
 ]]></content>
     </entry>
     <entry>

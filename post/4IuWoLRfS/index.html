@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1566380566342">
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1566380742917">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://blog.901web.com">
-        <img src="https://blog.901web.com/images/avatar.png?v=1566380566342" class="site-logo">
+        <img src="https://blog.901web.com/images/avatar.png?v=1566380742917" class="site-logo">
         <h1 class="site-title">pyb永波的技术博客</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -107,12 +107,13 @@
             
             <div class="post-content">
               <p>网站接入第三方登录流程功能很常见,我们可以用第三方账号登录网站,这里主要简单介绍下整个设计思路和相关流程走通.项目DEMO示例只做了github和baidu账号的第三方登录.其他账号都大同小异的~</p>
+<p>设计的数据库是由两个表进行相关的关联,一个用户表(user),一个第三方登录的信息表(oauth),其中user.id与oauth.uid进行关联,可以获取到用户第三方账号的信息~</p>
+<!-- more -->
+<h3 id="相关技术栈">相关技术栈</h3>
 <ul>
 <li>后端nodejs+mysql+thinkjs</li>
 <li>前端样式Bootstrap</li>
 </ul>
-<p>设计的数据库是由两个表进行相关的关联,一个用户表(user),一个第三方登录的信息表(oauth),其中user.id与oauth.uid进行关联~</p>
-<!-- more -->
 <p>两个表的DDL建表语句:<br>
 <strong>第三方登录信息表</strong></p>
 <pre><code class="language-sql">DROP TABLE IF EXISTS `oauth`;
