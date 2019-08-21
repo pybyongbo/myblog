@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1566352277447">
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1566380566342">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://blog.901web.com">
-        <img src="https://blog.901web.com/images/avatar.png?v=1566352277447" class="site-logo">
+        <img src="https://blog.901web.com/images/avatar.png?v=1566380566342" class="site-logo">
         <h1 class="site-title">pyb永波的技术博客</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -101,6 +101,27 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://blog.901web.com/post/4IuWoLRfS">
+                  <h2 class="post-title">网页中接入第三方账号登录流程</h2>
+                </a>
+                <div class="post-date">
+                  2019-08-21
+                </div>
+                <div class="post-abstract">
+                  <p>网站接入第三方登录流程功能很常见,我们可以用第三方账号登录网站,这里主要简单介绍下整个设计思路和相关流程走通.项目DEMO示例只做了github和baidu账号的第三方登录.其他账号都大同小异的~</p>
+<ul>
+<li>后端nodejs+mysql+thinkjs</li>
+<li>前端样式Bootstrap</li>
+</ul>
+<p>设计的数据库是由两个表进行相关的关联,一个用户表(user),一个第三方登录的信息表(oauth),其中user.id与oauth.uid进行关联~</p>
+
+                </div>
+              </div>
+              
+            </article>
           
             <article class="post-item">
               <div class="left">
@@ -253,28 +274,6 @@
                 </div>
                 <div class="post-abstract">
                   <p>对于做web开发的我们,文件上传需求肯定不会陌生,也会经常遇到.不过在解决文件上传的问题的时候,有时候也不是完全是有前端的问题,同时我们可能还需要懂点服务器相关的知识,才能够很好的和后端联调,程序出现了问题,也能够迅速的定位问题的,然后很好的解决.有时候服务器端限制了文件上传的大小限制,或者前端上传文件Ajax超时了等等.所有出现了问题我们就得慢慢的一步步的来排查啦~</p>
-
-                </div>
-              </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://blog.901web.com/post/iH-MX5WKs">
-                  <h2 class="post-title">HTTP强缓存和协商缓存web缓存相关</h2>
-                </a>
-                <div class="post-date">
-                  2018-03-20
-                </div>
-                <div class="post-abstract">
-                  <h3 id="科普一">科普一</h3>
-<p>从输入网址到页面呈现过程：<br>
-1、浏览器输入：<code>www.leadbank.com</code> 通过DNS(网域名称系统)解析成IP地址: <code>103.6.220.58</code><br>
-2、客户端与服务器建立TCP/IP协议<br>
-3、传输层向服务器发送请求协议（HTTP/HTTPS/FTP等）<br>
-4、服务器响应请求，返回指定的URL数据或错误信息（如果设定重定向则重定向到新的URL地址）（Nginx反向代理）<br>
-5、客户端下载对应文件后：解析HTML以构建DOM树 –&gt; 构建渲染树 –&gt; 布局渲染树 –&gt; 绘制渲染树，最后呈现给用户</p>
 
                 </div>
               </div>

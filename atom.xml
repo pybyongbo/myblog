@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.901web.com</id>
     <title>pyb永波的技术博客</title>
-    <updated>2019-08-21T03:42:32.490Z</updated>
+    <updated>2019-08-21T09:42:49.819Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.901web.com"/>
     <link rel="self" href="https://blog.901web.com/atom.xml"/>
@@ -10,6 +10,27 @@
     <logo>https://blog.901web.com/images/avatar.png</logo>
     <icon>https://blog.901web.com/favicon.ico</icon>
     <rights>All rights reserved 2019, pyb永波的技术博客</rights>
+    <entry>
+        <title type="html"><![CDATA[网页中接入第三方账号登录流程]]></title>
+        <id>https://blog.901web.com/post/4IuWoLRfS</id>
+        <link href="https://blog.901web.com/post/4IuWoLRfS">
+        </link>
+        <updated>2019-08-21T01:30:20.000Z</updated>
+        <summary type="html"><![CDATA[<p>网站接入第三方登录流程功能很常见,我们可以用第三方账号登录网站,这里主要简单介绍下整个设计思路和相关流程走通.项目DEMO示例只做了github和baidu账号的第三方登录.其他账号都大同小异的~</p>
+<ul>
+<li>后端nodejs+mysql+thinkjs</li>
+<li>前端样式Bootstrap</li>
+</ul>
+<p>设计的数据库是由两个表进行相关的关联,一个用户表(user),一个第三方登录的信息表(oauth),其中user.id与oauth.uid进行关联~</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>网站接入第三方登录流程功能很常见,我们可以用第三方账号登录网站,这里主要简单介绍下整个设计思路和相关流程走通.项目DEMO示例只做了github和baidu账号的第三方登录.其他账号都大同小异的~</p>
+<ul>
+<li>后端nodejs+mysql+thinkjs</li>
+<li>前端样式Bootstrap</li>
+</ul>
+<p>设计的数据库是由两个表进行相关的关联,一个用户表(user),一个第三方登录的信息表(oauth),其中user.id与oauth.uid进行关联~</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Vue+React单页应用Nodejs部署踩坑记录]]></title>
         <id>https://blog.901web.com/post/mqxqFqcxv</id>
@@ -113,29 +134,6 @@
         <summary type="html"><![CDATA[<p>对于做web开发的我们,文件上传需求肯定不会陌生,也会经常遇到.不过在解决文件上传的问题的时候,有时候也不是完全是有前端的问题,同时我们可能还需要懂点服务器相关的知识,才能够很好的和后端联调,程序出现了问题,也能够迅速的定位问题的,然后很好的解决.有时候服务器端限制了文件上传的大小限制,或者前端上传文件Ajax超时了等等.所有出现了问题我们就得慢慢的一步步的来排查啦~</p>
 ]]></summary>
         <content type="html"><![CDATA[<p>对于做web开发的我们,文件上传需求肯定不会陌生,也会经常遇到.不过在解决文件上传的问题的时候,有时候也不是完全是有前端的问题,同时我们可能还需要懂点服务器相关的知识,才能够很好的和后端联调,程序出现了问题,也能够迅速的定位问题的,然后很好的解决.有时候服务器端限制了文件上传的大小限制,或者前端上传文件Ajax超时了等等.所有出现了问题我们就得慢慢的一步步的来排查啦~</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[HTTP强缓存和协商缓存web缓存相关]]></title>
-        <id>https://blog.901web.com/post/iH-MX5WKs</id>
-        <link href="https://blog.901web.com/post/iH-MX5WKs">
-        </link>
-        <updated>2018-03-20T12:03:53.000Z</updated>
-        <summary type="html"><![CDATA[<h3 id="科普一">科普一</h3>
-<p>从输入网址到页面呈现过程：<br>
-1、浏览器输入：<code>www.leadbank.com</code> 通过DNS(网域名称系统)解析成IP地址: <code>103.6.220.58</code><br>
-2、客户端与服务器建立TCP/IP协议<br>
-3、传输层向服务器发送请求协议（HTTP/HTTPS/FTP等）<br>
-4、服务器响应请求，返回指定的URL数据或错误信息（如果设定重定向则重定向到新的URL地址）（Nginx反向代理）<br>
-5、客户端下载对应文件后：解析HTML以构建DOM树 –&gt; 构建渲染树 –&gt; 布局渲染树 –&gt; 绘制渲染树，最后呈现给用户</p>
-]]></summary>
-        <content type="html"><![CDATA[<h3 id="科普一">科普一</h3>
-<p>从输入网址到页面呈现过程：<br>
-1、浏览器输入：<code>www.leadbank.com</code> 通过DNS(网域名称系统)解析成IP地址: <code>103.6.220.58</code><br>
-2、客户端与服务器建立TCP/IP协议<br>
-3、传输层向服务器发送请求协议（HTTP/HTTPS/FTP等）<br>
-4、服务器响应请求，返回指定的URL数据或错误信息（如果设定重定向则重定向到新的URL地址）（Nginx反向代理）<br>
-5、客户端下载对应文件后：解析HTML以构建DOM树 –&gt; 构建渲染树 –&gt; 布局渲染树 –&gt; 绘制渲染树，最后呈现给用户</p>
 ]]></content>
     </entry>
 </feed>
