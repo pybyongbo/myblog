@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1573207086805">
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1574562801194">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://blog.901web.com">
-        <img src="https://blog.901web.com/images/avatar.png?v=1573207086805" class="site-logo">
+        <img src="https://blog.901web.com/images/avatar.png?v=1574562801194" class="site-logo">
         <h1 class="site-title">pyb永波的技术博客</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -115,12 +115,12 @@
 </code></pre>
 <p>搜索了下,大概的意思是:浏览器第一次发送这个请求，请求被阻塞，未收到响应。后端没有收到响应,让后端也查看了下相关的日志,于是乎问题可能就是前端的啦.</p>
 <p>看了下浏览器的请求,那个status的状态一直是pending的.说明好像还没有处理完,结果没有返回给前端.(由于后端用的是异步处理的,有一个时间过长的.)</p>
-<p><img src="https://images.901web.com/hexoblog/upload_0710.png" alt="浏览器请求接口" title="浏览器请求接口"></p>
+<figure data-type="image" tabindex="1"><img src="https://images.901web.com/hexoblog/upload_0710.png" alt="浏览器请求接口" title="浏览器请求接口"></figure>
 <p>于是乎和后端一起讨论了下,说明后端还没有处理完结果,返回到前端,还处于一个pending的状态.然后让我去看了下前端AJax请求处理设置的超时时间.看了下果然找到了问题.设置的超时时间为10000,即10s钟.</p>
 <p>对比了下代码中设置的超时时间,我们都是统一的设置:(请求超时时间就是10S钟)</p>
-<p><img src="https://images.901web.com/hexoblog/upload_0712.png" alt="前端代码超时设置" title="前端代码超时设置"></p>
+<figure data-type="image" tabindex="2"><img src="https://images.901web.com/hexoblog/upload_0712.png" alt="前端代码超时设置" title="前端代码超时设置"></figure>
 <p>我们逐步排查问题,更改了下这个接口的超时时间设置,设置成了20000.即20s的时间,然后本地上传测试了下.结果看到了操作成功的提示框.心中顿时豁然开朗了.还确实是由于设置的超时时间过短造成的.之后又再次查看了下浏览器请求.此时的Status是200,也对比了下那个Time的时间11.70s,确实超过了10s时间.</p>
-<p><img src="https://images.901web.com/hexoblog/upload_0711.png" alt="浏览器请求接口" title="浏览器请求接口"></p>
+<figure data-type="image" tabindex="3"><img src="https://images.901web.com/hexoblog/upload_0711.png" alt="浏览器请求接口" title="浏览器请求接口"></figure>
 <p>之前上传小一点的文件可以上传成功,然后稍微大点的文件就报错.我一直以为是服务器端文件上传大小做了相关的限制.结果经过确认却没有限制大小. 问题出现了,我们就得一步步的去排查,去尝试.慢慢的遇到的问题多了,解决的问题多了.也有了经验.首先内心不要怕.要敢于尝试,敢于承担.这样才能成长~</p>
 
             </div>

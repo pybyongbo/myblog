@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1573207086805">
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1574562801194">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://blog.901web.com">
-        <img src="https://blog.901web.com/images/avatar.png?v=1573207086805" class="site-logo">
+        <img src="https://blog.901web.com/images/avatar.png?v=1574562801194" class="site-logo">
         <h1 class="site-title">pyb永波的技术博客</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -224,9 +224,9 @@ http://tb.himg.baidu.com/sys/portrait/item/${userinfo.portrait} - 用户头像</
 <p>OAuth 在 GitHub 中被叫作 OAuth Apps，所以需要先创建一个 OAuth App。</p>
 <p>通过点击右上角头像的 Settings → Developer settings → OAuth Apps 进入到 OAuth Apps 创建和管理页面：<code>https://github.com/settings/developers</code>。</p>
 <p>用于进行开发者配置,主要是<code>client_id</code>和<code>client_secret</code>,进行第三方登录.</p>
-<p><img src="https://images.901web.com/2019-08-21-022912.png" alt="创建OAuth App"></p>
+<figure data-type="image" tabindex="1"><img src="https://images.901web.com/2019-08-21-022912.png" alt="创建OAuth App"></figure>
 <p>点击右上角的“New OAuth App”进入新的 OAuth App 创建页面，需要填写的信息非常少。</p>
-<p><img src="https://images.901web.com/new-oauth-app.png" alt="填写相关信息"></p>
+<figure data-type="image" tabindex="2"><img src="https://images.901web.com/new-oauth-app.png" alt="填写相关信息"></figure>
 <p>当用户点击授权后，GitHub 会携带授权码（code）回调/重定向到这个地址。 这个地址可以是任意合法的地址，比如<code>http://localhost:8020/</code>，在本地开发调试的使用,<strong>注意hosts里面配置不要写端口</strong>,nginx做代理即可。(这里可以配置nginx代理,修改本地hosts文件)</p>
 <pre><code class="language-hosts">127.0.0.1   weboauth.901web.com
 </code></pre>
@@ -261,12 +261,12 @@ http://tb.himg.baidu.com/sys/portrait/item/${userinfo.portrait} - 用户头像</
 }
 </code></pre>
 <p>访问的本地代码:</p>
-<p><img src="https://images.901web.com/2019-08-21-090445.png" alt="本地地址"></p>
+<figure data-type="image" tabindex="3"><img src="https://images.901web.com/2019-08-21-090445.png" alt="本地地址"></figure>
 <p>点击登录,进行授权后.回调时，GitHub 会追加一个名为code的查询参数到刚刚指定的回调地址中。我们可以拿到返回的code参数~后面有用.</p>
 <p>创建好后，就可以拿到 Client ID 和对应的 Client Secret，同时还可以设置一个头像。Client ID 可以公开，Client Secret 请不要泄露。</p>
-<p><img src="https://images.901web.com/2019-08-21-091308.png" alt="开发者参数配置"></p>
+<figure data-type="image" tabindex="4"><img src="https://images.901web.com/2019-08-21-091308.png" alt="开发者参数配置"></figure>
 <p>点击使用第三方登录链接,这里会跳转到Github授权页面(如果没有登录会跳转到登录页面),已经登录的就会跳转到授权页面,如下图:</p>
-<p><img src="https://images.901web.com/2019-08-21-024947.png" alt="第三方登录授权"></p>
+<figure data-type="image" tabindex="5"><img src="https://images.901web.com/2019-08-21-024947.png" alt="第三方登录授权"></figure>
 <p>点击绿色的授权按钮后,用户就会被重定向到注册的OAuth App时的回调地址,参数中携带授权码<code>code</code></p>
 <h4 id="后端通过授权码向github请求用户令牌token">后端通过授权码向Github请求用户令牌(Token)</h4>
 <p>在我们拿到 GitHub 的授权码的时候，同样需要向 GitHub 验证这个授权码是否合法，这个过程即是<code>请求令牌</code>的过程。</p>
@@ -356,7 +356,7 @@ Authorization: token 用户令牌
     }
 }
 </code></pre>
-<p><img src="https://images.901web.com/getuserinfo.png" alt="返回用户信息"></p>
+<figure data-type="image" tabindex="6"><img src="https://images.901web.com/getuserinfo.png" alt="返回用户信息"></figure>
 <p>其他第三方登录原理与流程也都大同小异.QQ开发者审核没有通过,微信好像要企业账号才可以用的.目前还没有测试.只做了Github和百度账号的测试.</p>
 <p>DEMO外网访问地址:<a href="http://weboauth.901web.com/">http://weboauth.901web.com/</a></p>
 <h3 id="参考资料">参考资料:</h3>
