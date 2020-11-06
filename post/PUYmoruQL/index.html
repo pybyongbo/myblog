@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1604654066036">
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1604656053656">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://blog.901web.com">
-        <img src="https://blog.901web.com/images/avatar.png?v=1604654066036" class="site-logo">
+        <img src="https://blog.901web.com/images/avatar.png?v=1604656053656" class="site-logo">
         <h1 class="site-title">pyb永波的技术博客</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -119,11 +119,11 @@
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 </code></pre>
-<p><img src="http://images.901web.com/20140729153504.jpg" alt="sql语句截图"><br>
+<p><img src="http://images.901web.com/20140729153504.jpg" alt="sql语句截图" loading="lazy"><br>
 插入相关的数据后如上图所示; 最终需要达到的相关查询要求是如下截图(但要求不要用select语句,而是要用delete语句来实现);<br>
-<img src="http://images.901web.com/20140729153751.jpg" alt="sql语句截图"><br>
+<img src="http://images.901web.com/20140729153751.jpg" alt="sql语句截图" loading="lazy"><br>
 最终整理的对比相关的综合图片如下:<br>
-<img src="http://images.901web.com//total.png" alt="sql语句截图"><br>
+<img src="http://images.901web.com//total.png" alt="sql语句截图" loading="lazy"><br>
 开始在自己的电脑上面测试的时候,思路没有错误,就是没有给表取别名在navicat中运行相关的sql语句是一直报错.最后经过相关的测试,得到最终的答案的sql语句为:</p>
 <pre><code class="language-mysql">delete from chongfu where id in (select a.id from (select id from chongfu group by name having count(name) &gt; 1) as a );
 //注意要给表区别名,否则在mysql中会报错.其他数据库中应该不需要的.
@@ -137,7 +137,7 @@
             
               <div class="tag-container">
                 
-                  <a href="https://blog.901web.com/tag/mysql-xiang-guan" class="tag">
+                  <a href="https://blog.901web.com/tag/mysql-xiang-guan/" class="tag">
                     Mysql相关
                   </a>
                 
@@ -146,7 +146,7 @@
             
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="https://blog.901web.com/post/DcZrxG-WT">
+                <a href="https://blog.901web.com/post/DcZrxG-WT/">
                   <h3 class="post-title">
                     JS常用API,项目笔记汇总
                   </h3>

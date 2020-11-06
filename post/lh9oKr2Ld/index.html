@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1604654066036">
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1604656053656">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://blog.901web.com">
-        <img src="https://blog.901web.com/images/avatar.png?v=1604654066036" class="site-logo">
+        <img src="https://blog.901web.com/images/avatar.png?v=1604656053656" class="site-logo">
         <h1 class="site-title">pyb永波的技术博客</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -113,12 +113,12 @@
 <p>在HTML5中，新加入了一个localStorage特性，这个特性主要是用来作为本地存储来使用的,解决了cookie存储空间不足的问题(cookie中每条cookie的存储空间为4k),localStorage中一般浏览器支持的是5M大小,这个在不同的浏览器中localStorage会有所不同.在制作移动端页面的时候,我们可以放心的使用.移动端浏览器一般都支持这个属性(个人感觉类似PC端的cookies,存储数据的).</p>
 <h2 id="全局搜索的产品需求大体流程图">全局搜索的产品需求大体流程图</h2>
 <p>产品需求大体如下,之前单个的功能自己写过demo,但是整体的需求连接起来还是没有尝试过,以至于在这次开发中还是遇到了不少的坑,开始的时候对于存储历史搜索数据也是毫无头绪的,后来在同事的帮忙下才勉强的完成了该功能.感觉自己的基础还是比较薄弱,平常还是要加强多写写.</p>
-<figure data-type="image" tabindex="1"><img src="https://images.901web.com/hexoblog/search.png" alt="产品全局搜索需求图" title="需求流程图"></figure>
+<figure data-type="image" tabindex="1"><img src="https://images.901web.com/hexoblog/search.png" alt="产品全局搜索需求图" title="需求流程图" loading="lazy"></figure>
 <h2 id="没有历史搜索的时候默认的排版">没有历史搜索的时候默认的排版</h2>
-<figure data-type="image" tabindex="2"><img src="https://images.901web.com/hexoblog/s0.png" alt="搜索默认图" title="搜索默认图"></figure>
+<figure data-type="image" tabindex="2"><img src="https://images.901web.com/hexoblog/s0.png" alt="搜索默认图" title="搜索默认图" loading="lazy"></figure>
 <h2 id="搜索下拉功能模块">搜索下拉功能模块</h2>
 <p>搜索下拉监听文本框输入,请求接口,拿到数据做对应的渲染,没有数据做对应的提示即可.我在页面中对文本框写的是<em>keyup</em>事件,貌似感觉不太好,有时候接口返回数据有点慢,对于用户频繁的操作文本框中的内容,导致数据不太正确.该功能不复杂,但有很大的优化空间.</p>
-<figure data-type="image" tabindex="3"><img src="https://images.901web.com/hexoblog/s1.png" alt="搜索下拉图" title="搜索结果下拉图"></figure>
+<figure data-type="image" tabindex="3"><img src="https://images.901web.com/hexoblog/s1.png" alt="搜索下拉图" title="搜索结果下拉图" loading="lazy"></figure>
 <pre><code class="language-javascript">    
     $(&quot;#txtColor&quot;).on(&quot;keyup&quot;, function(e) { 
 
@@ -146,12 +146,12 @@
 </code></pre>
 <h2 id="历史搜索功能">历史搜索功能</h2>
 <p>在文本框中输入了搜索关键词后,点击Enter键,进入搜索结果页面.然后进行的是下拉分页显示数据.则该条关键词搜索计入历史搜索记录.(如果历史搜索记录大于10条,则取最新的10条数据.)</p>
-<figure data-type="image" tabindex="4"><img src="https://images.901web.com/hexoblog/s2.png" alt="历史搜索图" title="历史搜索记录图"></figure>
+<figure data-type="image" tabindex="4"><img src="https://images.901web.com/hexoblog/s2.png" alt="历史搜索图" title="历史搜索记录图" loading="lazy"></figure>
 <p>对应相关的搜索结果页面:</p>
-<figure data-type="image" tabindex="5"><img src="https://images.901web.com/hexoblog/s3.png" alt="搜索结果图" title="搜索结果页图"></figure>
+<figure data-type="image" tabindex="5"><img src="https://images.901web.com/hexoblog/s3.png" alt="搜索结果图" title="搜索结果页图" loading="lazy"></figure>
 <h2 id="记录历史搜索和删除历史搜索记录">记录历史搜索和删除历史搜索记录</h2>
 <p>我们定义为只有按了Enter键后,进入了搜索结果页面,才计入历史搜索列表中,这里就是将搜索的关键词存入localstorage中了.目前所有的浏览器中都会把localStorage的值类型限定为string类型，这个在对我们日常比较常见的JSON对象类型需要一些转换.这个里面我们需要做一些相应的转换.我们存入的格式如下图所示,这里我也是第一次使用这个属性:</p>
-<figure data-type="image" tabindex="6"><img src="https://images.901web.com/hexoblog/s4.png" alt="localStrorage存储图" title="localStrorage存储格式图"></figure>
+<figure data-type="image" tabindex="6"><img src="https://images.901web.com/hexoblog/s4.png" alt="localStrorage存储图" title="localStrorage存储格式图" loading="lazy"></figure>
 <p>我们这里存储了对应搜索的关键词和URL地址.当我们从历史搜索记录点击过来的时候可以直接进行搜索.当我们已经搜索过相同的关键词的时候,我们就不要重复计入历史搜索记录了,在存储的时候还需要先判断是否已经有相同的关键词.(数组中重复的项目,进行判断indexOf,以及字符串的方法).</p>
 <p>下面就是一些关键功能性的代码了.从localStorage中来取值,如果存在的话.</p>
 <pre><code class="language-javascript">
@@ -273,11 +273,11 @@
             
               <div class="tag-container">
                 
-                  <a href="https://blog.901web.com/tag/yi-dong-duan" class="tag">
+                  <a href="https://blog.901web.com/tag/yi-dong-duan/" class="tag">
                     移动端
                   </a>
                 
-                  <a href="https://blog.901web.com/tag/web-huan-cun" class="tag">
+                  <a href="https://blog.901web.com/tag/web-huan-cun/" class="tag">
                     web缓存
                   </a>
                 
@@ -286,7 +286,7 @@
             
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="https://blog.901web.com/post/K6Q2_6dER">
+                <a href="https://blog.901web.com/post/K6Q2_6dER/">
                   <h3 class="post-title">
                     Ajax跨域请求之jsonp
                   </h3>

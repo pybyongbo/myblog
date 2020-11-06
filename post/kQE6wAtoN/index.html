@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1604654066036">
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1604656053656">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://blog.901web.com">
-        <img src="https://blog.901web.com/images/avatar.png?v=1604654066036" class="site-logo">
+        <img src="https://blog.901web.com/images/avatar.png?v=1604656053656" class="site-logo">
         <h1 class="site-title">pyb永波的技术博客</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -145,7 +145,7 @@ getBooksByAuthorwithAwait(authorId) {
 <p>在做公司项目 SAAS 系统的时候,就遇到了相关的问题.编辑 SKU 信息,进行保存的操作.要判断是否有重复的 sku 信息,然后前端进行操作提示.然而自己对基础知识理解的不透彻,导致折腾了好一会儿(基于 Vue+ElemeUI 框架).</p>
 <p>先看下实际的页面效果吧,我截了个图,此处表单因为多处使用,分离成了一个 vue 的组件引用.</p>
 <p>项目截图:<br>
-<img src="https://images.901web.com/hexoblog/saas_1.png" alt="编辑sku保存" title="编辑sku保存"></p>
+<img src="https://images.901web.com/hexoblog/saas_1.png" alt="编辑sku保存" title="编辑sku保存" loading="lazy"></p>
 <p>点击保存方法:</p>
 <pre><code class="language-javascript">//保存sku信息方法(要区分新增保存还是编辑保存操作,新增前端操作数组，编辑保存调后端接口。)
 async saveskuinfoData() {
@@ -221,7 +221,7 @@ async isValidateIsExist(sku) {
     },
 </code></pre>
 <p>点击编辑操作,基本思路流程图说明:<br>
-<img src="https://images.901web.com/hexoblog/note1.png" alt="编辑流程图" title="弹框信息流程"></p>
+<img src="https://images.901web.com/hexoblog/note1.png" alt="编辑流程图" title="弹框信息流程" loading="lazy"></p>
 <p>或者直接在编辑保存的情况下,调用 判断 sku 是否有重复的方法 (异步),也是一样的.提示信息可以用后端返回的提示语.</p>
 <pre><code class="language-javascript">saveskuinfoData() {
       const sukItemSend = Object.assign({}, this.$refs.skuInfo.skuForm);
@@ -301,7 +301,7 @@ async isValidateIsExist(sku) {
 <h3 id="其他模块引用方法">其他模块引用方法</h3>
 <p>看了一下项目中,其他小伙伴的模块,都在大量的使用新语法,自己也要多用起来.统一代码风格,向大佬们靠齐.哈哈 😝</p>
 <p>项目截图:<br>
-<img src="https://images.901web.com/hexoblog/saaa_2.png" alt="其他模块" title="其他模块"></p>
+<img src="https://images.901web.com/hexoblog/saaa_2.png" alt="其他模块" title="其他模块" loading="lazy"></p>
 <p>通过此次问题的总结和归纳,也加深了自己对异步的一个理解,以及它的一个流程.新的东西流行起来,一定有它的优点和好处.所以自己也要不断的学习.</p>
 <p>ES7 引入的 async/await 关键字绝对是对 Javascript 异步编程的重大改进.它让代码更易于阅读和调试.然而要正确的使用它们,必须了解 Promise.它们不过是语法糖,本质上仍然是 Promise.</p>
 
@@ -309,11 +309,11 @@ async isValidateIsExist(sku) {
             
               <div class="tag-container">
                 
-                  <a href="https://blog.901web.com/tag/async-he-await" class="tag">
+                  <a href="https://blog.901web.com/tag/async-he-await/" class="tag">
                     Async和Await
                   </a>
                 
-                  <a href="https://blog.901web.com/tag/yi-bu-cao-zuo" class="tag">
+                  <a href="https://blog.901web.com/tag/yi-bu-cao-zuo/" class="tag">
                     异步操作
                   </a>
                 
@@ -322,7 +322,7 @@ async isValidateIsExist(sku) {
             
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="https://blog.901web.com/post/-yOfZODvD">
+                <a href="https://blog.901web.com/post/-yOfZODvD/">
                   <h3 class="post-title">
                     文件上传线上bug排查记录
                   </h3>
