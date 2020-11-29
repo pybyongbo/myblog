@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.901web.com</id>
     <title>pyb永波的技术博客</title>
-    <updated>2020-11-06T09:48:34.723Z</updated>
+    <updated>2020-11-29T03:35:53.985Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.901web.com"/>
     <link rel="self" href="https://blog.901web.com/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://blog.901web.com/images/avatar.png</logo>
     <icon>https://blog.901web.com/favicon.ico</icon>
     <rights>All rights reserved 2020, pyb永波的技术博客</rights>
+    <entry>
+        <title type="html"><![CDATA[VUE版拼图小游戏开发(拼拼乐)]]></title>
+        <id>https://blog.901web.com/post/t8mSzAE_M/</id>
+        <link href="https://blog.901web.com/post/t8mSzAE_M/">
+        </link>
+        <updated>2020-11-29T03:24:28.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[React中props,state与render函数]]></title>
         <id>https://blog.901web.com/post/gjJkY1YD4/</id>
@@ -127,19 +134,6 @@
 ]]></summary>
         <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
 ✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[mysql语句中去除重复的记录条数小结]]></title>
-        <id>https://blog.901web.com/post/PUYmoruQL/</id>
-        <link href="https://blog.901web.com/post/PUYmoruQL/">
-        </link>
-        <updated>2018-11-17T13:40:19.000Z</updated>
-        <summary type="html"><![CDATA[<p>mysql语句中去除重复的记录条数小结</p>
-<p>今天在上网查阅sql语句的相关资料的时候,在自学IT网上面看到一道sql基础语句的面试题目,于是自己就在电脑上面测试了下,结果看似满基础的东西,却还是卡克了,最后在于同事的讨论中终于还是搞定了这个小问题,在下午不是很忙的时候,便抽出一点时间来整理下这道题目,做个相关的总结,面得以后自己又搞忘记了.也方便以后相关的查阅.</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>mysql语句中去除重复的记录条数小结</p>
-<p>今天在上网查阅sql语句的相关资料的时候,在自学IT网上面看到一道sql基础语句的面试题目,于是自己就在电脑上面测试了下,结果看似满基础的东西,却还是卡克了,最后在于同事的讨论中终于还是搞定了这个小问题,在下午不是很忙的时候,便抽出一点时间来整理下这道题目,做个相关的总结,面得以后自己又搞忘记了.也方便以后相关的查阅.</p>
 ]]></content>
     </entry>
 </feed>
