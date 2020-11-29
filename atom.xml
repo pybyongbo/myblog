@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.901web.com</id>
     <title>pyb永波的技术博客</title>
-    <updated>2020-11-29T03:36:56.733Z</updated>
+    <updated>2020-11-29T03:38:14.898Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.901web.com"/>
     <link rel="self" href="https://blog.901web.com/atom.xml"/>
@@ -16,6 +16,12 @@
         <link href="https://blog.901web.com/post/t8mSzAE_M/">
         </link>
         <updated>2020-11-29T03:24:28.000Z</updated>
+        <summary type="html"><![CDATA[<h3 id="拼拼乐小游戏开发vue版本">拼拼乐小游戏开发(VUE版本)</h3>
+<p>深秋的某一天,在地铁上面刷着手机,看到徐小夕的公众号推送的一篇文章,介绍的是一个移动端端的拼图小游戏,于是自己尝试着识别二维码完了下,感觉还挺有意思的.周末抽空研究了一下,看了下这个小游戏有哪些功能.问了下原作者,他用的是原生JS写的一版.自己本身在学习使用VUE开发项目,于是便萌发了用VUE尝试改版一下.正好可以学习学习一下.于是看了下游戏的大体效果,决定尝试用VUE改写一版玩一下,说干就干.也欢迎有兴趣,有想法的小伙伴可以一起讨论.</p>
+]]></summary>
+        <content type="html"><![CDATA[<h3 id="拼拼乐小游戏开发vue版本">拼拼乐小游戏开发(VUE版本)</h3>
+<p>深秋的某一天,在地铁上面刷着手机,看到徐小夕的公众号推送的一篇文章,介绍的是一个移动端端的拼图小游戏,于是自己尝试着识别二维码完了下,感觉还挺有意思的.周末抽空研究了一下,看了下这个小游戏有哪些功能.问了下原作者,他用的是原生JS写的一版.自己本身在学习使用VUE开发项目,于是便萌发了用VUE尝试改版一下.正好可以学习学习一下.于是看了下游戏的大体效果,决定尝试用VUE改写一版玩一下,说干就干.也欢迎有兴趣,有想法的小伙伴可以一起讨论.</p>
+]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[React中props,state与render函数]]></title>
