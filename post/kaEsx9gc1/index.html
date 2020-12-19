@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>标签列表 | pyb永波的技术博客</title>
+<title>箭头函数和普通函数的区别: | pyb永波的技术博客</title>
 <meta name="description" content="温故而知新">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -101,52 +101,59 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          <h2 class="tag-list-title">标签列表</h2>
-          <div class="tags-container">
+          <div class="post-detail">
+            <h2 class="post-title">箭头函数和普通函数的区别:</h2>
+            <div class="post-date">2020-12-19</div>
             
-              <a class="tag" href="https://blog.901web.com/tag/nian-zhong-zong-jie/">年终总结</a>
+            <div class="post-content">
+              <p>js中箭头函数和普通函数的区别,以及使用方法</p>
+<!-- more -->
+<h4 id="1写法">1.写法:</h4>
+<p>普通函数:function() {}<br>
+箭头函数:() =&gt; {}</p>
+<p>两者的共同点就是圆括号和大括号,圆括号用来放置参数,大括号里面放置函数主体内容.</p>
+<pre><code class="language-javascript">   let chicken = ['战斗鸡','小鸡','奥尔良烤鸡'];
+   let chicken_normal = chicken.map(function(item){
+       return item+='鸡';
+   });
+   
+   let chicken_arrow = chicken.map(item=&gt;item+='鸡');
+   
+   console.log(chicken_normal,chicken_arrow);
+</code></pre>
+<p>不能为箭头函数命名,因为箭头函数是函数表达式,而且是匿名的.而普通函数可以是函数表达式,也可以是函数声明.</p>
+<h4 id="2箭头函数是匿名函数不能作为构造函数不能使用new">2.箭头函数是匿名函数,不能作为构造函数,不能使用new.</h4>
+<p>例如如下代码会报错:</p>
+<pre><code class="language-javascript">    let FunConstructor = () =&gt;{
+        console.log('1111');
+    }
+    let fc = new FunConstructor()
+    // 报错:Uncaught TypeError:FunConstructor is not a constructor
+</code></pre>
+<h4 id="3箭头函数不绑定arguments取而代之用rest参数解决rest参数形式为变量名">3.箭头函数不绑定arguments,取而代之用rest参数...解决(rest参数:形式为...变量名)</h4>
+<h4 id="4箭头函数不绑定this会捕获其所在的上下文的this值作为自己的this值">4.箭头函数不绑定this,会捕获其所在的上下文的this值,作为自己的this值.</h4>
+<figure data-type="image" tabindex="1"><img src="https://images.901web.com/2020-09-05-arrow-fun-this.png" alt="页面效果" title="提交验证" loading="lazy"></figure>
+<p>注意一点,箭头函数不能通过call,apply和bind来改变this的值.但是箭头函数依旧是可以调用 call,apply和bind方法的.只不过this的值不受这几个方法控制.</p>
+<p>区别对比图如下:</p>
+<figure data-type="image" tabindex="2"><img src="https://images.901web.com/2020-09-05-diff-arr-fun.jpg" alt="区别对比图" loading="lazy"></figure>
+
+            </div>
             
-              <a class="tag" href="https://blog.901web.com/tag/vuereactnodejs-bu-shu/">VUE+React+NodeJS部署</a>
             
-              <a class="tag" href="https://blog.901web.com/tag/sheng-huo-lu-you/">生活旅游</a>
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/t8mSzAE_M/">
+                  <h3 class="post-title">
+                    VUE版拼图小游戏开发(拼拼乐)
+                  </h3>
+                </a>
+              </div>
             
-              <a class="tag" href="https://blog.901web.com/tag/B8l2tKSTi/">Gridea</a>
+
             
-              <a class="tag" href="https://blog.901web.com/tag/mysql-xiang-guan/">Mysql相关</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/javascript-bi-ji/">Javascript笔记</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/async-he-await/">Async和Await</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/yi-bu-cao-zuo/">异步操作</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/web-huan-cun/">web缓存</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/mac-xiang-guan/">Mac相关</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/yi-dong-duan/">移动端</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/ajax-kua-yu-jsonp/">ajax 跨域 jsonp</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/git/">Git</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/github-xiang-guan/">Github相关</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/gong-zuo-bi-ji/">工作笔记</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/api-she-ji/">API设计</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/ajax-jia-zai/">Ajax加载</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/jquery/">jQuery</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/json/">JSON</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/markdown-yu-fa/">Markdown语法</a>
-            
-              <a class="tag" href="https://blog.901web.com/tag/hexo-ji-zhu/">hexo技术</a>
-            
+
           </div>
+
         </div>
       </div>
     </div>
