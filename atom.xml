@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.901web.com</id>
     <title>pyb永波的技术博客</title>
-    <updated>2020-12-19T12:23:02.927Z</updated>
+    <updated>2020-12-28T07:48:47.349Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.901web.com"/>
     <link rel="self" href="https://blog.901web.com/atom.xml"/>
@@ -10,6 +10,17 @@
     <logo>https://blog.901web.com/images/avatar.png</logo>
     <icon>https://blog.901web.com/favicon.ico</icon>
     <rights>All rights reserved 2020, pyb永波的技术博客</rights>
+    <entry>
+        <title type="html"><![CDATA[Antd 表格单元格合并记录]]></title>
+        <id>https://blog.901web.com/post/gbv4sv7iE/</id>
+        <link href="https://blog.901web.com/post/gbv4sv7iE/">
+        </link>
+        <updated>2020-12-28T07:43:07.000Z</updated>
+        <summary type="html"><![CDATA[<p>在做流量平台后台管理产品分流策略的需求的时候,遇到一个表格单元格合并的页面展示需求.页面展示的效果实现其实并不难,但是自己在实现的过程中还是遇到一些坑,记录一下:</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>在做流量平台后台管理产品分流策略的需求的时候,遇到一个表格单元格合并的页面展示需求.页面展示的效果实现其实并不难,但是自己在实现的过程中还是遇到一些坑,记录一下:</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[箭头函数和普通函数的区别:]]></title>
         <id>https://blog.901web.com/post/kaEsx9gc1/</id>
@@ -127,17 +138,6 @@
         <summary type="html"><![CDATA[<p>如今数据驱动视图的框架已经成为前端开发的主流，如 react、vue、angular 等，当然还包括我们用的 regular。这些框架大大提高了我们的开发效率，但同时现在的页面结构越来越复杂，虽然有这些 mv*的框架，但如果我们使用不当，也会造成状态数据管理混乱，代码难以维护的困扰。</p>
 ]]></summary>
         <content type="html"><![CDATA[<p>如今数据驱动视图的框架已经成为前端开发的主流，如 react、vue、angular 等，当然还包括我们用的 regular。这些框架大大提高了我们的开发效率，但同时现在的页面结构越来越复杂，虽然有这些 mv*的框架，但如果我们使用不当，也会造成状态数据管理混乱，代码难以维护的困扰。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[总结2018年~展望2019年]]></title>
-        <id>https://blog.901web.com/post/LCXD9Myxr/</id>
-        <link href="https://blog.901web.com/post/LCXD9Myxr/">
-        </link>
-        <updated>2019-01-14T02:53:22.000Z</updated>
-        <summary type="html"><![CDATA[<p>马上快到自己生日,这一年也快结束啦,90 后的我们已经不再年轻,都快而立之年啦.看了一下上次的总结过去和展望未来,已经有 3,4 年时间啦.2018 年就这么匆匆的过去了,2019 年悄无声息的早已到来,2018 年这一年总体过的不太顺利,经历了很多的事情,有高兴的,欣慰的,也有桑心的.最近有时候刷抖音,看到很火的一句话<code>累吗?累啦,死了吗?没死,只要干不死,就往死里干</code>,想想,其实每个人都不易的,所有要好好的珍惜现在拥有的生活,不要埋怨,就是干~</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>马上快到自己生日,这一年也快结束啦,90 后的我们已经不再年轻,都快而立之年啦.看了一下上次的总结过去和展望未来,已经有 3,4 年时间啦.2018 年就这么匆匆的过去了,2019 年悄无声息的早已到来,2018 年这一年总体过的不太顺利,经历了很多的事情,有高兴的,欣慰的,也有桑心的.最近有时候刷抖音,看到很火的一句话<code>累吗?累啦,死了吗?没死,只要干不死,就往死里干</code>,想想,其实每个人都不易的,所有要好好的珍惜现在拥有的生活,不要埋怨,就是干~</p>
 ]]></content>
     </entry>
 </feed>
