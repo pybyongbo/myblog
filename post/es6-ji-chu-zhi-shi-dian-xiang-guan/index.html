@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>ES6基础知识点相关 | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">ES6基础知识点相关</h2>
+            <div class="post-date">2021-09-19 11:09:56</div>
+            
+            <div class="post-content">
+              <h3 id="es6声明变量的六种方式">ES6声明变量的六种方式:</h3>
+<p>ES5只有两种声明变量的方法: <code>var</code>命令和<code>function</code>命令.ES6除了<code>let</code>和<code>const</code>命令,另外还有<code>import</code>和<code>class</code>声明方式.ES6一共有6种声明变量的方法. (还有var定义的变量存在变量提升)</p>
+<!-- more -->
+<h3 id="const命令定义常量相关">CONST命令定义常量相关</h3>
+<p><code>const</code>声明一个只读的常量.一旦声明,常量的值就不能改变.</p>
+<p><code>const</code>声明的变量不得改变,这就意味着,<code>const</code>一旦声明变量,就必须立即初始化,不能留到后面赋值.</p>
+<p><code>const</code>实际上保证的,并不是变量的值不得改动,而是变量指向的那个内存地址所保存的数据不得改动.对于简单类型的数据(数值,字符串,布尔值),值就保存在变量指向的那个内存地址.因此等同于常量.但是对于复合类型的数据(主要是对象和数组),变量指向的内存地址,保存的只是一个指向实际数据的指针,<code>const</code>只能保证这个指针是固定的(即总是指向另一个固定的地址),至于它指向的数据结构是不是可变的,就完全不能控制了.</p>
+<pre><code class="language-javascript">    const foo = {};
+    
+    // 为 foo 添加一个属性，可以成功
+    foo.prop = 123;
+    foo.prop // 123
+    
+    // 将 foo 指向另一个对象，就会报错
+    foo = {}; // TypeError: &quot;foo&quot; is read-only
+
+</code></pre>
+<h4 id="顶层对象的属性相关">顶层对象的属性相关:</h4>
+<p>顶层对象,在浏览器环境指的是<code>window</code>对象,在Node指的是<code>global</code>对象.在ES5之中,顶层对象的属性与全局变量是等价的.</p>
+<p>ES6为了改变这一点,一方面规定,为了保证兼容性,<code>var</code>命令和<code>function</code>命令声明的全局变量,依旧是顶层对象属性.另一方面规定，<code>let</code>命令、<code>const</code>命令、<code>class</code>命令声明的全局变量，不属于顶层对象的属性。也就是说，从 ES6 开始，全局变量将逐步与顶层对象的属性脱钩。</p>
+<h4 id="数组和对象的结构赋值">数组和对象的结构赋值</h4>
+<p>1.数组的解构赋值:</p>
+<p>本质上，这种写法属于“模式匹配”，只要等号两边的模式相同，左边的变量就会被赋予对应的值。</p>
+<pre><code class="language-javascript">    let [a,b,c] = [1,2,3];
+    
+    let [foo, [[bar], baz]] = [1, [[2], 3]];
+    foo // 1
+    bar // 2
+    baz // 3
+</code></pre>
+<p>2.对象的解构赋值:</p>
+<p>解构不仅可以用于数组,还可以用于对象.</p>
+<pre><code class="language-javascript">    let { foo, bar } = { foo: 'aaa', bar: 'bbb' };
+    foo // &quot;aaa&quot;
+    bar // &quot;bbb&quot;
+</code></pre>
+<p>对象的解构与数组有一个重要的不同.数组的元素是按照次序排列的,变量的取值由他的位置决定;而对象的属性没有次序,变量必须与属性同名,才能取到正确的值.</p>
+<pre><code class="language-javascript">    let { bar, foo } = { foo: 'aaa', bar: 'bbb' };
+    foo // &quot;aaa&quot;
+    bar // &quot;bbb&quot;
+    
+    let { baz } = { foo: 'aaa', bar: 'bbb' };
+    baz // undefined
+</code></pre>
+<p>上面代码的第一个例子，等号左边的两个变量的次序，与等号右边两个同名属性的次序不一致，但是对取值完全没有影响。第二个例子的变量没有对应的同名属性，导致取不到值，最后等于<code>undefined</code>。</p>
+<p>有时候在工作中会遇到多层解构赋值,例如如下代码:</p>
+<pre><code class="language-javascript">
+async getIconcate() {
+      let res = await api.getIndexIcon({ terminal: 0 });
+      const {
+        //resultContent: { resultContent },
+        resultContent: { resultContent:resData },
+        resultFlag,
+        resultMsg
+      } = res.data;
+
+      if (resultFlag) {
+        this.insuranceTypes = resData;
+        //this.insuranceTypes = resultContent.slice(0,5);
+      } else {
+        toToast(resultMsg);
+      }
+        // console.log('resData',resData);
+        //return resultContent
+      return resData;
+}
+
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://images.901web.com/2020-08-28-020442.png" alt="多层解构赋值" loading="lazy"></figure>
+<p>使用babel转换后的代码如下:</p>
+<figure data-type="image" tabindex="2"><img src="https://images.901web.com/2020-08-28-020631.png" alt="babel转换后" loading="lazy"></figure>
+<p>与数组一样,解构也可以用于嵌套解构的对象.</p>
+<pre><code class="language-javascript">    let obj = {
+      p: [
+        'Hello',
+        { y: 'World' }
+      ]
+    };
+    
+    let { p: [x, { y }] } = obj;
+    x // &quot;Hello&quot;
+    y // &quot;World&quot;
+</code></pre>
+<p>注意,这时<code>p</code>是模式,不是变量,因此不会被赋值.如果<code>p</code>也要作为变量赋值,可以写成下面这样.</p>
+<pre><code class="language-javascript">    let obj = {
+      p: [
+        'Hello',
+        { y: 'World' }
+      ]
+    };
+    
+    let { p, p: [x, { y }] } = obj;
+    x // &quot;Hello&quot;
+    y // &quot;World&quot;
+    p // [&quot;Hello&quot;, {y: &quot;World&quot;}]
+</code></pre>
+<p>下面是另外一个例子.</p>
+<pre><code class="language-javascript">    
+const node = {
+       loc:{
+       start:{
+        line:1,
+        column:5
+       } 
+    }
+}
+
+let { loc, loc: { start }, loc: { start: { line,column }} } = node;
+console.log(line,column); //1   5
+line  //1
+loc   //Object {start:Object}
+start //Object {line:1,column:5}
+
+</code></pre>
+<h4 id="函数参数的解构赋值">函数参数的解构赋值</h4>
+<pre><code class="language-javascript">    function add([x,y]){
+        return x+y;
+    }
+    add([1,2]); //3
+</code></pre>
+<p>在上面的代码中,函数<code>add</code>的参数表面上是一个数组,但在传入参数的那一刻,数组参数就被解构成变量<code>x</code>和<code>y</code>,对于函数内部的代码来说,他们能感受到的参数就是<code>x</code>和<code>y</code></p>
+<h4 id="解构赋值的一些用途">解构赋值的一些用途</h4>
+<p>(1).交换变量的值:</p>
+<pre><code class="language-javascript">    let x = 1;
+    let y = 2;
+    
+    [x, y] = [y, x];
+</code></pre>
+<p>(2).从函数返回多个值:</p>
+<p>函数只能返回一个值,如果要返回多个值,只能将它们放在数组或对象里返回.有了解构赋值,取出这些值就非常方便.</p>
+<pre><code class="language-javascript">    
+    // 返回一个数组
+    function example() {
+      return [1, 2, 3];
+    }
+    let [a, b, c] = example();
+    
+    // 返回一个对象
+    function example() {
+      return {
+        foo: 1,
+        bar: 2
+      };
+    }
+    let { foo, bar } = example();
+
+</code></pre>
+<p>(3).函数参数的定义</p>
+<p>解构赋值可以方便的将一组参数与变量名对应起来.</p>
+<pre><code class="language-javascript">    // 参数是一组有次序的值
+    function f([x, y, z]) { ... }
+    f([1, 2, 3]);
+    
+    // 参数是一组无次序的值
+    function f({x, y, z}) { ... }
+    f({z: 3, y: 2, x: 1});
+</code></pre>
+<p>(4).解构赋值对提取JSON对象中的数据,尤其有用.(接口联调中经常这么用)</p>
+<pre><code class="language-javascript">    let jsonData = {
+      id: 42,
+      status: &quot;OK&quot;,
+      data: [867, 5309]
+    };
+    
+    let { id, status, data: number } = jsonData;
+    
+    console.log(id, status, number);
+    // 42, &quot;OK&quot;, [867, 5309]
+</code></pre>
+<p>(5).函数参数的默认值</p>
+<pre><code class="language-javascript">    jQuery.ajax = function (url, {
+      async = true,
+      beforeSend = function () {},
+      cache = true,
+      complete = function () {},
+      crossDomain = false,
+      global = true,
+      // ... more config
+    } = {}) {
+      // ... do stuff
+    };
+</code></pre>
+<p>指定参数的默认值,就避免了在函数体内部在写<code>var foo = config || 'default foo'</code>;这样的语句.</p>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/letvarconst-he-wu-guan-jian-zi-sheng-ming-bian-liang-you-you-he-bu-tong/">
+                  <h3 class="post-title">
+                    let/var/const和无关键字声明变量有有何不同?
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

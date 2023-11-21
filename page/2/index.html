@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://blog.901web.com/post/reactantdwebpackcss-mo-kuai-hua-xiang-guan-zhi-shi-dian-ji-lu/">
+                  <h2 class="post-title">React+Antd+Webpack+Css模块化相关知识点记录</h2>
+                </a>
+                <div class="post-date">
+                  2021-08-28 21:08:06
+                </div>
+                <div class="post-abstract">
+                  <h3 id="reactantdwebpackcss模块化相关知识点记录">React+Antd+Webpack+Css模块化相关知识点记录</h3>
+<h4 id="css模块化相关">Css模块化相关</h4>
+<p>webpack打包配置处理CSS样式的时候,如果设置了<code>modules:true</code>的话,就开启了css模块化配置.</p>
+
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://blog.901web.com/post/javascript-zhong-functionprototype-shi-dui-xiang-huan-shi-han-shu/">
+                  <h2 class="post-title">javascript中Function.prototype是对象还是函数?</h2>
+                </a>
+                <div class="post-date">
+                  2021-08-14 10:08:18
+                </div>
+                <div class="post-abstract">
+                  <h3 id="javascript中functionprototype是对象还是函数">javascript中Function.prototype是对象还是函数?</h3>
+<p>即是对象又是函数.</p>
+
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://blog.901web.com/post/input-shu-xing-disabled-he-readonly-de-qu-bie/">
+                  <h2 class="post-title">input属性 disabled和readonly的区别</h2>
+                </a>
+                <div class="post-date">
+                  2021-08-14 10:08:07
+                </div>
+                <div class="post-abstract">
+                  <h4 id="disabled和readonly的区别">disabled和readonly的区别:</h4>
+<p>这两种写法都会使显示出来的文本框不能输入文字，都能做到使用户不能够更改表单域中的内容，但：</p>
+<br/>
+<ul>
+<li><code>disabled</code> 会使文本框变灰，而 <code>readonly</code> 只是使文本框不能输入，外观没有变化。</li>
+<li><code>readonly</code> 只针对 <code>input</code> 和 <code>textarea</code> 有效，而 <code>disabled</code> 对于所有的表单元素都有效。</li>
+<li>将表单以 POST 或 GET 的方式提交的话，使用了 disabled 后，这个元素的值不会被传递出去，而 readonly 会将该值传递出去。</li>
+<li>当元素具有禁用属性时,不会触发任何事件.而<code>readonly</code>将被触发.</li>
+</ul>
+
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://blog.901web.com/post/javascript-yin-shi-lei-xing-zhuan-huan-he-ji-ben-gui-ze-zong-jie/">
+                  <h2 class="post-title">Javascript隐式类型转换和基本规则总结</h2>
+                </a>
+                <div class="post-date">
+                  2021-08-14 10:08:51
+                </div>
+                <div class="post-abstract">
+                  <h4 id="数学运算中的类型转换">数学运算中的类型转换</h4>
+<p>因为JS并没有类型申明,所以任意两个变量或字面量,都可以做加减乘除.</p>
+
+                </div>
+              </div>
+              
+                <a class="right" href="https://blog.901web.com/post/javascript-yin-shi-lei-xing-zhuan-huan-he-ji-ben-gui-ze-zong-jie/">
+                  <div class="feature-container" style="background-image: url('https://images.901web.com/2022-01-22-063125.png')">
+                  </div>
+                </a>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://blog.901web.com/post/zong-jie-2020-nian-ji-du-bu-ping-fan-de-yi-nian/">
+                  <h2 class="post-title">总结2020年,极度不平凡的一年</h2>
+                </a>
+                <div class="post-date">
+                  2021-02-09 15:02:54
+                </div>
+                <div class="post-abstract">
+                  <p>又到了年终,一年一度的春节之际.想必大家回想2020年,心里都有些不一样的感受吧.我们的城市生病啦.很多人都被困在家里,在家办公.这也是上班后有史以来在家呆着最长久的一个春节吧.但是内心并不开心,甚至很多人都有些不安和焦虑,因为无法正常的外出上班,很多人都背着巨大的生活压力,房贷,车贷等等,然而我自己也记得非常请求.解封后,3月26号老乡开车带我一起来的上海,早上7点多走的,晚上差不多7,8点钟到的.整整10多个小时,安全抵达上海...</p>
+
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://blog.901web.com/post/YMMCoVI8E/">
+                  <h2 class="post-title">Antd+Dva+Umi开发后台CRM系统</h2>
+                </a>
+                <div class="post-date">
+                  2020-12-28 18:12:43
+                </div>
+                <div class="post-abstract">
+                  <p>最近一两个月的时间在开发公司的后台管理系统.用的是技术栈是<code>Antd+Dva+Umi</code>,记得在之前也用过一次,做过一个后台,但是时间久啦.然后<code>Antd</code>的版本也更新到V4啦.很多组件的API用法也发生了相应的变化.做一个简单的归纳总结和记录,可能写的比较零碎,想到什么就记录什么,比较随意......</p>
+
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://blog.901web.com/post/gbv4sv7iE/">
+                  <h2 class="post-title">Antd 表格单元格合并记录</h2>
+                </a>
+                <div class="post-date">
+                  2020-12-28 15:12:07
+                </div>
+                <div class="post-abstract">
+                  <p>在做流量平台后台管理产品分流策略的需求的时候,遇到一个表格单元格合并的页面展示需求.页面展示的效果实现其实并不难,但是自己在实现的过程中还是遇到一些坑,记录一下:</p>
+
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://blog.901web.com/post/kaEsx9gc1/">
+                  <h2 class="post-title">箭头函数和普通函数的区别:</h2>
+                </a>
+                <div class="post-date">
+                  2020-12-19 20:12:26
+                </div>
+                <div class="post-abstract">
+                  <p>js中箭头函数和普通函数的区别,以及使用方法</p>
+
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://blog.901web.com/post/t8mSzAE_M/">
+                  <h2 class="post-title">VUE版拼图小游戏开发(拼拼乐)</h2>
+                </a>
+                <div class="post-date">
+                  2020-11-29 11:11:28
+                </div>
+                <div class="post-abstract">
+                  <h3 id="拼拼乐小游戏开发vue版本">拼拼乐小游戏开发(VUE版本)</h3>
+<p>深秋的某一天,在地铁上面刷着手机,看到徐小夕的公众号推送的一篇文章,介绍的是一个移动端端的拼图小游戏,于是自己尝试着识别二维码完了下,感觉还挺有意思的.周末抽空研究了一下,看了下这个小游戏有哪些功能.问了下原作者,他用的是原生JS写的一版.自己本身在学习使用VUE开发项目,于是便萌发了用VUE尝试改版一下.正好可以学习学习一下.于是看了下游戏的大体效果,决定尝试用VUE改写一版玩一下,说干就干.也欢迎有兴趣,有想法的小伙伴可以一起讨论.</p>
+
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://blog.901web.com/post/gjJkY1YD4/">
+                  <h2 class="post-title">React中props,state与render函数</h2>
+                </a>
+                <div class="post-date">
+                  2020-11-06 17:11:45
+                </div>
+                <div class="post-abstract">
+                  <h3 id="propsstate与render函数">Props,State与render函数:</h3>
+<p>当组件的state或者props发生改变的时候,render函数就会重新执行.</p>
+<p>render函数重新执行,页面就会被重新渲染.</p>
+<p>一个组件的生命周期函数可以不写,但是render函数必须的.</p>
+<p>当父组件的render函数被运行时,它的子组件的render都将被重新运行一次.</p>
+<p>每个组件都有自己独立的生命周期函数</p>
+
+                </div>
+              </div>
+              
+            </article>
+          
+
+          <div class="pagination-container">
+  
+    <a href="https://blog.901web.com/" class="prev"><i class="icon-arrow-ios-back-outline"></i> 上一页</a>
+  
+  
+    <a href="https://blog.901web.com/page/3/" class="next">下一页 <i class="icon-arrow-ios-forward-outline"></i></a>
+  
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

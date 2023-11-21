@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Javascript隐式类型转换和基本规则总结 | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Javascript隐式类型转换和基本规则总结</h2>
+            <div class="post-date">2021-08-14 10:08:51</div>
+            
+              <div class="feature-container" style="background-image: url('https://images.901web.com/2022-01-22-063125.png')">
+              </div>
+            
+            <div class="post-content">
+              <h4 id="数学运算中的类型转换">数学运算中的类型转换</h4>
+<p>因为JS并没有类型申明,所以任意两个变量或字面量,都可以做加减乘除.</p>
+<!-- more -->
+<h5 id="1-减-乘-除">1. 减、乘、除</h5>
+<p><strong>我们在对各种非<code>Number</code>类型运用数学运算符<code>(-,*,/)</code>时,会先将非<code>Number</code>类型转换为<code>Number</code>类型.</strong></p>
+<pre><code class="language-javascript">    
+    1-true      // 0 首先把true 转换为数字1,然后执行 1-1
+    1-null      // 1 首先把null 转换成数字0,然后执行 1-0
+    1*undefined // NaN, undefined 转换为数字是 NaN
+    2*['5']     // 10, ['5']首先会变成'5',然后在变成数字 5
+    
+</code></pre>
+<h5 id="2-加法的特殊性">2. 加法的特殊性</h5>
+<p><strong>为什么加法要区别对待?因为JS里的<code>+</code>还可以用来拼接字符串.谨记以下3条:</strong></p>
+<ul>
+<li>当一侧为<code>String</code>类型，被识别为字符串拼接，并会优先将另一侧转换为字符串类型。</li>
+<li>当一侧为<code>Number</code>类型，另一侧为原始类型，则将原始类型转换为<code>Number</code>类型。</li>
+<li>当一侧为<code>Number</code>类型，另一侧为引用类型，将引用类型和<code>Number</code>类型转换成字符串后拼接。</li>
+</ul>
+<p><strong>以上3点,优先级从高到低,即<code>3+'abc'</code>会应用规则1,而<code>3+true</code>会应用规则2.</strong></p>
+<pre><code class="language-javascript">
+123+'123'   // 123123           (规则1)
+123+null    // 123              (规则2)
+123+true    // 124              (规则2)
+123+{}      // 123[object Object]    （规则3）
+123+[]      // 123  [].toString()=&quot;&quot;
+
+</code></pre>
+<h4 id="逻辑语句中的类型转换">逻辑语句中的类型转换</h4>
+<p>当我们使用 <code>if</code>,<code>while</code>,<code>for</code>语句是,我们期望表达式是一个<code>Boolean</code>,所以一定伴随着隐式类型转换。而这里面又分为两种情况：</p>
+<h5 id="1-单个变量">1. 单个变量</h5>
+<p><strong>如果只有单个变量，会先将变量转换为Boolean值。</strong></p>
+<p>我们可以参考附录的转换表来判断各种类型转变为Boolean后的值。</p>
+<p>不过这里有个小技巧：</p>
+<p>只有 <code>null</code> <code>undefined</code> <code>''</code> <code>NaN</code> <code>0</code> <code>false</code> 这几个是 <code>false</code>，其他的情况都是 <code>true</code>，比如 <code>{}</code> , <code>[]</code>。</p>
+<h5 id="2-使用-比较中的5条规则">2. 使用 == 比较中的5条规则</h5>
+<p>虽然我们可以严格使用<code>===</code>,不过了解<code>==</code>的习性还是很有必要的.</p>
+<p><strong>根据<code>==</code>两侧的数据类型,我们总结出5条规则:</strong></p>
+<ul>
+<li>规则 1：<code>NaN</code>和其他任何类型比较永远返回<code>false</code>（包括和他自己）。</li>
+</ul>
+<pre><code class="language-javascript">    NaN == NaN // false
+</code></pre>
+<ul>
+<li>规则 2：<code>Boolean</code> 和其他任何类型比较，<code>Boolean</code> 首先被转换为 <code>Number</code> 类型。</li>
+</ul>
+<pre><code class="language-javascript">
+true == 1     // true
+true == '2'   // false,先把true 变成 1,而不是把'2' 变成 true
+true == ['1'] // true ,先把true变成1,['1']拆箱成 '1',在残酷规则3
+true == ['2'] // false,同上
+undefined == false // false ,首先false变成0, 然后参考规则4
+null == false // false 同上
+
+</code></pre>
+<ul>
+<li>规则 3：<code>String</code>和<code>Number</code>比较，先将<code>String</code>转换为<code>Number</code>类型。</li>
+</ul>
+<pre><code class="language-javascript">
+123 == '123'  // true,'123'会先变成123
+'' == 0       // true,''会先变成0
+
+</code></pre>
+<ul>
+<li>规则 4：<code>null == undefined</code>比较结果是<code>true</code>，除此之外，<code>null</code>、<code>undefined</code>和其他任何结果的比较值都为<code>false</code>。</li>
+</ul>
+<pre><code class="language-javascript">
+    null == undefined // true
+    null == '' // false
+    null == 0 // false
+    null == false // false
+    undefined == '' // false
+    undefined == 0 // false
+    undefined == false // false
+
+</code></pre>
+<ul>
+<li>规则 5：<code>原始类型</code>和<code>引用类型</code>做比较时，引用类型会依照ToPrimitive规则转换为原始类型。</li>
+</ul>
+<blockquote>
+<p><strong>ToPrimitive规则，是引用类型向原始类型转变的规则，它遵循先valueOf和toString的模式期望得到一个原始类型。</strong></p>
+</blockquote>
+<p>如果还是没法得到一个原始类型,就会抛出<code>TypeError</code></p>
+<pre><code class="language-javascript">
+'[object Object]' == {} // true,对象和字符串比较,对象通过 toString 得到一个基本类型值
+
+'1,2,3' == [1,2,3] // true 同上 [1,2,3] 通过toString得到一个基本类型值
+
+
+</code></pre>
+<h4 id="通过几个特别的题目来练习一下">通过几个特别的题目来练习一下:</h4>
+<ol>
+<li>[] == ![]</li>
+</ol>
+<pre><code class="language-txt">    
+    - 第一步, ![] 会变成false
+    - 第二步,应用 规则2,题目变成:[] == 0
+    - 第三步,应用 规则5,[]的valueOf是0,题目变成:0 == 0
+    - 所以, 答案true
+    
+</code></pre>
+<ol start="2">
+<li>[undefined] == false</li>
+</ol>
+<pre><code class="language-txt">    
+    - 第一步,应用规则5,[undefined]通过toString变成'',题目变成 '' == false
+    - 第二步,应用规则2,题目变成 '' == 0
+    - 第三步,应用规则3,题目变成 0 == 0 
+    - 所以,答案是 true !
+    // 但是 if ([undefined]) 又是个 true!
+</code></pre>
+<h4 id="类型转换表">类型转换表</h4>
+<p>这个表老实用了,在执行上面提到的转换规则时,可以参考这个对照表.</p>
+<figure data-type="image" tabindex="1"><img src="https://images.901web.com/2021-08-09-convert-table.png" alt="类型转换表" title="类型转换表" loading="lazy"></figure>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/zong-jie-2020-nian-ji-du-bu-ping-fan-de-yi-nian/">
+                  <h3 class="post-title">
+                    总结2020年,极度不平凡的一年
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

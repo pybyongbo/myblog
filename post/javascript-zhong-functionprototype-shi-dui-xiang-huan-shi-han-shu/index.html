@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>javascript中Function.prototype是对象还是函数? | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">javascript中Function.prototype是对象还是函数?</h2>
+            <div class="post-date">2021-08-14 10:08:18</div>
+            
+            <div class="post-content">
+              <h3 id="javascript中functionprototype是对象还是函数">javascript中Function.prototype是对象还是函数?</h3>
+<p>即是对象又是函数.</p>
+<!-- more -->
+<h4 id="prototype和__proto__的关系是什么"><code>prototype</code>和<code>__proto__</code>的关系是什么</h4>
+<p>先说结论:</p>
+<ol>
+<li><code>prototype</code>用于访问函数的原型对象.</li>
+<li><code>__proto__</code> 用于访问对象实例的原型对象（或者使用 <code>Object.getPrototypeOf()</code>）。</li>
+</ol>
+<pre><code class="language-javascript">
+function Test(){}
+
+const test = new Test();
+test.__proto__ == Test.prototype;  // true
+
+</code></pre>
+<p>也就是说,函数拥有<code>prototype</code> 属性,对象实例拥有<code>__proto__</code>属性,它们都是用来访问原型对象的.</p>
+<p>函数有点特别,它不仅是个函数,还是个对象.所以它也有<code>__proto__</code>属性.</p>
+<p>为什么会这样呢?因为函数是内置构造函数<code>Function</code>的实例:</p>
+<pre><code class="language-javascript">    
+    const test= new Function('function test(){}');
+    
+    test.__proto__ == Function.prototype // true
+
+</code></pre>
+<p>所以函数能通过<code>__proto__</code> 访问它的原型对象.</p>
+<p>由于<code>prototype</code>是一个对象,所以它也可以通过<code>__proto__</code>访问它的原型对象.对象的原型对象,那自然就是<code>Object.prototype</code>了.</p>
+<pre><code class="language-javascript">    
+    function Test(){};
+    
+    Test.prototype.__proto__ == Object.prototype  // true
+
+</code></pre>
+<p>这样看起来好像有点复杂,我们可以换个角度来看.<code>Object</code>其实也是内置构造函数:</p>
+<pre><code class="language-javascript">    
+    const obj = new Object() // 我们可以把这个obj想象成原型对象 prototype
+    obj.__proto__ == Object.prototype // true 换个角度来看，相当于 prototype.__proto__ == Object.prototype
+
+</code></pre>
+<p>从这一点来看,是不是更好理解一点.</p>
+<p>为了防止无休止的循环下去,所以<code>Object.prototype.__proto__</code>是指向<code>null</code>的,<code>null</code>是万物的终点.</p>
+<pre><code class="language-javascript">
+Object.prototype.__proto__ == null // true
+
+</code></pre>
+<p>既然<code>null</code>是万物的终点,那么使用<code>Object.create(null)</code>创建的对象是没有<code>__proto__</code>属性的,也没有<code>prototype</code>属性.</p>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/input-shu-xing-disabled-he-readonly-de-qu-bie/">
+                  <h3 class="post-title">
+                    input属性 disabled和readonly的区别
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>博客功能添加改版记录说明  | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">博客功能添加改版记录说明 </h2>
+            <div class="post-date">2015-02-06 10:02:42</div>
+            
+            <div class="post-content">
+              <p>Hexo(基于node.js)个人静态博客搭建</p>
+<h2 id="个人静态博客搭建的想法">个人静态博客搭建的想法</h2>
+<p>每当空闲的时间,总会去浏览一些前端大牛的博客,经常去的几个站点就是<a href="http://www.cnblogs.com/">博客园</a>上面和<a href="http://www.html-js.com/">前端乱炖</a>这两个网站上面,渐渐的已经成为了我的一种生活习惯.每当看到那种绚丽页面效果时候,总是在那个页面上面停留了好久,欣赏那种那些漂亮网页特效带来的视觉冲击,内心就非常的渴望自己也能够做出那种类型的效果,希望自己能够向那些国内的web前端大牛看齐.<!-- more --></p>
+<h3 id="hexo静态博客的起初想法">hexo静态博客的起初想法</h3>
+<p>之前也用wordpress搭建过个人技术博客,用过一段时间后,感觉垃圾评论太多,而且还有一种冗余的感觉,之后自己就产生了一个想法,打算换个博客系统,在浏览前端相关的技术博客中,有很多的博客显示效果简介大气,浏览效果体验也很好,而且兼容各种移动终端,很快想用这种博客系统来重新整理我的博客的念头边产生了.于是乎我上网查找相关的资料,最后在不断的学习和请教他人过程中,我的个人静态博客终于问世了,哈哈....</p>
+<h3 id="博客主题的选择">博客主题的选择</h3>
+<p>我在使用目前的这款主题也是在浏览<code>CSS探索之旅</code>,<a href="http://blog.doyoe.com/">飘零雾雨</a>的博客是所受到的影响,于是乎就查找相关的技术文档,进行相关的准备工作,前前后后差不多弄了三个多星期才基本上达到了自己想要的效果吧,搭建的过程中当然也遇到了不少的问题,最终还是查找资料解决了,自己内心还是蛮高兴的,<code>因为通过搭建这个静态博客,自己还是学习到了不少的知识,也让自己有了一定的进步</code>.</p>
+<h2 id="用到的相关知识点">用到的相关知识点:</h2>
+<blockquote>
+<ul>
+<li>Git,Node,Npm,Hexo的安装和相关基础命令的使用</li>
+<li>Markdown语法的相关熟悉和排版技巧</li>
+<li>静态博客文章的新建,单页的新建和相关代码的同步到Github网站</li>
+<li>二级域名放入绑定设置</li>
+<li>wdcp服务器/虚拟主机管理系统的管理操作熟悉</li>
+</ul>
+</blockquote>
+<h3 id="博客搭建功更新记录">博客搭建功更新记录</h3>
+<ul>
+<li><a href="http://twiceyuan.com/2014/05/25/">Hexo自动添加readmore标记</a></li>
+<li><a href="http://www.twiceyuan.com/2015/01/12/">为Hexo主题添加文章目录</a></li>
+<li><a href="http://wuchong.me/blog/2014/01/08/hexo-scrollup/">Hexo添加返回顶部按钮</a></li>
+</ul>
+<h3 id="后期个人的一个工作笔记规划和想法">后期个人的一个工作笔记规划和想法</h3>
+<p>1.我的个人博客<a href="http://www.901web.com">901web前端博客</a>,主要用来记录个人后端语言的相关知识,例如:<code>php</code>,<code>常见的开源系统程序:phpcms,thinkphp,ecshop,wordpress等</code>,<code>以及mysql数据的相关基础知识</code></p>
+<p>2.<a href="http://blog.901web.com">前端博客</a>,则主要用来记录前端开发相关的工作笔记和相关的总结,以及在相关项目中遇到的常见问题.原先博客上面的一些笔记将会有选择性的整理一些过来,主要是:<code>HTML+CSS+Javascript</code>,<code>以及Jquery,Ajax,Jq插件</code>,<code>HTML5+CSS3</code>和<code>移动开发以及前端框架相关知识</code>,<code>公司开发规范等</code></p>
+<p>3.<a href="http://demo.901web.com">前端测试案例</a>,该网站则主要存放一些自己平常测试用的案例,进行一些相关的对比和解决方案,同一个问题的不同解决方案的对比,浏览器兼容性的测试,常见网站页面效果的实现思路等等.主要存放一些开发常用测试demo案例而用.</p>
+<blockquote>
+<p>最后在新的一年里面,希望自己能够静下心来沉淀学习和积累些东西,完成2014年没有完成的目标.</p>
+</blockquote>
+<pre><code>当才华还无法支撑起所谓梦想的时候，他需要静下心来继续沉淀。
+</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://blog.901web.com/tag/hexo-ji-zhu/" class="tag">
+                    hexo技术
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/GNhkJQ2Pf/">
+                  <h3 class="post-title">
+                    Hello Hexo
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

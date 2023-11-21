@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>HTTP强缓存和协商缓存web缓存相关 | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">HTTP强缓存和协商缓存web缓存相关</h2>
+            <div class="post-date">2018-03-20 20:03:53</div>
+            
+            <div class="post-content">
+              <h3 id="科普一">科普一</h3>
+<p>从输入网址到页面呈现过程：<br>
+1、浏览器输入：<code>www.leadbank.com</code> 通过DNS(网域名称系统)解析成IP地址: <code>103.6.220.58</code><br>
+2、客户端与服务器建立TCP/IP协议<br>
+3、传输层向服务器发送请求协议（HTTP/HTTPS/FTP等）<br>
+4、服务器响应请求，返回指定的URL数据或错误信息（如果设定重定向则重定向到新的URL地址）（Nginx反向代理）<br>
+5、客户端下载对应文件后：解析HTML以构建DOM树 –&gt; 构建渲染树 –&gt; 布局渲染树 –&gt; 绘制渲染树，最后呈现给用户</p>
+<!--more-->
+<blockquote>
+<p>DNS解析优先顺序: 先读缓存--Hosts文件--路由缓存--DNS缓存--根域名<br>
+DNS劫持：从DNS缓存数据库里找时被恶意改为其他的网址,所以请求到的是其他网址<br>
+Nginx反向代理：客户端请求Nginx服务，Nginx请求应用服务器，返回数据给到客户端，访问量大的网站一般采用Nginx反向代理，确保一台服务器挂了还有其他服务器正常运行，用户依旧可以正常使用。</p>
+</blockquote>
+<figure data-type="image" tabindex="1"><img src="http://upload-images.jianshu.io/upload_images/735918-19380e39f12aef7d.png?imageMogr2/auto-orient/strip" alt="DNS实际解析图" loading="lazy"></figure>
+<h3 id="科普二">科普二</h3>
+<pre><code class="language-html">请求常见状态码：
+200	OK	请求成功。
+301	Moved Permanently	永久移动。请求的资源已被永久的移动到新URI，返回信息会包括新的URI，浏览器会自动定向到新URI。今后任何新的请求都应使用新的URI代替
+302	Found	临时移动。与301类似。但资源只是临时被移动。客户端应继续使用原有URI
+304	Not Modified	未修改。所请求的资源未修改，服务器返回此状态码时，不会返回任何资源。客户端通常会缓存访问过的资源，通过提供一个头信息指出客户端希望只返回在指定日期之后修改的资源
+403	Forbidden	服务器理解请求客户端的请求，但是拒绝执行此请求
+404	Not Found	服务器无法根据客户端的请求找到资源（网页）。通过此代码，网站设计人员可设置&quot;您所请求的资源无法找到&quot;的个性页面
+405	Method Not Allowed	客户端请求中的方法被禁止
+500	Internal Server Error	服务器内部错误，无法完成请求
+501	Not Implemented	服务器不支持请求的功能，无法完成请求
+502	Bad Gateway	充当网关或代理的服务器，从远端服务器接收到了一个无效的请求
+503	Service Unavailable	由于超载或系统维护，服务器暂时的无法处理客户端的请求。延时的长度可包含在服务器的Retry-After头信息中
+504	Gateway Time-out	充当网关或代理的服务器，未及时从远端服务器获取请求
+505	HTTP Version not supported	服务器不支持请求的HTTP协议的版本，无法完成处理
+
+</code></pre>
+<hr>
+<h3 id="浏览器缓存">浏览器缓存</h3>
+<blockquote>
+<p>前端最头疼的两大问题：<code>命名</code> 和 <code>缓存</code></p>
+</blockquote>
+<blockquote>
+<ul>
+<li><strong>什么是浏览器缓存？</strong><br>
+浏览器缓存就是浏览器在本地磁盘对用户近期请求过的文档进行存储，当访问者再次访问同一页面时，浏览器可以直接从本地磁盘加载文档。</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><strong>缓存的优点？</strong><br>
+减少重复数据的多次请求，减轻服务器负担<br>
+提高网页加载速度，提升用户体验<br>
+离线应用等</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><strong>我们的痛点</strong><br>
+当网站发生了更新的时候（如替换了css、js以及图片文件），浏览器本地仍保存着旧版本的文件，从而导致无法预料后果。</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><strong>如何更好的运用浏览器缓存？</strong><br>
+？？？<br>
+？？？</li>
+</ul>
+</blockquote>
+<h3 id="浏览器缓存的分类">浏览器缓存的分类</h3>
+<blockquote>
+<p>浏览器缓存主要有两类：<mark>缓存协商</mark> 和 <mark>彻底缓存</mark>，也有称之为 <mark>协商缓存</mark> 和 <mark>强缓存</mark> 。</p>
+</blockquote>
+<blockquote>
+<p><strong>浏览器在第一次请求发生后，再次请求时：</strong><br>
+1、浏览器会先获取该资源缓存的header信息，根据其中的expires和cahe-control判断是否命中强缓存，若命中则直接从缓存中获取资源，包括缓存的header信息，本次请求不会与服务器进行通信；<br>
+2、如果没有命中强缓存，浏览器会发送请求到服务器，该请求会携带第一次请求返回的有关缓存的header字段信息（Last-Modified/IF-Modified-Since、Etag/IF-None-Match）,由服务器根据请求中的相关header信息来对比结果是否命中协商缓存，若命中，则服务器返回新的响应header信息更新缓存中的对应header信息，但是并不返回资源内容，它会告知浏览器可以直接从缓存获取；否则返回最新的资源内容</p>
+</blockquote>
+<pre><code class="language-javascript">// --Response Headers --
+Accept-Ranges:bytes
+Cache-Control:max-age=864000
+Content-Encoding:gzip
+Content-Length:6740
+Content-Type:text/css
+Date:Fri, 17 Nov 2017 02:43:40 GMT
+ETag:&quot;80ad-55deedca5b440-gzip&quot;
+Expires:Mon, 27 Nov 2017 02:43:40 GMT
+Last-Modified:Tue, 14 Nov 2017 10:29:29 GMT
+Server:Apache/2.4.10 (Unix) OpenSSL/0.9.8e-fips-rhel5
+Vary:Accept-Encoding,User-Agent
+// 案例地址：http://blog.csdn.net/wangjun5159/article/details/46912803
+
+</code></pre>
+<h3 id="强缓存expires-cache-control">强缓存（Expires + Cache-Control）</h3>
+<blockquote>
+<p>强缓存是利用http的返回头中的Expires或者Cache-Control两个字段来控制的，用来表示资源的缓存时间。</p>
+</blockquote>
+<blockquote>
+<p><strong>Expires</strong><br>
+响应值: <code>Expires:Mon, 27 Nov 2017 02:43:40 GMT</code><br>
+表示该资源失效的时间，在该时间内即命中缓存。（由于时间是绝对时间所以如果客户端时间和服务器误差较大会造成缓存错乱）</p>
+</blockquote>
+<blockquote>
+<p><strong>Cache-Control</strong> <code>（高优先级）</code><br>
+响应值：<code>Cache-Control:max-age=864000</code><br>
+代表该资源有效时间为 <code>864000</code> 秒,也就是 <code>100</code> 天<br>
+其他属性：<br>
+<code>no-cache</code>：不使用本地缓存。<br>
+说明: 需要使用缓存协商，先与服务器确认返回的响应是否被更改，如果之前的响应中存在ETag，那么请求的时候会与服务端验证，如果资源未被更改，则可以避免重新下载。<br>
+<code>no-store</code>：直接禁止游览器缓存数据。<br>
+说明：每次用户请求该资源，都会向服务器发送一个请求，每次都会下载完整的资源。<br>
+<code>public</code>：可以被所有的用户缓存。<br>
+说明：包括终端用户和CDN等中间代理服务器。<br>
+<code>private</code>：只能被终端用户的浏览器缓存。<br>
+说明：不允许CDN等中继缓存服务器对其缓存。<br>
+<strong><code>注意：</code></strong><br>
+<strong><code>Cache-Control与Expires可以在服务端配置同时启用，同时启用的时候Cache-Control优先级高。</code></strong></p>
+</blockquote>
+<h3 id="协商缓存">协商缓存</h3>
+<blockquote>
+<p>协商缓存就是由服务器来确定缓存资源是否可用，所以客户端与服务器端要通过某种标识来进行通信，从而让服务器判断请求资源是否可以缓存访问，这主要涉及到下面两组header字段，这两组搭档都是成对出现的，即第一次请求的响应头带上某个字段（Last-Modified或者Etag），则后续请求则会带上对应的请求字段（If-Modified-Since或者If-None-Match），若响应头没有Last-Modified或者Etag字段，则请求头也不会有对应的字段。</p>
+</blockquote>
+<blockquote>
+<p><strong>Last-Modify/If-Modify-Since</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>[Response Headers]</strong><br>
+响应值：<code>Last-Modified:Mon, 25 Sep 2017 10:25:16 GMT</code></p>
+</blockquote>
+<blockquote>
+<p><strong>[Request Headers]</strong><br>
+响应值：<code>If-Modified-Since:Thu, 12 Nov 2015 03:53:04 GMT</code></p>
+</blockquote>
+<blockquote>
+<p>表示该资源的最后修改时间<br>
+当浏览器再次请求该资源时，request的请求头中会包含If-Modify-Since，该值为缓存之前返回的Last-Modify。服务器收到If-Modify-Since后，根据资源的最后修改时间判断是否命中缓存。<br>
+如果命中缓存，则返回304，并且不会返回资源内容，并且<code>不会返回Last-Modify</code>。</p>
+</blockquote>
+<blockquote>
+<p><strong>ETag/If-None-Match</strong> <code>（高优先级）</code></p>
+</blockquote>
+<blockquote>
+<p><strong>[Response Headers]</strong><br>
+响应值：<code>Etag:e2f5c5e5d8e677f71d35164fab4b7c24</code></p>
+</blockquote>
+<blockquote>
+<p><strong>[Request Headers]</strong><br>
+响应值：<code>If-None-Match:e2f5c5e5d8e677f71d35164fab4b7c24</code><br>
+与上组不同，改组返回的ETag是一个校验码，确保每个资源唯一。服务器根据浏览器上送的If-None-Match值来判断是否命中缓存。<br>
+与Last-Modified不一样的是，当服务器返回304 Not Modified的响应时，由于ETag重新生成过，response header中还<code>会把ETag返回</code>，即使这个ETag跟之前的没有变化。</p>
+</blockquote>
+<blockquote>
+<p><strong>为什么有了<code>Last-Modified</code>,还要<code>ETag</code>？</strong><br>
+正解：为了解决<code>Last-Modified</code>难解决的问题</p>
+<ul>
+<li>一些文件也许会周期性的更改，但是他的内容并不改变(仅仅<code>改变的修改时间</code>)，这个时候我们并不希望客户端认为这个文件被修改了，而重新GET；</li>
+<li>某些文件修改非常频繁，比如在<code>秒以下的时间内</code>进行修改，(比方说1s内修改了N次)，If-Modified-Since能检查到的粒度是s级的，这种修改无法判断(或者说UNIX记录MTIME只能精确到秒)；</li>
+<li>某些服务器<code>不能精确的得到文件的最后修改时间</code>。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><code>Last-Modified</code> 和 <code>ETag</code> 可同时存在，服务器优先验证<code>ETag</code>,一致的情况下，才会继续比对Last-Modified，最后才决定是否返回304。</p>
+</blockquote>
+<blockquote>
+<p>强缓存 - 缓存读取 - 状态200：from disk cache 与 from memory cache<br>
+协商缓存 - 缓存读取 - 状态304：Not Last-Modified</p>
+</blockquote>
+<p><strong>[常见操作对缓存的影响]</strong></p>
+<table>
+<thead>
+<tr>
+<th>用户操作</th>
+<th>Expires/Cache-Control</th>
+<th>Last-Modified/Etag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>地址栏回车</td>
+<td>有效</td>
+<td>有效</td>
+</tr>
+<tr>
+<td>页面链接跳转</td>
+<td>有效</td>
+<td>有效</td>
+</tr>
+<tr>
+<td>新开窗口</td>
+<td>有效</td>
+<td>有效</td>
+</tr>
+<tr>
+<td>前进回退</td>
+<td>有效</td>
+<td>有效</td>
+</tr>
+<tr>
+<td>F5刷新</td>
+<td>无效</td>
+<td>有效</td>
+</tr>
+<tr>
+<td>Ctrl+F5强制刷新</td>
+<td>无效</td>
+<td>无效</td>
+</tr>
+</tbody>
+</table>
+<h3 id="实际项目中如何解决缓存问题">实际项目中如何解决缓存问题？</h3>
+<p>1、本地更新了<code>base.js</code>文件，但是发到服务器上再次打开页面没有更新？<br>
+2、通用<code>common.js</code>放在公司CDN上，修改替换存在缓存如何解决？<br>
+3、......</p>
+<h3 id="拓展h5离线存储">拓展H5离线存储</h3>
+<p>Tag：<code>manifest</code>、<code>.appcache</code>、<code>本地存储（localStorage、sessionStorage、Cookies、IndexedDB、WebSQL）</code>等等</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://blog.901web.com/tag/web-huan-cun/" class="tag">
+                    web缓存
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/kBSz8n2OD/">
+                  <h3 class="post-title">
+                    macOS上神奇的 Option（⌥）键
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

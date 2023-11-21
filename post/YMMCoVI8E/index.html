@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Antd+Dva+Umi开发后台CRM系统 | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Antd+Dva+Umi开发后台CRM系统</h2>
+            <div class="post-date">2020-12-28 18:12:43</div>
+            
+            <div class="post-content">
+              <p>最近一两个月的时间在开发公司的后台管理系统.用的是技术栈是<code>Antd+Dva+Umi</code>,记得在之前也用过一次,做过一个后台,但是时间久啦.然后<code>Antd</code>的版本也更新到V4啦.很多组件的API用法也发生了相应的变化.做一个简单的归纳总结和记录,可能写的比较零碎,想到什么就记录什么,比较随意......</p>
+<!-- more -->
+<h4 id="一个页面多个弹框展示效果">一个页面多个弹框展示效果:</h4>
+<p>一般的后台管理系统,右侧顶部有相关的搜索框,字段比较多的可能会设计为展开效果.下面一般为一个Table列表数据.对于列表table数据,会有一些相关的操作弹框展示.对于一个页面多个弹框的效果.建议设置一个对象<code>Object</code>来存储对应的显示影藏状态.</p>
+<p>例如: 现在基本都是用Hooks进行开发 (开始的时候设置初始值均为<code>false</code>)</p>
+<pre><code class="language-javascript">const [showDialog, setShowDialog] = useState({
+    adduserShow: false,
+    authShow: false,
+    deleteShow: false,
+    resetShow: false,
+});
+</code></pre>
+<p>显示页面弹框: (设置对应的弹框属性为<code>true</code>)</p>
+<pre><code class="language-javascript">const showModal = ( type, record) =&gt; {
+    const data = { ...showDialog };
+    data[type] = true;
+    setRecord(record);
+    setShowDialog(data);
+};
+</code></pre>
+<p>影藏页面弹框: (设置对应的弹框属性为<code>false</code>)</p>
+<pre><code class="language-javascript">  const hideModal = (type) =&gt; {
+    const data = { ...showDialog };
+    data[type] = false;
+    setShowDialog(data);
+  };
+</code></pre>
+<p>点击对应的操作时候,传入对应的type即可.<code>onClick={() =&gt; showModal('addroleShow', record)} </code></p>
+<p>编辑和新增共用同一个弹框,编辑的时候,传入<code>record</code>记录,新增的时候传入一个空对象<code>{}</code>即可,对于这种同步的弹框<code>显示</code>和<code>影藏</code>,建议直接放在<code>state</code>中就可以啦.当然,你也可以放到<br>
+Model里的<code>state</code>进行定义,然后模板<code>dispatch</code>一个<code>action</code>来改变.</p>
+<h4 id="表单赋初始值和弹框中的表单子组件请求异步接口数据">表单赋初始值和弹框中的表单(子组件)请求异步接口数据</h4>
+<blockquote>
+<p>表单赋初始值</p>
+</blockquote>
+<p>// 默认初始值的时候,set一个初始值存入 ,新增的时候,默认初始值,要这种写法才生效<br>
+// 有时候列表返回的数据与表单中自己定义的<code>name</code>值不对应,我们可以拿到列表数据进行一次map循环然后合并.<br>
+// 编辑和新增操作.可以通过props传入的值进行判断,合理使用影藏域(type=&quot;hidden&quot;)类型</p>
+<pre><code class="language-javascript">useEffect(() =&gt; {
+
+    const channel = getItem('productShunt', '0');
+
+    props.dispatch({ type: 'INSURESHUNTADD/detail', payload: channel }).then((res) =&gt; {
+
+      const proList = res.productShuntList &amp;&amp; res.productShuntList.map((item, index) =&gt; {
+        const {
+          insurerCode,
+          versionName
+        } = res.productShuntList[index];
+        return {
+          ...item,
+          sight: insurerCode,
+          pro: versionName
+        };
+      });
+      const defaultValues = {
+        &quot;channelName&quot;: res.channelName ? [`${res.channelName}`] : undefined,
+        &quot;channelSource&quot;: res.channelSource ? [`${res.channelSource}`] : undefined,
+        &quot;available&quot;: res.channelName ? res.productShuntList[0].available : available,
+        &quot;productShuntDetailVOS&quot;: proList, // 配置表单list重新赋值
+        &quot;channelList&quot;: res.productShuntList &amp;&amp; ([].concat(`${res.productShuntList[0].channelCode}#${res.productShuntList[0].channelSource}`)),
+        &quot;effectiveTime&quot;: res.productShuntList &amp;&amp; (moment(res.productShuntList[0].effectiveTime, 'YYYY-MM-DD HH:mm:ss'))
+      }
+
+      form.setFieldsValue(res.channelName ? defaultValues : { productShuntDetailVOS: [{}] });
+
+    })
+
+
+  }, [form]);
+
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://images.901web.com/2020-12-28-092025.png" alt="页面效果" title="默认新增策略配置有一条" loading="lazy"></figure>
+<p>编辑该条信息表单默认赋值:</p>
+<figure data-type="image" tabindex="2"><img src="https://images.901web.com/2020-12-28-092314.png" alt="页面效果" title="表单初始值" loading="lazy"></figure>
+<p>Antd版本升级到V4 后,对于动态表单新增每一项,提供了一个<code>Form.List</code>的API使用.</p>
+<blockquote>
+<p>弹框中子组件展示默认数据(请求异步接口)</p>
+</blockquote>
+<p>子组件里面的数据和方法通过props传递过去,子组件触发父组件的方法.</p>
+<p>在父组件中,是否展示子组件要进行判断,页面初始化的时候就会渲染子组件,从而导致拿不到值,传递的数据子组件中为<code>undefined</code>.</p>
+<p><strong>编辑操作的时候,可以不用是因为编辑操作的时候,可以传入<code>record</code>拿到对应的值,非异步</strong></p>
+<pre><code class="language-javascript">
+&lt;UserinfoForm {...addUserform}&gt;&lt;/UserinfoForm&gt;
+{ showDialog.authShow &amp;&amp; &lt;AuthForm {...authUserform}&gt;&lt;/AuthForm&gt;}
+
+</code></pre>
+<figure data-type="image" tabindex="3"><img src="https://images.901web.com/2020-12-28-094514.png" alt="页面效果" title="弹框中表单数据异步" loading="lazy"></figure>
+<h4 id="datepicker组件赋初始值和分页组件汉化以及搜索功能相关问题">Datepicker组件赋初始值和分页组件汉化以及搜索功能相关问题</h4>
+<ul>
+<li><code>RangePicker</code>组件赋值时候需要为<code>moment</code>对象.例如:到今天三个月前时间</li>
+</ul>
+<pre><code class="language-javascript">initialValue={
+[moment(moment().subtract(3, &quot;months&quot;), &quot;YYYY-MM-DD&quot;), moment(new Date(), &quot;YYYY-MM-DD&quot;)]
+}
+</code></pre>
+<ul>
+<li><code>Datepicker</code>以及<code>pagination</code>组件汉化问题</li>
+</ul>
+<p>//引入文件 <code>import locale from 'antd/lib/date-picker/locale/zh_CN';</code><br>
+//引入文件 <code>import moment from 'moment';</code><br>
+//引入文件 <code>import 'moment/locale/zh-cn';</code></p>
+<pre><code>&lt;DatePicker locale={locale}/&gt;
+
+</code></pre>
+<p>分页组件汉化:</p>
+<p>//引入文件 <code>import { ConfigProvider, message } from 'antd';</code></p>
+<pre><code>&lt;ConfigProvider locale={zhCN}&gt;
+
+
+&lt;/ConfigProvider&gt;
+</code></pre>
+<p>另外对于页面顶部的搜索功能,我们可以使用<code>Form</code>实现,相关的字段值设置为一个对象.在<code>Form</code>上面绑定<code>onFieldsChange</code>方法</p>
+<pre><code class="language-javascript">const [searchObj, setSearchobj] = useState({
+    username: '',
+    organizationCode: 0,
+    organizationOrgRoleRelationId: 0,
+    openFlag: ''
+})
+
+
+const onChangeVal = (allval) =&gt; {
+
+    const searchVal = Object.assign(searchObj, {
+      username: allval[0].value,
+      organizationCode: allval[1].value,
+      organizationOrgRoleRelationId: allval[2].value,
+      openFlag: allval[3].value
+    })
+    setSearchobj(searchVal)
+
+  }
+  
+  
+  &lt;Form
+    className=&quot;mo-form-search&quot;
+    onFieldsChange={(changedFields, allFields) =&gt; {
+      onChangeVal(allFields);
+    }}
+    onFinish={handleSubmitSearchForm}
+    colon={false}
+  &gt;
+
+
+ &lt;/Form&gt;
+</code></pre>
+<p>点击搜索的时候,将相关的表单字段值通过<code>payload</code>传递出去,请求接口即可.以上这些是在开发后台CRM系统时候遇到的一些相关问题.做一下记录,以免后续继续踩坑.</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://blog.901web.com/tag/antd/" class="tag">
+                    Antd
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/gbv4sv7iE/">
+                  <h3 class="post-title">
+                    Antd 表格单元格合并记录
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

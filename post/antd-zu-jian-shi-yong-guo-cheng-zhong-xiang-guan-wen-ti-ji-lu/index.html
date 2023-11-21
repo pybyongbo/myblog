@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Antd组件使用过程中相关问题记录(一) | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Antd组件使用过程中相关问题记录(一)</h2>
+            <div class="post-date">2022-01-22 13:01:36</div>
+            
+            <div class="post-content">
+              <p><strong>问题1</strong>:<br>
+Antd Select组件 defaultValue 无法动态更新</p>
+<p>此处的执行周期单位有<code>分钟</code>和<code>天</code>,这里的下拉选项是前端自定义的.然后在编辑操作的时候,根据后端返回的周期单位默认的选中对应的.</p>
+<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://images.901web.com/2022-01-14-020814.png" alt="页面展示图" loading="lazy"></figure>
+<pre><code class="language-javascript">const [timeUnit, setTimeUnit] = useState(props?.formValues?.startTimeUnit == 'd' ? '天' : '分钟');
+const selectAfter = (
+    &lt;Select
+      defaultValue={timeUnit}
+      className=&quot;select-after&quot;
+      onChange={onChangeUnit}
+      key={timeUnit}
+    &gt;
+      &lt;Option value=&quot;天&quot; &gt;天&lt;/Option&gt;
+      &lt;Option value=&quot;分钟&quot;&gt;分钟&lt;/Option&gt;
+    &lt;/Select&gt;
+  );
+
+// 初始化的时候,进行判断设置值
+setTimeUnit(formValues.startTimeUnit == 'd' ? '天' : '分钟');
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://images.901web.com/2022-01-22-055426.png" alt="页面展示图" loading="lazy"></figure>
+<blockquote>
+<p>这里需要注意的是,要给<code>selectAfter</code>中的Select组件收到添加一个key,否则编辑的时候,defaultValue无法更新</p>
+</blockquote>
+<p><strong>问题2</strong>:Cascader组件自定义渲染,<code>placeholder</code>不显示</p>
+<figure data-type="image" tabindex="3"><img src="https://images.901web.com/2022-01-14-022211.png" alt="页面展示图" loading="lazy"></figure>
+<p>这里对<code>Cascader</code>组件的<code>onChange</code>方法进行判断,然后设置值为<code>undefined</code>即可.如下:</p>
+<figure data-type="image" tabindex="4"><img src="https://images.901web.com/2022-01-22-055924.png" alt="页面代码截图" loading="lazy"></figure>
+<p><strong>问题3</strong>:如果一个表单组件是非必填的,但是如果填写了,就必须对格式进行校验.例如URL地址.</p>
+<p>// URL正则表达式<br>
+//  /[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+.?/</p>
+<figure data-type="image" tabindex="5"><img src="https://images.901web.com/2022-01-14-023428.png" alt="页面展示图" loading="lazy"></figure>
+<p>代码截图:</p>
+<figure data-type="image" tabindex="6"><img src="https://images.901web.com/2022-01-22-060135.png" alt="页面展示图" loading="lazy"></figure>
+<p><strong>问题4</strong> 组合表单提交,自定义表单控件问题</p>
+<p>对于页面有些地方是组合表单控件的时候,antd的Form.Item的只有一个表单元素的时候,Form才可以获取到对应的值.</p>
+<figure data-type="image" tabindex="7"><img src="https://images.901web.com/2022-01-14-024804.png" alt="页面展示图" loading="lazy"></figure>
+<p>对于这种有多个有多个表单控件的情况:使用<code>Input.Group compact</code>,拿到对应的值,然后进行拆分,组装提交.</p>
+<figure data-type="image" tabindex="8"><img src="https://images.901web.com/2022-01-22-060401.png" alt="页面展示图" loading="lazy"></figure>
+<p>另外一种形式,如上上图的,产品价格的模式,我们也可以进行<code>自定义表单控件</code>,自定义或第三方的表单控件,也可与Form组件一起使用.只要该组件遵循以下的约定:</p>
+<blockquote>
+<p>提供受控属性<code>value</code> 或其他与<code>valuePropName</code>的值同名的属性.<br>
+提供<code>onChange</code>事件或<code>trigger</code>的值同名的事件.</p>
+</blockquote>
+<p>详情Demo可以参考Antd的官网:</p>
+<p><a href="https://ant.design/components/form-cn/#components-form-demo-customized-form-controls">https://ant.design/components/form-cn/#components-form-demo-customized-form-controls</a></p>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/ji-zhu-ren-yuan-de-ren-sheng-bu-ying-gai-zhi-you-ji-zhu/">
+                  <h3 class="post-title">
+                    技术人员的生活不应该只有技术
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

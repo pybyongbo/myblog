@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>网页中接入第三方账号登录流程 | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">网页中接入第三方账号登录流程</h2>
+            <div class="post-date">2019-08-21 09:08:20</div>
+            
+              <div class="feature-container" style="background-image: url('https://images.901web.com/2019-08-21-034019.png')">
+              </div>
+            
+            <div class="post-content">
+              <p>网站接入第三方登录流程功能很常见,我们可以用第三方账号登录网站,这里主要简单介绍下整个设计思路和相关流程走通.项目DEMO示例只做了github和baidu账号的第三方登录.其他账号都大同小异的~</p>
+<p>设计的数据库是由两个表进行相关的关联,一个用户表(user),一个第三方登录的信息表(oauth),其中user.id与oauth.uid进行关联,可以获取到用户第三方账号的信息~</p>
+<!-- more -->
+<h3 id="相关技术栈">相关技术栈</h3>
+<ul>
+<li>后端nodejs+mysql+thinkjs</li>
+<li>前端样式Bootstrap</li>
+</ul>
+<p>两个表的DDL建表语句:<br>
+<strong>第三方登录信息表</strong></p>
+<pre><code class="language-sql">DROP TABLE IF EXISTS `oauth`;
+CREATE TABLE `oauth` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` char(50) NOT NULL COMMENT '类型，有 qq、github、weibo',
+  `uid` varchar(255) NOT NULL COMMENT '唯一标识',
+  `info` varchar(255) DEFAULT '' COMMENT '其他信息，JSON 形式',
+  `user_id` int(11) NOT NULL COMMENT '用户ID',
+  `create_time` bigint(13) NOT NULL COMMENT '创建时间',
+  `name` varchar(255) DEFAULT NULL COMMENT '显示名称',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
+</code></pre>
+<p><strong>用户信息表</strong></p>
+<pre><code class="language-sql">DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `username` varchar(255) NOT NULL COMMENT '用户名',
+  `password` varchar(255) NOT NULL COMMENT '密码',
+  `create_time` bigint(13) NOT NULL COMMENT '创建时间',
+  `update_time` bigint(13) NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+</code></pre>
+<h3 id="第三方登录说明">第三方登录说明</h3>
+<ul>
+<li>
+<p>每个用户必须拥有自己的用户名和密码。</p>
+</li>
+<li>
+<p>每个用户可以绑定不同的第三方帐户系统。</p>
+</li>
+<li>
+<p>用户可以对第三方绑定进行管理。</p>
+</li>
+<li>
+<p>用户可以通过已绑定的任意第三方帐户系统进行登录。</p>
+</li>
+<li>
+<p>用户授权表中需要存放第三方系统的唯一标识、显示名称，唯一标识用来和用户、第三方系统进行关联。</p>
+</li>
+<li>
+<p>基于 oAuth2.0 进行授权认证。</p>
+</li>
+<li>
+<p>第三方登录回调成功后，判断当前是否登录：</p>
+<blockquote>
+<p>已登录，刷新绑定信息。<br>
+未登录，记录授权信息，在登录、注册成功后绑定信息。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="github登录">GitHub登录</h3>
+<ul>
+<li>
+<p>跳转到授权页 https://github.com/login/oauth/authorize?</p>
+</li>
+<li>
+<p>认证通过后自动跳转到回调地址，并携带 code</p>
+</li>
+<li>
+<p>使用 code 请求 https://github.com/login/oauth/access_token 来获取 access_token ，有个小坑是，在想使用 JSON 返回值时，需要在请求头里添加 'Accept': 'application/json'</p>
+</li>
+<li>
+<p>使用 access_token 请求 https://api.github.com/ 获取用户信息：</p>
+<blockquote>
+<p>id - 唯一标识<br>
+name - 显示名称</p>
+</blockquote>
+</li>
+</ul>
+<p>参考链接:<a href="https://developer.github.com/apps/building-oauth-apps/authorization-options-for-oauth-apps/">https://developer.github.com/apps/building-oauth-apps/authorization-options-for-oauth-apps/</a></p>
+<h3 id="baidu百度账号登录">Baidu(百度账号)登录</h3>
+<ul>
+<li>
+<p>跳转到授权页面 http://openapi.baidu.com/oauth/2.0/authorize? ，需要区分下 PC 端和移动端传，参数 display 不一样，需要单独处理下</p>
+</li>
+<li>
+<p>认证通过后自动跳转到参数 redirect_uri 中，并携带 code</p>
+</li>
+<li>
+<p>使用 code 请求 https://openapi.baidu.com/oauth/2.0/token 获取 access_token</p>
+</li>
+<li>
+<p>使用 access_token 请求 https://openapi.baidu.com/rest/2.0/passport/users/getInfo 来获取用户信息，最终为：</p>
+<blockquote>
+<p>userid - 唯一标识<br>
+username - 显示名称<br>
+http://tb.himg.baidu.com/sys/portrait/item/${userinfo.portrait} - 用户头像</p>
+</blockquote>
+</li>
+</ul>
+<p>进入开发者服务管理里面去创建工程:</p>
+<p>链接地址:<code>http://developer.baidu.com/console#app/project</code></p>
+<p>参考链接:<a href="http://developer.baidu.com/wiki/index.php?title=docs/oauth/application">http://developer.baidu.com/wiki/index.php?title=docs/oauth/application</a></p>
+<h4 id="下面主要说明github账号登录处理的相关流程">下面主要说明Github账号登录处理的相关流程:</h4>
+<ul>
+<li>网站携带 ClientID 跳转到 GitHub 授权页面</li>
+<li>用户授权后，GitHub 携带授权码重定向回到网站回调页面</li>
+<li>网站通过授权码向 GitHub 请求用户令牌(Token)（验证授权码合法性）</li>
+<li>网站通过用户令牌请求用户信息(或其它接口)</li>
+</ul>
+<h4 id="创建一个oauth-app">创建一个OAuth App</h4>
+<p>OAuth 在 GitHub 中被叫作 OAuth Apps，所以需要先创建一个 OAuth App。</p>
+<p>通过点击右上角头像的 Settings → Developer settings → OAuth Apps 进入到 OAuth Apps 创建和管理页面：<code>https://github.com/settings/developers</code>。</p>
+<p>用于进行开发者配置,主要是<code>client_id</code>和<code>client_secret</code>,进行第三方登录.</p>
+<figure data-type="image" tabindex="1"><img src="https://images.901web.com/2019-08-21-022912.png" alt="创建OAuth App" loading="lazy"></figure>
+<p>点击右上角的“New OAuth App”进入新的 OAuth App 创建页面，需要填写的信息非常少。</p>
+<figure data-type="image" tabindex="2"><img src="https://images.901web.com/new-oauth-app.png" alt="填写相关信息" loading="lazy"></figure>
+<p>当用户点击授权后，GitHub 会携带授权码（code）回调/重定向到这个地址。 这个地址可以是任意合法的地址，比如<code>http://localhost:8020/</code>，在本地开发调试的使用,<strong>注意hosts里面配置不要写端口</strong>,nginx做代理即可。(这里可以配置nginx代理,修改本地hosts文件)</p>
+<pre><code class="language-hosts">127.0.0.1   weboauth.901web.com
+</code></pre>
+<p>Nginx配置文件(方便本地调试):</p>
+<pre><code>server {
+    listen 80;
+    server_name weboauth.901web.com;
+    root /Users/pengyongbo/Documents/nodejs-demo/web-oauth-app;
+    set $node_port 8020;
+    index index.js index.html index.htm;
+    if ( -f $request_filename/index.html ){
+        rewrite (.*) $1/index.html break;
+    }
+    if ( !-f $request_filename ){
+        rewrite (.*) /index.js;
+    }
+    location = /index.js {
+        proxy_http_version 1.1;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-NginX-Proxy true;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection &quot;upgrade&quot;;
+        proxy_pass http://127.0.0.1:$node_port$request_uri;
+        proxy_redirect off;
+    }
+    location ~ /static/ {
+        etag         on;
+        expires      max;
+    }
+}
+</code></pre>
+<p>访问的本地代码:</p>
+<figure data-type="image" tabindex="3"><img src="https://images.901web.com/2019-08-21-090445.png" alt="本地地址" loading="lazy"></figure>
+<p>点击登录,进行授权后.回调时，GitHub 会追加一个名为code的查询参数到刚刚指定的回调地址中。我们可以拿到返回的code参数~后面有用.</p>
+<p>创建好后，就可以拿到 Client ID 和对应的 Client Secret，同时还可以设置一个头像。Client ID 可以公开，Client Secret 请不要泄露。</p>
+<figure data-type="image" tabindex="4"><img src="https://images.901web.com/2019-08-21-091308.png" alt="开发者参数配置" loading="lazy"></figure>
+<p>点击使用第三方登录链接,这里会跳转到Github授权页面(如果没有登录会跳转到登录页面),已经登录的就会跳转到授权页面,如下图:</p>
+<figure data-type="image" tabindex="5"><img src="https://images.901web.com/2019-08-21-024947.png" alt="第三方登录授权" loading="lazy"></figure>
+<p>点击绿色的授权按钮后,用户就会被重定向到注册的OAuth App时的回调地址,参数中携带授权码<code>code</code></p>
+<h4 id="后端通过授权码向github请求用户令牌token">后端通过授权码向Github请求用户令牌(Token)</h4>
+<p>在我们拿到 GitHub 的授权码的时候，同样需要向 GitHub 验证这个授权码是否合法，这个过程即是<code>请求令牌</code>的过程。</p>
+<p>Github登录绑定账号<br>
+<img src="https://images.901web.com/2019-08-21-032748.png" alt="第三方登录成功绑定账号" loading="lazy"></p>
+<p>百度账号登录绑定<br>
+<img src="https://images.901web.com/2019-08-21-033325.png" alt="第三方登录成功绑定账号" loading="lazy"></p>
+<h4 id="请求用户令牌access_token">请求用户令牌(access_token)</h4>
+<p>令牌请求地址：POST <code>https://github.com/login/oauth/access_token</code>。</p>
+<p>参数详见：<a href="https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#2-users-are-redirected-back-to-your-site-by-github">https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#2-users-are-redirected-back-to-your-site-by-github</a></p>
+<p>有三个必选参数:</p>
+<table>
+<thead>
+<tr>
+<th>字段名称</th>
+<th>字段含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>client_id</td>
+<td>开发者的 ClientID</td>
+</tr>
+<tr>
+<td>client_secret</td>
+<td>开发者的 client_secret</td>
+</tr>
+<tr>
+<td>code</td>
+<td>授权码</td>
+</tr>
+</tbody>
+</table>
+<p>请求成功后,Github会返回令牌,即用户的token,拿到返回的用户token之后,我们就可以做很多事情啦</p>
+<h4 id="用令牌调用github接口获取用户信息">用令牌调用GitHub接口获取用户信息</h4>
+<p>拿到用户的令牌后，就可以做很多事了，今天我这篇文章只讲解获取用户信息。</p>
+<p>用户信息接口地址：<code>GET https://api.github.com/user</code>。</p>
+<p>在发请求时，需要携带用户令牌，这个令牌放在 HTTP 请求头部字段 <code>Authorization</code> 中。 虽然GitHub返回的是Bearer Token类型，但是API接口的要求的名字却是<code>token</code>，见下。</p>
+<pre><code class="language-txt">GET https://api.github.com/user
+
+Authorization: token 用户令牌
+</code></pre>
+<p>返回信息如下:(拿token调用接口返回的用户信息)</p>
+<pre><code class="language-json">{
+    &quot;login&quot;: &quot;pybyongbo&quot;,
+    &quot;id&quot;: 10751763,
+    &quot;node_id&quot;: &quot;MDQ6VXNlcjEwNzUxNzYz&quot;,
+    &quot;avatar_url&quot;: &quot;https://avatars0.githubusercontent.com/u/10751763?v=4&quot;,
+    &quot;gravatar_id&quot;: &quot;&quot;,
+    &quot;url&quot;: &quot;https://api.github.com/users/pybyongbo&quot;,
+    &quot;html_url&quot;: &quot;https://github.com/pybyongbo&quot;,
+    &quot;followers_url&quot;: &quot;https://api.github.com/users/pybyongbo/followers&quot;,
+    &quot;following_url&quot;: &quot;https://api.github.com/users/pybyongbo/following{/other_user}&quot;,
+    &quot;gists_url&quot;: &quot;https://api.github.com/users/pybyongbo/gists{/gist_id}&quot;,
+    &quot;starred_url&quot;: &quot;https://api.github.com/users/pybyongbo/starred{/owner}{/repo}&quot;,
+    &quot;subscriptions_url&quot;: &quot;https://api.github.com/users/pybyongbo/subscriptions&quot;,
+    &quot;organizations_url&quot;: &quot;https://api.github.com/users/pybyongbo/orgs&quot;,
+    &quot;repos_url&quot;: &quot;https://api.github.com/users/pybyongbo/repos&quot;,
+    &quot;events_url&quot;: &quot;https://api.github.com/users/pybyongbo/events{/privacy}&quot;,
+    &quot;received_events_url&quot;: &quot;https://api.github.com/users/pybyongbo/received_events&quot;,
+    &quot;type&quot;: &quot;User&quot;,
+    &quot;site_admin&quot;: false,
+    &quot;name&quot;: &quot;pyb永不言败&quot;,
+    &quot;company&quot;: &quot;上海摩贝&quot;,
+    &quot;blog&quot;: &quot;https://901web.com&quot;,
+    &quot;location&quot;: &quot;上海&quot;,
+    &quot;email&quot;: &quot;pyb901214@163.com&quot;,
+    &quot;hireable&quot;: null,
+    &quot;bio&quot;: &quot;Front-end Development Engineer&quot;,
+    &quot;public_repos&quot;: 43,
+    &quot;public_gists&quot;: 0,
+    &quot;followers&quot;: 0,
+    &quot;following&quot;: 3,
+    &quot;created_at&quot;: &quot;2015-01-29T03:44:53Z&quot;,
+    &quot;updated_at&quot;: &quot;2019-08-20T00:21:46Z&quot;,
+    &quot;private_gists&quot;: 1,
+    &quot;total_private_repos&quot;: 0,
+    &quot;owned_private_repos&quot;: 0,
+    &quot;disk_usage&quot;: 62987,
+    &quot;collaborators&quot;: 0,
+    &quot;two_factor_authentication&quot;: false,
+    &quot;plan&quot;: {
+        &quot;name&quot;: &quot;free&quot;,
+        &quot;space&quot;: 976562499,
+        &quot;collaborators&quot;: 0,
+        &quot;private_repos&quot;: 10000
+    }
+}
+</code></pre>
+<figure data-type="image" tabindex="6"><img src="https://images.901web.com/getuserinfo.png" alt="返回用户信息" loading="lazy"></figure>
+<p>其他第三方登录原理与流程也都大同小异.QQ开发者审核没有通过,微信好像要企业账号才可以用的.目前还没有测试.只做了Github和百度账号的测试.</p>
+<p>DEMO外网访问地址:<a href="http://weboauth.901web.com/">http://weboauth.901web.com/</a></p>
+<h3 id="参考资料">参考资料:</h3>
+<ul>
+<li><a href="https://github.com/xuexb/web-oauth-app">https://github.com/xuexb/web-oauth-app</a></li>
+<li><a href="https://blog.twofei.com/785/">陪她去流浪</a></li>
+</ul>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/mqxqFqcxv/">
+                  <h3 class="post-title">
+                    Vue+React单页应用Nodejs部署踩坑记录
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

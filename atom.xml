@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://blog.901web.com</id>
+    <title>pyb永波的技术博客</title>
+    <updated>2023-11-21T11:08:03.928Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://blog.901web.com"/>
+    <link rel="self" href="https://blog.901web.com/atom.xml"/>
+    <subtitle>温故而知新</subtitle>
+    <logo>https://blog.901web.com/images/avatar.png</logo>
+    <icon>https://blog.901web.com/favicon.ico</icon>
+    <rights>All rights reserved 2023, pyb永波的技术博客</rights>
+    <entry>
+        <title type="html"><![CDATA[关于valueOf,toString和[Symbol.toPrimitive]方法]]></title>
+        <id>https://blog.901web.com/post/guan-yu-valueoftostring-he-symboltoprimitivefang-fa/</id>
+        <link href="https://blog.901web.com/post/guan-yu-valueoftostring-he-symboltoprimitivefang-fa/">
+        </link>
+        <updated>2022-07-17T13:37:43.000Z</updated>
+        <summary type="html"><![CDATA[<p>之前看到过一道面试题,如何让<code>a==1&amp;&amp; a==2 &amp;&amp; a==3</code> 等于<code>true</code>,开始一看,一脸懵逼,后来搜索了下,看到了不同的解决方法.</p>
+<p><code>访问修饰符</code>能够解决这个问题,毕竟每访问一次值加1就好啦.</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>之前看到过一道面试题,如何让<code>a==1&amp;&amp; a==2 &amp;&amp; a==3</code> 等于<code>true</code>,开始一看,一脸懵逼,后来搜索了下,看到了不同的解决方法.</p>
+<p><code>访问修饰符</code>能够解决这个问题,毕竟每访问一次值加1就好啦.</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[本地部署RuoYi项目总结]]></title>
+        <id>https://blog.901web.com/post/ben-di-bu-shu-ruoyi-xiang-mu-zong-jie/</id>
+        <link href="https://blog.901web.com/post/ben-di-bu-shu-ruoyi-xiang-mu-zong-jie/">
+        </link>
+        <updated>2022-06-03T08:42:49.000Z</updated>
+        <summary type="html"><![CDATA[<p>最近在看vue3相关的的知识点,搜了下相关的开源项目,本地部署<code>若依</code>项目进行相关的学习.ruoyi是一个前后端分离的项目,前端是<code>Vue</code>,后端是<code>Java</code>,一个基于<code>SpringBoot+Vue</code>前后端分离的开源项目.下面对本地部署中遇到的相关问题总结记录下:</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>最近在看vue3相关的的知识点,搜了下相关的开源项目,本地部署<code>若依</code>项目进行相关的学习.ruoyi是一个前后端分离的项目,前端是<code>Vue</code>,后端是<code>Java</code>,一个基于<code>SpringBoot+Vue</code>前后端分离的开源项目.下面对本地部署中遇到的相关问题总结记录下:</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[React+Antd+Umi相关组件问题总结小计(二)]]></title>
+        <id>https://blog.901web.com/post/reactantdumi-xiang-guan-zu-jian-wen-ti-zong-jie-xiao-ji-er/</id>
+        <link href="https://blog.901web.com/post/reactantdumi-xiang-guan-zu-jian-wen-ti-zong-jie-xiao-ji-er/">
+        </link>
+        <updated>2022-03-06T10:32:53.000Z</updated>
+        <summary type="html"><![CDATA[<h3 id="antd-时间日期选择显示英文问题">Antd 时间日期选择显示英文问题</h3>
+<p>时间日期选择框展示的内容显示英文,如何修改为中文?</p>
+<pre><code class="language-javascript">
+    import { Popover,Divider,ConfigProvider } from 'antd'
+    import zhCN from 'antd/lib/locale/zh_CN';
+    import moment from &quot;moment&quot;;
+    import &quot;moment/locale/zh-cn&quot;;
+    moment.locale(&quot;zh-cn&quot;);
+    
+    
+    // 在最外层的组件处包裹一下即可.
+    
+    &lt;ConfigProvider locale={zhCN}&gt;
+    
+    
+    &lt;/ConfigProvider&gt;
+
+</code></pre>
+]]></summary>
+        <content type="html"><![CDATA[<h3 id="antd-时间日期选择显示英文问题">Antd 时间日期选择显示英文问题</h3>
+<p>时间日期选择框展示的内容显示英文,如何修改为中文?</p>
+<pre><code class="language-javascript">
+    import { Popover,Divider,ConfigProvider } from 'antd'
+    import zhCN from 'antd/lib/locale/zh_CN';
+    import moment from &quot;moment&quot;;
+    import &quot;moment/locale/zh-cn&quot;;
+    moment.locale(&quot;zh-cn&quot;);
+    
+    
+    // 在最外层的组件处包裹一下即可.
+    
+    &lt;ConfigProvider locale={zhCN}&gt;
+    
+    
+    &lt;/ConfigProvider&gt;
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[我的2021,回顾与年终总结]]></title>
+        <id>https://blog.901web.com/post/wo-de-2021hui-gu-yu-nian-zhong-zong-jie/</id>
+        <link href="https://blog.901web.com/post/wo-de-2021hui-gu-yu-nian-zhong-zong-jie/">
+        </link>
+        <updated>2022-01-22T06:17:51.000Z</updated>
+        <summary type="html"><![CDATA[<h3 id="2021年终总结">2021年终总结</h3>
+<p>又到了今年年末的时候,每一年年终的时候,都要习惯性的回顾下过去一年的成长和感悟.这个周末过完生日.自己也已经31周岁啦.过去的这一年里,过得马马虎虎.完成了人生中的两件大事情.<code>结婚</code>和<code>买车</code>.五一的时候结婚,元旦的时候我们订了车.然后回武汉上的牌照.也算确定了人生的两件大事情,后面如果我们计划着回武汉去工作也方便了些.毕竟最终还是要回湖北的...</p>
+]]></summary>
+        <content type="html"><![CDATA[<h3 id="2021年终总结">2021年终总结</h3>
+<p>又到了今年年末的时候,每一年年终的时候,都要习惯性的回顾下过去一年的成长和感悟.这个周末过完生日.自己也已经31周岁啦.过去的这一年里,过得马马虎虎.完成了人生中的两件大事情.<code>结婚</code>和<code>买车</code>.五一的时候结婚,元旦的时候我们订了车.然后回武汉上的牌照.也算确定了人生的两件大事情,后面如果我们计划着回武汉去工作也方便了些.毕竟最终还是要回湖北的...</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Antd组件使用过程中相关问题记录(一)]]></title>
+        <id>https://blog.901web.com/post/antd-zu-jian-shi-yong-guo-cheng-zhong-xiang-guan-wen-ti-ji-lu/</id>
+        <link href="https://blog.901web.com/post/antd-zu-jian-shi-yong-guo-cheng-zhong-xiang-guan-wen-ti-ji-lu/">
+        </link>
+        <updated>2022-01-22T05:37:36.000Z</updated>
+        <summary type="html"><![CDATA[<p><strong>问题1</strong>:<br>
+Antd Select组件 defaultValue 无法动态更新</p>
+<p>此处的执行周期单位有<code>分钟</code>和<code>天</code>,这里的下拉选项是前端自定义的.然后在编辑操作的时候,根据后端返回的周期单位默认的选中对应的.</p>
+]]></summary>
+        <content type="html"><![CDATA[<p><strong>问题1</strong>:<br>
+Antd Select组件 defaultValue 无法动态更新</p>
+<p>此处的执行周期单位有<code>分钟</code>和<code>天</code>,这里的下拉选项是前端自定义的.然后在编辑操作的时候,根据后端返回的周期单位默认的选中对应的.</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[技术人员的生活不应该只有技术]]></title>
+        <id>https://blog.901web.com/post/ji-zhu-ren-yuan-de-ren-sheng-bu-ying-gai-zhi-you-ji-zhu/</id>
+        <link href="https://blog.901web.com/post/ji-zhu-ren-yuan-de-ren-sheng-bu-ying-gai-zhi-you-ji-zhu/">
+        </link>
+        <updated>2021-11-28T00:59:12.000Z</updated>
+        <summary type="html"><![CDATA[<p>B站视频学习,不只有技术的人生,技术开发人员相关建议,我个人很喜欢的一个前端讲师B站(小野森森)<br>
+<br/></p>
+<h3 id="不要把工作当成自己的生活的全部">不要把工作当成自己的生活的全部</h3>
+]]></summary>
+        <content type="html"><![CDATA[<p>B站视频学习,不只有技术的人生,技术开发人员相关建议,我个人很喜欢的一个前端讲师B站(小野森森)<br>
+<br/></p>
+<h3 id="不要把工作当成自己的生活的全部">不要把工作当成自己的生活的全部</h3>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[编程生涯回顾,程序员的重要能力]]></title>
+        <id>https://blog.901web.com/post/bian-cheng-sheng-ya-hui-gu-cheng-xu-yuan-de-chong-yao-neng-li/</id>
+        <link href="https://blog.901web.com/post/bian-cheng-sheng-ya-hui-gu-cheng-xu-yuan-de-chong-yao-neng-li/">
+        </link>
+        <updated>2021-11-28T00:56:08.000Z</updated>
+        <summary type="html"><![CDATA[<h3 id="作为一个程序员的重要能力">作为一个程序员的重要能力</h3>
+]]></summary>
+        <content type="html"><![CDATA[<h3 id="作为一个程序员的重要能力">作为一个程序员的重要能力</h3>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[2021年初搬家记录]]></title>
+        <id>https://blog.901web.com/post/2021-nian-chu-ban-jia-ji-lu/</id>
+        <link href="https://blog.901web.com/post/2021-nian-chu-ban-jia-ji-lu/">
+        </link>
+        <updated>2021-11-28T00:47:56.000Z</updated>
+        <summary type="html"><![CDATA[<h3 id="收到通知">收到通知</h3>
+<p>今年3月中旬的时候,接到房东的通知说这个月底我们租的房子要收回 啦.于是我们不得重新找房,搬家.我想这是每一个在上海奋斗的年轻人都要经历和面临的问题.也许对于很多沪飘一族记忆犹新的经历吧.</p>
+]]></summary>
+        <content type="html"><![CDATA[<h3 id="收到通知">收到通知</h3>
+<p>今年3月中旬的时候,接到房东的通知说这个月底我们租的房子要收回 啦.于是我们不得重新找房,搬家.我想这是每一个在上海奋斗的年轻人都要经历和面临的问题.也许对于很多沪飘一族记忆犹新的经历吧.</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ES6基础知识点相关]]></title>
+        <id>https://blog.901web.com/post/es6-ji-chu-zhi-shi-dian-xiang-guan/</id>
+        <link href="https://blog.901web.com/post/es6-ji-chu-zhi-shi-dian-xiang-guan/">
+        </link>
+        <updated>2021-09-19T03:08:56.000Z</updated>
+        <summary type="html"><![CDATA[<h3 id="es6声明变量的六种方式">ES6声明变量的六种方式:</h3>
+<p>ES5只有两种声明变量的方法: <code>var</code>命令和<code>function</code>命令.ES6除了<code>let</code>和<code>const</code>命令,另外还有<code>import</code>和<code>class</code>声明方式.ES6一共有6种声明变量的方法. (还有var定义的变量存在变量提升)</p>
+]]></summary>
+        <content type="html"><![CDATA[<h3 id="es6声明变量的六种方式">ES6声明变量的六种方式:</h3>
+<p>ES5只有两种声明变量的方法: <code>var</code>命令和<code>function</code>命令.ES6除了<code>let</code>和<code>const</code>命令,另外还有<code>import</code>和<code>class</code>声明方式.ES6一共有6种声明变量的方法. (还有var定义的变量存在变量提升)</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[let/var/const和无关键字声明变量有有何不同?]]></title>
+        <id>https://blog.901web.com/post/letvarconst-he-wu-guan-jian-zi-sheng-ming-bian-liang-you-you-he-bu-tong/</id>
+        <link href="https://blog.901web.com/post/letvarconst-he-wu-guan-jian-zi-sheng-ming-bian-liang-you-you-he-bu-tong/">
+        </link>
+        <updated>2021-09-19T03:01:10.000Z</updated>
+        <summary type="html"><![CDATA[<h3 id="letvarconst和无关键字声明变量有有何不同">let/var/const和无关键字声明变量有有何不同?</h3>
+<p><strong>没有关键字</strong></p>
+<p>在变量赋值之前没有关键字存在,要么赋值给一个不存在的全局变量,要么重新分配给已声明的变量.在非严格模式下,如果变量没有声明,它将赋值为全局对象(浏览器中的<code>window</code>)的一个属性.在严格模式下,它将抛出一个错误阻止不需要的全局变量被创建.</p>
+]]></summary>
+        <content type="html"><![CDATA[<h3 id="letvarconst和无关键字声明变量有有何不同">let/var/const和无关键字声明变量有有何不同?</h3>
+<p><strong>没有关键字</strong></p>
+<p>在变量赋值之前没有关键字存在,要么赋值给一个不存在的全局变量,要么重新分配给已声明的变量.在非严格模式下,如果变量没有声明,它将赋值为全局对象(浏览器中的<code>window</code>)的一个属性.在严格模式下,它将抛出一个错误阻止不需要的全局变量被创建.</p>
+]]></content>
+    </entry>
+</feed>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>ajax滚屏加载效果之修复篇 | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">ajax滚屏加载效果之修复篇</h2>
+            <div class="post-date">2015-05-17 11:05:53</div>
+            
+            <div class="post-content">
+              <p>记得上周发表过一篇关于php分页函数的封装和相关ajax分页效果的探讨的文章.但是之后在测试的过程中发现最后的一个滚动加载的ajax分页效果有个bug.<br>
+加载到页面的数据不是完全正确,有时候还会有重复加载的一种情况出现.本周末在家里看腾讯的前端团队的博客的时候,发现文章列表也用了滚屏加载的技术,于是就趁着周末有时间,恰巧有碰到这个问题,就重新研究了一下.</p>
+<!-- more -->
+<hr>
+<p>打开腾讯设计团队的博客:<a href="http://isux.tencent.com/">腾讯ISUX 社交用户体验设计</a>查看了下页面中的源代码,看了下它的这种滚屏加载实现的思路.<br>
+事先定义了一个变量:<em>var loading_flag=false</em>;也就是我们程序中常说的加个锁.在没有数据的时候,将这个变量变为false.它的代码主要截图如下:</p>
+<h2 id="腾讯isux博客页面滚屏效果">腾讯ISUX博客页面滚屏效果</h2>
+<figure data-type="image" tabindex="1"><img src="https://images.901web.com/hexoblog/ajax_scroll4.jpg" alt="腾讯ISUX博客页面滚屏" title="腾讯ISUX博客页面滚屏" loading="lazy"></figure>
+<p>之后仿照他的这个思路.我自己也把原先我写的代码做了相关的更改.更改之后没有明显的bug了.但是就是还有一个问题是,当加载完毕数据后,如果还在不断的拖动滚动条的话,打开firebug查看请求的地址,还是有相关的请求的.至不过没有数据显示返回显示到页面上面.暂时还不知道有没有什么其他的很好的解决方案.</p>
+<p>请看如下截图:</p>
+<h2 id="数据加载完毕firebug查看相关请求">数据加载完毕firebug查看相关请求</h2>
+<figure data-type="image" tabindex="2"><img src="https://images.901web.com/hexoblog/ajax_scroll5.jpg" alt="数据加载完毕firebug查看相关请求" title="数据加载完毕firebug查看相关请求" loading="lazy"></figure>
+<p>如果你也遇到过相关的问题欢迎探讨.关于页面有我的相关联系方式.</p>
+<p>最后我修复之后的效果没有出现数据重复加载的bug了,基本上是按照拖动滚动条加载对应的分页数据显示在页面上面.</p>
+<p>附上测试截图和demo地址:</p>
+<h2 id="ajax滚屏加载修复bug">ajax滚屏加载修复bug</h2>
+<figure data-type="image" tabindex="3"><img src="https://images.901web.com/hexoblog/ajax_scroll1.png" alt="ajax滚屏加载修复bug截图1" title="ajax滚屏加载修复bug截图1" loading="lazy"></figure>
+<h2 id="ajax滚屏加载修复bug-2">ajax滚屏加载修复bug</h2>
+<figure data-type="image" tabindex="4"><img src="https://images.901web.com/hexoblog/ajax_scroll2.png" alt="ajax滚屏加载修复bug截图2" title="ajax滚屏加载修复bug截图2" loading="lazy"></figure>
+<h2 id="ajax滚屏加载修复bug-3">ajax滚屏加载修复bug</h2>
+<figure data-type="image" tabindex="5"><img src="https://images.901web.com/hexoblog/ajax_scroll3.png" alt="ajax滚屏加载修复bug截图3" title="ajax滚屏加载修复bug截图3" loading="lazy"></figure>
+<h2 id="测试案例链接">测试案例链接</h2>
+<ul>
+<li><a href="http://demo.901web.com/ajaxpage/ajax_page_scroll_fixed/index.php">ajax滚动加载之修复效果地址</a></li>
+</ul>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://blog.901web.com/tag/ajax-jia-zai/" class="tag">
+                    Ajax加载
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/W__iPAHvT/">
+                  <h3 class="post-title">
+                    mysql copy表或表数据常用的语句整理汇总
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

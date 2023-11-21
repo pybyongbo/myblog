@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>文件上传线上bug排查记录 | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">文件上传线上bug排查记录</h2>
+            <div class="post-date">2018-07-10 20:07:53</div>
+            
+            <div class="post-content">
+              <p>对于做web开发的我们,文件上传需求肯定不会陌生,也会经常遇到.不过在解决文件上传的问题的时候,有时候也不是完全是有前端的问题,同时我们可能还需要懂点服务器相关的知识,才能够很好的和后端联调,程序出现了问题,也能够迅速的定位问题的,然后很好的解决.有时候服务器端限制了文件上传的大小限制,或者前端上传文件Ajax超时了等等.所有出现了问题我们就得慢慢的一步步的来排查啦~</p>
+<!-- more -->
+<p>上周在做公司内部系统的时候,就遇到了一个文件上传的.说起来还挺坑爹的,也有自己的一部分原因吧.没有测试一些异常情况,文件过大或者网络过慢,请求超时了.一直没有上传成功.发布到线上了,同时在批量上传商品的时候却不成功.导致系统无法使用文件批量上传.最后找到开发反馈,然后这块的前端是我负责的.于是后果直接可想而知啦.肯定对我的印象不太好啦,赶紧查看问题的根源,于是跟后端对接起来,打个分支,修复问题,重新发版,完美结束.</p>
+<h3 id="定位问题">定位问题</h3>
+<p>于是乎我就打开了本地环境测试,确实上传大文件的时候无法上传,开始我一直以为是服务器端做了文件大小的限制.我自己用小一点的文件上传却是可以上传成功的.而如果换成同时发的那个文件,感觉就没有成功.浏览器端抛出了一个警告⚠️提示.</p>
+<pre><code class="language-javascript">Provisional headers are shown
+</code></pre>
+<p>搜索了下,大概的意思是:浏览器第一次发送这个请求，请求被阻塞，未收到响应。后端没有收到响应,让后端也查看了下相关的日志,于是乎问题可能就是前端的啦.</p>
+<p>看了下浏览器的请求,那个status的状态一直是pending的.说明好像还没有处理完,结果没有返回给前端.(由于后端用的是异步处理的,有一个时间过长的.)</p>
+<figure data-type="image" tabindex="1"><img src="https://images.901web.com/hexoblog/upload_0710.png" alt="浏览器请求接口" title="浏览器请求接口" loading="lazy"></figure>
+<p>于是乎和后端一起讨论了下,说明后端还没有处理完结果,返回到前端,还处于一个pending的状态.然后让我去看了下前端AJax请求处理设置的超时时间.看了下果然找到了问题.设置的超时时间为10000,即10s钟.</p>
+<p>对比了下代码中设置的超时时间,我们都是统一的设置:(请求超时时间就是10S钟)</p>
+<figure data-type="image" tabindex="2"><img src="https://images.901web.com/hexoblog/upload_0712.png" alt="前端代码超时设置" title="前端代码超时设置" loading="lazy"></figure>
+<p>我们逐步排查问题,更改了下这个接口的超时时间设置,设置成了20000.即20s的时间,然后本地上传测试了下.结果看到了操作成功的提示框.心中顿时豁然开朗了.还确实是由于设置的超时时间过短造成的.之后又再次查看了下浏览器请求.此时的Status是200,也对比了下那个Time的时间11.70s,确实超过了10s时间.</p>
+<figure data-type="image" tabindex="3"><img src="https://images.901web.com/hexoblog/upload_0711.png" alt="浏览器请求接口" title="浏览器请求接口" loading="lazy"></figure>
+<p>之前上传小一点的文件可以上传成功,然后稍微大点的文件就报错.我一直以为是服务器端文件上传大小做了相关的限制.结果经过确认却没有限制大小. 问题出现了,我们就得一步步的去排查,去尝试.慢慢的遇到的问题多了,解决的问题多了.也有了经验.首先内心不要怕.要敢于尝试,敢于承担.这样才能成长~</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://blog.901web.com/tag/web-huan-cun/" class="tag">
+                    web缓存
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/iH-MX5WKs/">
+                  <h3 class="post-title">
+                    HTTP强缓存和协商缓存web缓存相关
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

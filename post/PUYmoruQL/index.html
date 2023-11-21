@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>mysql语句中去除重复的记录条数小结 | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">mysql语句中去除重复的记录条数小结</h2>
+            <div class="post-date">2018-11-17 21:11:19</div>
+            
+              <div class="feature-container" style="background-image: url('https://images.901web.com/2019-08-03-080233.png')">
+              </div>
+            
+            <div class="post-content">
+              <p>mysql语句中去除重复的记录条数小结</p>
+<p>今天在上网查阅sql语句的相关资料的时候,在自学IT网上面看到一道sql基础语句的面试题目,于是自己就在电脑上面测试了下,结果看似满基础的东西,却还是卡克了,最后在于同事的讨论中终于还是搞定了这个小问题,在下午不是很忙的时候,便抽出一点时间来整理下这道题目,做个相关的总结,面得以后自己又搞忘记了.也方便以后相关的查阅.</p>
+<!--more-->
+<p>以下是相关题目的截图说明和题目要求: 删除掉表中的重复记录的条数,保证相同的记录只有一条即可. (以下为了方便测试,将相关的建表语句和sql查询语句都列出来.)</p>
+<pre><code class="language-sql">CREATE TABLE `chongfu` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(10) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+</code></pre>
+<p><img src="http://images.901web.com/20140729153504.jpg" alt="sql语句截图" loading="lazy"><br>
+插入相关的数据后如上图所示; 最终需要达到的相关查询要求是如下截图(但要求不要用select语句,而是要用delete语句来实现);<br>
+<img src="http://images.901web.com/20140729153751.jpg" alt="sql语句截图" loading="lazy"><br>
+最终整理的对比相关的综合图片如下:<br>
+<img src="http://images.901web.com//total.png" alt="sql语句截图" loading="lazy"><br>
+开始在自己的电脑上面测试的时候,思路没有错误,就是没有给表取别名在navicat中运行相关的sql语句是一直报错.最后经过相关的测试,得到最终的答案的sql语句为:</p>
+<pre><code class="language-mysql">delete from chongfu where id in (select a.id from (select id from chongfu group by name having count(name) &gt; 1) as a );
+//注意要给表区别名,否则在mysql中会报错.其他数据库中应该不需要的.
+//单独查询select id from chongfu group by name having count(name) &gt; 1;可以得到id=1和id=3的两列
+</code></pre>
+<p>而如果要是用select语句的话,下面这句就可以搞定:</p>
+<pre><code class="language-mysql">select * from chongfu where id not in(select id from chongfu group by name having count(name) &gt; 1);
+</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://blog.901web.com/tag/mysql-xiang-guan/" class="tag">
+                    Mysql相关
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/DcZrxG-WT/">
+                  <h3 class="post-title">
+                    JS常用API,项目笔记汇总
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

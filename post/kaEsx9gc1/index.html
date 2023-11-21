@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>箭头函数和普通函数的区别: | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">箭头函数和普通函数的区别:</h2>
+            <div class="post-date">2020-12-19 20:12:26</div>
+            
+            <div class="post-content">
+              <p>js中箭头函数和普通函数的区别,以及使用方法</p>
+<!-- more -->
+<h4 id="1写法">1.写法:</h4>
+<p>普通函数:function() {}<br>
+箭头函数:() =&gt; {}</p>
+<p>两者的共同点就是圆括号和大括号,圆括号用来放置参数,大括号里面放置函数主体内容.</p>
+<pre><code class="language-javascript">   let chicken = ['战斗鸡','小鸡','奥尔良烤鸡'];
+   let chicken_normal = chicken.map(function(item){
+       return item+='鸡';
+   });
+   
+   let chicken_arrow = chicken.map(item=&gt;item+='鸡');
+   
+   console.log(chicken_normal,chicken_arrow);
+</code></pre>
+<p>不能为箭头函数命名,因为箭头函数是函数表达式,而且是匿名的.而普通函数可以是函数表达式,也可以是函数声明.</p>
+<h4 id="2箭头函数是匿名函数不能作为构造函数不能使用new">2.箭头函数是匿名函数,不能作为构造函数,不能使用new.</h4>
+<p>例如如下代码会报错:</p>
+<pre><code class="language-javascript">    let FunConstructor = () =&gt;{
+        console.log('1111');
+    }
+    let fc = new FunConstructor()
+    // 报错:Uncaught TypeError:FunConstructor is not a constructor
+</code></pre>
+<h4 id="3箭头函数不绑定arguments取而代之用rest参数解决rest参数形式为变量名">3.箭头函数不绑定arguments,取而代之用rest参数...解决(rest参数:形式为...变量名)</h4>
+<h4 id="4箭头函数不绑定this会捕获其所在的上下文的this值作为自己的this值">4.箭头函数不绑定this,会捕获其所在的上下文的this值,作为自己的this值.</h4>
+<figure data-type="image" tabindex="1"><img src="https://images.901web.com/2020-09-05-arrow-fun-this.png" alt="页面效果" title="提交验证" loading="lazy"></figure>
+<p>注意一点,箭头函数不能通过call,apply和bind来改变this的值.但是箭头函数依旧是可以调用 call,apply和bind方法的.只不过this的值不受这几个方法控制.</p>
+<p>区别对比图如下:</p>
+<figure data-type="image" tabindex="2"><img src="https://images.901web.com/2020-09-05-diff-arr-fun.jpg" alt="区别对比图" loading="lazy"></figure>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/t8mSzAE_M/">
+                  <h3 class="post-title">
+                    VUE版拼图小游戏开发(拼拼乐)
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

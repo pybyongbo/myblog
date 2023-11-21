@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>ajax分页效果彻底研究 | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">ajax分页效果彻底研究</h2>
+            <div class="post-date">2015-05-10 21:05:02</div>
+            
+            <div class="post-content">
+              <p>ajax(jquery,php,json数据格式)分页效果的彻底研究.周末放假休息,在家没有什么事情,就研究了下ajax分页的效果.虽然折腾了蛮长时间,但是通过自己的思考和整理,还是学到了不少的知识.</p>
+<p>其中涉及到的知识点还蛮多的.看似一个简单的效果还是的多多尝试.就一个普通的ajax分页效果,我尝试着扩展了下网上常见的一些效果,也涉及到一些基础的php和数据库知识.</p>
+<!-- more -->
+<h2 id="学习了下php的分页相关知识">学习了下php的分页相关知识.</h2>
+<h2 id="扩展的分页效果有">扩展的分页效果有:</h2>
+<blockquote>
+<ul>
+<li>普通的文本+数字点击分页效果</li>
+<li>通过点击加载更多按钮点击加载效果.</li>
+<li>通过判断滚动条位置是否达到底部从而加载数据,类似QQ空间的效果.</li>
+</ul>
+</blockquote>
+<h2 id="所运用到的相关基础知识点">所运用到的相关基础知识点:</h2>
+<blockquote>
+<ul>
+<li>(1).Jquery AJAX POST与GET之间的区别,以及data参数的传递.</li>
+<li>(2).Jquery循环json数据格式的方式有那些.(jquery 如何遍历json).</li>
+<li>(3).Jquery中的ajax方法发送请求前,请求完成后相关的回调函数和操作.</li>
+<li>(4).php中代码的延迟执行(sleep函数),数组,json_encode函数将php数组转换成json数据.</li>
+<li>(5).Jquery中的append方法,show(),hide()显示影藏等等.</li>
+<li>(6).Jquery中的相关事件方法,点击,拖动滚动条,如何给元素绑定事件不同方式,给动态生成的元素绑定事件.</li>
+<li>(7).后台php文件可以返回json格式的数据,也可以直接返回html代码,前台直接append即可.</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="主要实现思路和相关的代码">主要实现思路和相关的代码</h2>
+<hr>
+<p>(1).php中分页的实现思路和不同格式的分页方式调用.</p>
+<p>首先建立数据库连接文件</p>
+<p><strong>代码块(数据库连接文件)</strong></p>
+<pre><code class="language-php">&lt;?php
+$host=&quot;localhost&quot;;
+$db_user=&quot;root&quot;;
+$db_pass=&quot;root&quot;;
+$db_name=&quot;kcdns&quot;;
+$timezone=&quot;Asia/Shanghai&quot;;
+
+$link=mysql_connect($host,$db_user,$db_pass);
+mysql_select_db($db_name,$link);
+mysql_query(&quot;SET names UTF8&quot;);
+
+header(&quot;Content-Type: text/html; charset=utf-8&quot;);
+date_default_timezone_set($timezone); //北京时间
+?&gt;
+
+</code></pre>
+<p><strong>代码块(分页函数)</strong></p>
+<pre><code class="language-php">&lt;?php
+/**
+ * $_type=1数字分页 $_type=2文本分页 $_type=3 文本+数字
+ * @param 分页函数_paging  $_type
+*/
+
+function _paging($_type) {
+	global $page,$pagenum,$_num,$pagesize;
+	if($_type == 1) {
+		echo '&lt;div id=&quot;page_num&quot;&gt;';
+		echo '&lt;ul&gt;';	
+				 for($i=0;$i&lt;$pagenum;$i++) {
+				 	if($page==($i+1)) {
+				 		echo '&lt;li&gt;&lt;a href=&quot;index.php?page='.($i+1).'&quot; class=&quot;selected&quot;&gt;'.&quot;[&quot;.($i+1).&quot;]&quot;.'&lt;/a&gt;&lt;/li&gt;';
+				 	} else{
+				 		echo '&lt;li&gt;&lt;a href=&quot;index.php?page='.($i+1).'&quot;&gt;'.($i+1).'&lt;/a&gt;&lt;/li&gt;';
+
+				 	}
+				 }
+			echo '&lt;/ul&gt;';		
+		echo '&lt;/div&gt;';
+		
+	} elseif($_type == 2) {
+	
+		echo '&lt;div id=&quot;page_text&quot;&gt;';
+		echo '&lt;ul&gt;';
+				echo '&lt;li&gt;共有&lt;strong&gt; '. $_num.' &lt;/strong&gt;条数据&lt;/li&gt;';
+				echo '&lt;li&gt;'. $page.' /' .$pagenum.' 页&lt;/li&gt;';
+			
+				 
+				if($page ==1) {
+				 echo '&lt;li&gt;首页&lt;/li&gt;';
+				 echo '&lt;li&gt;上一页&lt;/li&gt;';
+				} else{
+					
+					 echo '&lt;li&gt;&lt;a href=&quot;index.php&quot;&gt;首页&lt;/a&gt;&lt;/li&gt;';
+				     echo '&lt;li&gt;&lt;a href=&quot;index.php?page='.($page-1).'&quot;&gt;上一页&lt;/a&gt;&lt;/li&gt;';
+					
+				}
+				
+			if($page == $pagenum) {
+				
+					 echo '&lt;li&gt;下一页&lt;/li&gt;';
+					 echo '&lt;li&gt;尾页&lt;/li&gt;';
+					 echo &quot;\n&quot;;
+					
+				} else {
+					 
+				     echo '&lt;li&gt;&lt;a href=&quot;index.php?page='.($page+1).'&quot;&gt;下一页&lt;/a&gt;&lt;/li&gt;';
+				     echo &quot;\n&quot;;
+				     echo '&lt;li&gt;&lt;a href=&quot;index.php?page='.$pagenum.'&quot;&gt;尾页&lt;/a&gt;&lt;/li&gt;';
+				     echo &quot;\t\t&quot;;
+				}
+
+		echo '&lt;/ul&gt;';
+		echo '&lt;/div&gt;';
+		
+		
+	} elseif($_type == 3) {
+
+		echo '&lt;div id=&quot;page_num_text&quot;&gt;';
+		echo '&lt;div class=&quot;info&quot;&gt;&lt;strong&gt;共 '.$_num.' 条数据&lt;/strong&gt;&lt;em&gt;每页显示&lt;font color=&quot;red&quot;&gt;'.$pagesize.'&lt;/font&gt;条,&lt;/em&gt;&lt;span&gt;当前第'.$page.'页/共'.$pagenum.'页&lt;/span&gt;&lt;/div&gt;';
+			echo '&lt;ul&gt;';
+
+			if($page ==1) {
+
+				echo '&lt;li&gt;首页&lt;/li&gt;';
+				echo '&lt;li&gt;&amp;lt&lt;/li&gt;';
+			} else{ 
+				echo '&lt;li&gt;&lt;a href=&quot;index.php&quot; title=&quot;index.php&quot; rel=&quot;1&quot;&gt;首页&lt;/a&gt;&lt;/li&gt;';
+				echo '&lt;li&gt;&lt;a href=&quot;index.php?page='.($page-1).'&quot; title=&quot;index.php?page='.($page-1).'&quot; rel='.($page-1).'&gt;&amp;lt&lt;/a&gt;&lt;/li&gt;';
+			  
+			}
+
+
+			 if ($pagenum &gt; 1) {
+
+				   for($i=1;$i&lt;=$pagenum;$i++) {
+				        if($i==$page) {
+				            echo ' &lt;li style=&quot;color:red&quot;&gt;[',$i,']&lt;/li&gt;';
+				        } else {
+				            echo '&lt;li&gt; &lt;a href=&quot;index.php?page='.$i.'&quot; title=&quot;index.php?page='.$i.'&quot; rel='.($i).'&gt;'.$i.'&lt;/a&gt;&lt;/li&gt;';
+				        }
+				    }
+			}
+
+
+			if($page ==$pagenum ) {
+
+				echo '&lt;li&gt;&amp;gt&lt;/li&gt;';
+				echo '&lt;li&gt;尾页&lt;/li&gt;';
+
+			} else {
+				  	 echo '&lt;li&gt;&lt;a href=&quot;index.php?page='.($page+1).'&quot; title=&quot;index.php?page='.($page+1).'&quot; rel='.($page+1).'&gt;&amp;gt&lt;/a&gt;&lt;/li&gt;';
+				     echo &quot;\n&quot;;
+				     echo '&lt;li&gt;&lt;a href=&quot;index.php?page='.$pagenum.'&quot; title=&quot;index.php?page='.$pagenum.'&quot; rel='.($pagenum).'&gt;尾页&lt;/a&gt;&lt;/li&gt;';
+			}
+
+			echo '&lt;ul&gt;';
+		echo '&lt;/div&gt;';
+
+		
+	} 
+	
+}
+?&gt;
+
+</code></pre>
+<p><strong>代码块(前台模版页面)</strong></p>
+<pre><code class="language-php">&lt;?php
+require_once('../include/connect.php'); 
+require_once('../include/function.php'); 
+$pagesize=4; //每页显示的记录数
+//确定当前页数 $p 参数
+$page = @$_GET['page']?$_GET['page']:1;
+
+//数据指针
+$offset = ($page-1)*$pagesize;
+
+$result=mysql_query(&quot;select title,thumb,description,updatetime,url from v9_news order by id desc limit $offset , $pagesize&quot;);
+
+
+//计算新闻总数
+$count_result = mysql_query(&quot;SELECT count(*) as count FROM v9_news&quot;);
+$_num=$count_result;
+
+$count_array = mysql_fetch_array($count_result);
+
+
+$_num = $count_array[0];
+//计算总的页数
+$pagenum=ceil($count_array['count']/$pagesize);
+
+?&gt;
+</code></pre>
+<p><strong>下面直接循环读取数据,调用写好的分页函数即可,具体的实例可以查看如下链接,对比地址栏观看</strong></p>
+<p><a href="http://demo.901web.com/ajaxpage/php_page1/index.php">php分页函数实例链接(数字+文本)</a></p>
+<h2 id="下面将介绍普通的ajax分页效果点击分页ajax加载post方式">下面将介绍普通的ajax分页效果,点击分页ajax加载,POST方式</h2>
+<p><strong>代码块(主要Javascript代码)</strong></p>
+<pre><code class="language-Javascript">var curPage = 1; //当前页码
+var total,pageSize,totalPage;
+//获取数据
+function getData(page){ 
+	$.ajax({
+		type: 'POST',
+		url: 'data.php',
+		data: {'pageNum':page},
+		dataType:'json',
+		beforeSend:function(){
+			
+			$(&quot;.loading&quot;).css({&quot;display&quot;:&quot;block&quot;,&quot;margin&quot;:&quot;10px auto&quot;,&quot;text-align&quot;:&quot;center&quot;,&quot;height&quot;:&quot;128px&quot;});
+			$(&quot;.news_list&quot;).fadeOut(&quot;fast&quot;);
+		},
+		success:function(json){
+			console.log(json);
+			$(&quot;.news_list&quot;).empty();
+			total = json.total; //总记录数
+			pageSize = json.pageSize; //每页显示条数
+			curPage = page; //当前页
+			totalPage = json.totalPage; //总页数
+			var html = &quot;&quot;;
+			var list = json.list;
+			$.each(list,function(index,array){ //jquery的each方法遍历json数据列
+				
+				html += &quot;&lt;li&gt;&quot;+
+							&quot;&lt;div class='date'&gt;&lt;span class='time'&gt;&quot;+array['updatetime']+&quot;&lt;/span&gt;&lt;/div&gt;&quot;
+							+&quot;&lt;div class='thumb'&gt;&lt;a href='&quot;+array['url']+&quot;'&gt;&lt;img src=&quot;+array['thumb']+&quot;&gt;&lt;/a&gt;&lt;/div&gt;&quot;
+							+&quot;&lt;div class='descripation'&gt;&lt;h2&gt;&lt;a href='&quot;+array['url']+&quot;'&gt;&quot;
+								+array['title']+
+								&quot;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&quot;+array['description']+&quot;...&lt;a href='&quot;+array['url']+&quot;'&gt;[查看全文]&lt;/a&gt;&lt;/p&gt;&lt;/div&gt;&lt;/li&gt;&quot;;
+
+				
+
+			});
+			$(&quot;.news_list&quot;).append(html);
+
+		},
+
+		complete:function(){ //生成分页条
+			//getPageBar(1);
+			getPageBar(3);
+			$(&quot;.news_list&quot;).fadeIn(&quot;fast&quot;)
+			$(&quot;.loading&quot;).css({&quot;display&quot;:&quot;none&quot;});
+
+		},
+		error:function(){
+			alert(&quot;数据加载失败&quot;);
+		},
+	});
+}
+
+
+function getPageBar(type){
+
+	//页码大于最大页数
+	if(curPage&gt;totalPage) curPage=totalPage;
+
+	//页码小于1
+	if(curPage&lt;1) curPage=1;
+
+	if(curPage&gt;=totalPage) curPage=totalPage;
+
+	pageStr = &quot;&lt;li&gt;共&quot;+total+&quot;条&lt;/li&gt;&lt;li&gt;&quot;+curPage+&quot;/&quot;+totalPage+&quot;&lt;/li&gt;&quot;;
+
+	//type==1表示文本分页,type==2表示数字分页
+	if(type==1) {
+
+		//如果是第一页
+		if(curPage==1){
+			pageStr += &quot;&lt;li&gt;首页&lt;/li&gt;&lt;li&gt;上一页&lt;/li&gt;&quot;;
+		}else{
+			pageStr += &quot;&lt;li&gt;&lt;a href='javascript:void(0)' class='pajax' rel='1'&gt;首页&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href='javascript:void(0)' class='pajax' rel='&quot;+(curPage-1)+&quot;'&gt;上一页&lt;/a&gt;&lt;/li&gt;&quot;;
+		}
+		
+		//如果是最后页
+		if(curPage&gt;=totalPage){
+			pageStr += &quot;&lt;li&gt;下一页&lt;/li&gt;&lt;li&gt;尾页&lt;/li&gt;&quot;;
+		}else{
+			pageStr += &quot;&lt;li&gt;&lt;a href='javascript:void(0)' class='pajax' rel='&quot;+(parseInt(curPage)+1)+&quot;'&gt;下一页&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href='javascript:void(0)' class='pajax' rel='&quot;+totalPage+&quot;'&gt;尾页&lt;/a&gt;&lt;/li&gt;&quot;;
+		}
+
+	} else if(type==2) {
+
+		for(i=1;i&lt;=totalPage;i++) {
+
+			if(i == curPage) {
+
+				pageStr += &quot;&lt;li&gt;&lt;a href='javascript:void(0)' class='pajax current' rel='&quot;+i+&quot;'&gt;&quot;+(i)+&quot;&lt;/a&gt;&lt;/li&gt;&quot;;
+
+			} else {
+
+				pageStr += &quot;&lt;li&gt;&lt;a href='javascript:void(0)' class='pajax' rel='&quot;+i+&quot;'&gt;&quot;+(i)+&quot;&lt;/a&gt;&lt;/li&gt;&quot;;
+
+			}
+		}
+
+	} else if(type==3) {
+
+		if(curPage==1){
+			pageStr += &quot;&lt;li&gt;首页&lt;/li&gt;&lt;li&gt;&amp;lt&lt;/li&gt;&quot;;
+		} else {
+			pageStr += &quot;&lt;li&gt;&lt;a href='javascript:void(0)' class='pajax' rel='1'&gt;首页&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href='javascript:void(0)' class='pajax' rel='&quot;+(curPage-1)+&quot;'&gt;&amp;lt&lt;/a&gt;&lt;/li&gt;&quot;;
+
+		}
+
+		//中间部分数字分页显示
+		if(totalPage&gt;1) {
+
+			for(i=1;i&lt;=totalPage;i++) {
+
+			if(i == curPage) {
+
+				pageStr += &quot;&lt;li&gt;&lt;a href='javascript:void(0)' class='pajax current' rel='&quot;+i+&quot;'&gt;&quot;+&quot;[&quot;+i+&quot;]&quot;+&quot;&lt;/a&gt;&lt;/li&gt;&quot;;
+
+			} else {
+
+				pageStr += &quot;&lt;li&gt;&lt;a href='javascript:void(0)' class='pajax' rel='&quot;+i+&quot;'&gt;&quot;+(i)+&quot;&lt;/a&gt;&lt;/li&gt;&quot;;
+
+				}
+			}
+
+		}
+
+		//最后一页的情况
+		if(curPage==totalPage){
+			pageStr += &quot;&lt;li&gt;&amp;gt&lt;/li&gt;&lt;li&gt;尾页&lt;/li&gt;&quot;;
+		}else{
+			pageStr += &quot;&lt;li&gt;&lt;a href='javascript:void(0)' class='pajax' rel='&quot;+(parseInt(curPage)+1)+&quot;'&gt;&amp;gt&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href='javascript:void(0)' class='pajax' rel='&quot;+totalPage+&quot;'&gt;尾页&lt;/a&gt;&lt;/li&gt;&quot;;
+		}
+
+
+	}
+	
+	$(&quot;.pagelist&quot;).html(pageStr);
+}
+
+$(function(){
+	getData(1);
+	$(&quot;#page_num_text&quot;).on('click','.pajax',function(){
+		var rel = $(this).attr(&quot;rel&quot;);
+		if(rel){
+			getData(rel);
+		}
+	});
+});
+
+</code></pre>
+<h2 id="普通点击分页ajax加载">普通点击分页ajax加载</h2>
+<figure data-type="image" tabindex="1"><img src="https://images.901web.com/hexoblog/ajax1.png" alt="普通点击分页ajax加载" title="普通点击分页ajax加载" loading="lazy"></figure>
+<hr>
+<p><a href="http://demo.901web.com/ajaxpage/ajax_page1/index.php">php普通点击分页ajax加载</a></p>
+<h2 id="普通点击按钮ajax加载">普通点击按钮ajax加载</h2>
+<figure data-type="image" tabindex="2"><img src="https://images.901web.com/hexoblog/ajax2.jpg" alt="普通点击按钮ajax加载" title="普通点击按钮ajax加载" loading="lazy"></figure>
+<hr>
+<p><a href="http://demo.901web.com/ajaxpage/ajax_page_click/index.php">普通点击按钮ajax加载</a></p>
+<h2 id="滚动到底部ajax加载">滚动到底部ajax加载</h2>
+<figure data-type="image" tabindex="3"><img src="https://images.901web.com/hexoblog/ajax3.jpg" alt="滚动到底部ajax加载" title="滚动到底部ajax加载" loading="lazy"></figure>
+<hr>
+<p><a href="http://demo.901web.com/ajaxpage/ajax_page_scroll/index.php">滚动到底部ajax加载</a></p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://blog.901web.com/tag/ajax-jia-zai/" class="tag">
+                    ajax加载
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/Qeo0YUfQ3/">
+                  <h3 class="post-title">
+                    jquery 如何遍历json数据
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

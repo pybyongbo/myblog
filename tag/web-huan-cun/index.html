@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>web缓存 | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <h2 class="current-tag">标签: web缓存</h2>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://blog.901web.com/post/-yOfZODvD/">
+                  <h2 class="post-title">文件上传线上bug排查记录</h2>
+                </a>
+                <div class="post-date">
+                  2018-07-10 20:07:53
+                </div>
+                <div class="post-abstract">
+                  <p>对于做web开发的我们,文件上传需求肯定不会陌生,也会经常遇到.不过在解决文件上传的问题的时候,有时候也不是完全是有前端的问题,同时我们可能还需要懂点服务器相关的知识,才能够很好的和后端联调,程序出现了问题,也能够迅速的定位问题的,然后很好的解决.有时候服务器端限制了文件上传的大小限制,或者前端上传文件Ajax超时了等等.所有出现了问题我们就得慢慢的一步步的来排查啦~</p>
+
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://blog.901web.com/post/iH-MX5WKs/">
+                  <h2 class="post-title">HTTP强缓存和协商缓存web缓存相关</h2>
+                </a>
+                <div class="post-date">
+                  2018-03-20 20:03:53
+                </div>
+                <div class="post-abstract">
+                  <h3 id="科普一">科普一</h3>
+<p>从输入网址到页面呈现过程：<br>
+1、浏览器输入：<code>www.leadbank.com</code> 通过DNS(网域名称系统)解析成IP地址: <code>103.6.220.58</code><br>
+2、客户端与服务器建立TCP/IP协议<br>
+3、传输层向服务器发送请求协议（HTTP/HTTPS/FTP等）<br>
+4、服务器响应请求，返回指定的URL数据或错误信息（如果设定重定向则重定向到新的URL地址）（Nginx反向代理）<br>
+5、客户端下载对应文件后：解析HTML以构建DOM树 –&gt; 构建渲染树 –&gt; 布局渲染树 –&gt; 绘制渲染树，最后呈现给用户</p>
+
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://blog.901web.com/post/lh9oKr2Ld/">
+                  <h2 class="post-title">移动端M站搜索历史记录小结</h2>
+                </a>
+                <div class="post-date">
+                  2017-04-29 19:04:49
+                </div>
+                <div class="post-abstract">
+                  <h2 id="写在前面">写在前面</h2>
+<p>新的一年里,很久都没有写东西了,也没有更新自己的博客,2017年已经过去了快四分之一了.这一年感觉自己变得越来越懒惰了.今年来了就开始做公司的M站.差不多经历了一个多余的时间,一个从无到有的M站诞生了,东西虽然做出来了,然而却并不理想.各方面的原因都有吧.我也不想为自己的问题找借口了,好好总结下,希望在下次的项目中能够尽量少出问题,保证质量能够做得更好...</p>
+
+                </div>
+              </div>
+              
+            </article>
+          
+
+          <div class="pagination-container">
+  
+  
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

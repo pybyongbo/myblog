@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>jquery 如何遍历json数据 | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">jquery 如何遍历json数据</h2>
+            <div class="post-date">2015-04-10 10:04:42</div>
+            
+            <div class="post-content">
+              <p>js循环遍历后台返回的数据,然后拼接HTML代码动态添加到DOM结构中,是前端开发中经常遇到的,自己在接触过的项目中经常有这种需求,用jquery来循环就更加方便了,后台返回给我们的json数据,我们只需要使用jquery的each方法很容易遍历.</p>
+<!-- more -->
+<h2 id="json数据格式">json数据格式</h2>
+<pre><code class="language-json">var obj = { 
+        &quot;status&quot;:1, 
+        &quot;bkmsg&quot;:&quot;\u6210\u529f&quot;, 
+        &quot;bkdata&quot;:[&quot;\u5415\u5c1a\u5fd7&quot;,&quot;1387580400&quot;,&quot;\u6dfb\u52a0\u8bb0\u5f55&quot;] 
+    } 
+</code></pre>
+<h2 id="jquery循环遍历json的方法">jquery循环遍历json的方法</h2>
+<p>ajax请求：</p>
+<pre><code class="language-js">$.ajax({ 
+        url: '/path/to/file', 
+        type: 'GET', 
+        dataType: 'json', 
+        data: {param1: 'value1'}, 
+        success: function (obj){  
+            //遍历obj 
+        } 
+    })  
+</code></pre>
+<p>返回的内容在success的函数里面，所有的遍历操作都是在这里面操作的：</p>
+<h3 id="for循环">for循环：</h3>
+<pre><code class="language-js">var obj = { 
+        &quot;status&quot;:1, 
+        &quot;bkmsg&quot;:&quot;\u6210\u529f&quot;, 
+        &quot;bkdata&quot;:[&quot;\u5415\u5c1a\u5fd7&quot;,&quot;1387580400&quot;,&quot;\u6dfb\u52a0\u8bb0\u5f55&quot;] 
+    } 
+  
+    if (obj.status == 1) { 
+        for (var i = 0; i &lt; obj.bkdata.length; i++) { 
+            console.log(obj.bkdata[i]); 
+        }; 
+    }else{ 
+        alert(&quot;数据有误~&quot;); 
+    }; 
+</code></pre>
+<h3 id="for-in-循环">for in 循环</h3>
+<pre><code class="language-js">    for(x in obj.bkdata){ 
+        //x表示是下标，来指定变量，指定的变量可以是数组元素，也可以是对象的属性。 
+        console.log(obj.bkdata[x]); 
+    }  
+</code></pre>
+<h3 id="元素-each方法">元素 each方法</h3>
+<pre><code class="language-js"> if (obj.status == 1) { 
+        $(obj.bkdata).each(function(index,item){ 
+            //index指下标 
+            //item指代对应元素内容 
+            //this指代每一个元素对象 
+            //console.log(obj.bkdata[index]); 
+            console.log(item); 
+            //console.log($(this)); 
+        }); 
+    }else{ 
+        alert(&quot;数据有误~&quot;); 
+    };   
+</code></pre>
+<h3 id="jquery-each方法">jquery each方法</h3>
+<pre><code class="language-js">$.each( obj.bkdata, function(index,item){ 
+        console.log(item); 
+    }); 
+</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://blog.901web.com/tag/jquery/" class="tag">
+                    jQuery
+                  </a>
+                
+                  <a href="https://blog.901web.com/tag/json/" class="tag">
+                    JSON
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/BLDNvZJOz/">
+                  <h3 class="post-title">
+                    回顾2014年~展望2015年
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

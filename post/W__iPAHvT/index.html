@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>mysql copy表或表数据常用的语句整理汇总 | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">mysql copy表或表数据常用的语句整理汇总</h2>
+            <div class="post-date">2015-05-17 10:05:19</div>
+            
+              <div class="feature-container" style="background-image: url('https://images.901web.com/2019-08-03-080233.png')">
+              </div>
+            
+            <div class="post-content">
+              <h2 id="mysql-copy表或表数据常用的语句整理汇总">mysql copy表或表数据常用的语句整理汇总.</h2>
+<p>mysql复制相关的一些操作记录,假如我们有以下这样一个表：</p>
+<!-- more -->
+<table>
+<thead>
+<tr>
+<th style="text-align:left">id</th>
+<th style="text-align:right">username</th>
+<th style="text-align:center">password</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:right">admin</td>
+<td style="text-align:center">******</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:right">sameer</td>
+<td style="text-align:center">******</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:right">stewart</td>
+<td style="text-align:center">******</td>
+</tr>
+</tbody>
+</table>
+<h3 id="代码块">代码块</h3>
+<pre><code class="language-sql">CREATE TABLE IF NOT EXISTS `admin` (   
+`id` int(6) unsigned NOT NULL auto_increment,   
+`username` varchar(50) NOT NULL default '',   
+`password` varchar(100) default NULL,   
+PRIMARY KEY (`id`)   
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+</code></pre>
+<p><strong>下面这个语句会拷贝表结构到新表newadmin中。 （不会拷贝表中的数据）</strong></p>
+<p>(1).CREATE TABLE newadmin LIKE admin</p>
+<p><strong>下面这个语句会拷贝数据到新表中。 注意：这个语句其实只是把select语句的结果建一个表。所以newadmin这个表不会有主键，索引</strong></p>
+<pre><code class="language-sql">CREATE TABLE newadmin AS   
+(   
+SELECT *  FROM admin   
+)
+</code></pre>
+<p><strong>如果你要真正的复制一个表。可以用下面的语句</strong></p>
+<pre><code class="language-sql">CREATE TABLE newadmin LIKE admin;
+INSERT INTO newadmin SELECT * FROM admin;
+</code></pre>
+<p><strong>我们可以操作不同的数据库</strong></p>
+<pre><code class="language-sql">CREATE TABLE newadmin LIKE shop.admin;
+CREATE TABLE newshop.newadmin LIKE shop.admin;
+</code></pre>
+<p><strong>我们也可以拷贝一个表中其中的一些字段</strong></p>
+<pre><code class="language-sql">CREATE TABLE newadmin AS   
+(   
+SELECT username, password FROM admin   
+)
+
+</code></pre>
+<p><strong>我们也可以将新建的表的字段改名</strong></p>
+<pre><code class="language-sql">
+CREATE TABLE newadmin AS   
+(   
+SELECT id, username AS uname, password AS pass FROM admin   
+)
+
+</code></pre>
+<p><strong>我们也可以拷贝一部分数据</strong></p>
+<pre><code class="language-sql">
+CREATE TABLE newadmin AS   
+(   
+SELECT * FROM admin WHERE LEFT(username,1) = 's'   
+)
+
+</code></pre>
+<p><strong>我们也可以在创建表的同时定义表中的字段信息</strong></p>
+<pre><code class="language-sql">
+CREATE TABLE newadmin   
+(   
+id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY   
+)   
+AS   
+(   
+SELECT * FROM admin   
+)
+
+</code></pre>
+<p><strong>MySQL复制表结构及数据到新表</strong></p>
+<pre><code class="language-sql">
+CREATE TABLE 新表  SELECT * FROM 旧表
+
+</code></pre>
+<p><strong>Mysql只复制表结构不复制数据</strong></p>
+<pre><code class="language-sql">CREATE TABLE 新表
+SELECT * FROM 旧表 WHERE 1=2
+(即:让WHERE条件不成立.)
+</code></pre>
+<p><strong>复制不同结构的表</strong></p>
+<pre><code class="language-sql">
+create table 新表(字段1,字段2,,,)    SELECT 字段1,字段2... FROM 旧表
+
+</code></pre>
+<h3 id="参考">参考:</h3>
+<ul>
+<li><a href="http://database.51cto.com/art/201011/234776.htm">mysql拷贝表的几种方式</a></li>
+</ul>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://blog.901web.com/tag/mysql-xiang-guan/" class="tag">
+                    Mysql相关
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/ITxWdLPuE/">
+                  <h3 class="post-title">
+                    ajax分页效果彻底研究
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

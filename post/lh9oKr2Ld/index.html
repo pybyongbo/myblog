@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>移动端M站搜索历史记录小结 | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">移动端M站搜索历史记录小结</h2>
+            <div class="post-date">2017-04-29 19:04:49</div>
+            
+            <div class="post-content">
+              <h2 id="写在前面">写在前面</h2>
+<p>新的一年里,很久都没有写东西了,也没有更新自己的博客,2017年已经过去了快四分之一了.这一年感觉自己变得越来越懒惰了.今年来了就开始做公司的M站.差不多经历了一个多余的时间,一个从无到有的M站诞生了,东西虽然做出来了,然而却并不理想.各方面的原因都有吧.我也不想为自己的问题找借口了,好好总结下,希望在下次的项目中能够尽量少出问题,保证质量能够做得更好...</p>
+<!-- more -->
+<h2 id="什么是localstorage">什么是localstorage</h2>
+<p>在HTML5中，新加入了一个localStorage特性，这个特性主要是用来作为本地存储来使用的,解决了cookie存储空间不足的问题(cookie中每条cookie的存储空间为4k),localStorage中一般浏览器支持的是5M大小,这个在不同的浏览器中localStorage会有所不同.在制作移动端页面的时候,我们可以放心的使用.移动端浏览器一般都支持这个属性(个人感觉类似PC端的cookies,存储数据的).</p>
+<h2 id="全局搜索的产品需求大体流程图">全局搜索的产品需求大体流程图</h2>
+<p>产品需求大体如下,之前单个的功能自己写过demo,但是整体的需求连接起来还是没有尝试过,以至于在这次开发中还是遇到了不少的坑,开始的时候对于存储历史搜索数据也是毫无头绪的,后来在同事的帮忙下才勉强的完成了该功能.感觉自己的基础还是比较薄弱,平常还是要加强多写写.</p>
+<figure data-type="image" tabindex="1"><img src="https://images.901web.com/hexoblog/search.png" alt="产品全局搜索需求图" title="需求流程图" loading="lazy"></figure>
+<h2 id="没有历史搜索的时候默认的排版">没有历史搜索的时候默认的排版</h2>
+<figure data-type="image" tabindex="2"><img src="https://images.901web.com/hexoblog/s0.png" alt="搜索默认图" title="搜索默认图" loading="lazy"></figure>
+<h2 id="搜索下拉功能模块">搜索下拉功能模块</h2>
+<p>搜索下拉监听文本框输入,请求接口,拿到数据做对应的渲染,没有数据做对应的提示即可.我在页面中对文本框写的是<em>keyup</em>事件,貌似感觉不太好,有时候接口返回数据有点慢,对于用户频繁的操作文本框中的内容,导致数据不太正确.该功能不复杂,但有很大的优化空间.</p>
+<figure data-type="image" tabindex="3"><img src="https://images.901web.com/hexoblog/s1.png" alt="搜索下拉图" title="搜索结果下拉图" loading="lazy"></figure>
+<pre><code class="language-javascript">    
+    $(&quot;#txtColor&quot;).on(&quot;keyup&quot;, function(e) { 
+
+             var event = e || {};
+           
+            if ($(&quot;#txtColor&quot;).val() == &quot;&quot;) {
+
+                $(&quot;.noinput_event&quot;).removeClass('none');
+                $(&quot;.history_searchauto&quot;).remove();
+                $(&quot;.dataEmpty&quot;).addClass('none');
+                $(&quot;.search_b_deldte&quot;).addClass('none');
+
+            } else {
+
+                That.search();//请求后端搜索接口,返回数据.(下拉)
+                $(&quot;.search_b_deldte&quot;).removeClass('none');
+
+            }
+            if (event.keyCode == 13) {
+
+                That.mSearchAssociation(e);//后端接口,搜索结果列表
+            }
+
+        });
+</code></pre>
+<h2 id="历史搜索功能">历史搜索功能</h2>
+<p>在文本框中输入了搜索关键词后,点击Enter键,进入搜索结果页面.然后进行的是下拉分页显示数据.则该条关键词搜索计入历史搜索记录.(如果历史搜索记录大于10条,则取最新的10条数据.)</p>
+<figure data-type="image" tabindex="4"><img src="https://images.901web.com/hexoblog/s2.png" alt="历史搜索图" title="历史搜索记录图" loading="lazy"></figure>
+<p>对应相关的搜索结果页面:</p>
+<figure data-type="image" tabindex="5"><img src="https://images.901web.com/hexoblog/s3.png" alt="搜索结果图" title="搜索结果页图" loading="lazy"></figure>
+<h2 id="记录历史搜索和删除历史搜索记录">记录历史搜索和删除历史搜索记录</h2>
+<p>我们定义为只有按了Enter键后,进入了搜索结果页面,才计入历史搜索列表中,这里就是将搜索的关键词存入localstorage中了.目前所有的浏览器中都会把localStorage的值类型限定为string类型，这个在对我们日常比较常见的JSON对象类型需要一些转换.这个里面我们需要做一些相应的转换.我们存入的格式如下图所示,这里我也是第一次使用这个属性:</p>
+<figure data-type="image" tabindex="6"><img src="https://images.901web.com/hexoblog/s4.png" alt="localStrorage存储图" title="localStrorage存储格式图" loading="lazy"></figure>
+<p>我们这里存储了对应搜索的关键词和URL地址.当我们从历史搜索记录点击过来的时候可以直接进行搜索.当我们已经搜索过相同的关键词的时候,我们就不要重复计入历史搜索记录了,在存储的时候还需要先判断是否已经有相同的关键词.(数组中重复的项目,进行判断indexOf,以及字符串的方法).</p>
+<p>下面就是一些关键功能性的代码了.从localStorage中来取值,如果存在的话.</p>
+<pre><code class="language-javascript">
+     if (localStorage.getItem(&quot;array&quot;)) {
+
+                var searchList = JSON.parse(localStorage.getItem(&quot;array&quot;));
+                var slen = searchList.length;
+                if (slen &gt; 0) {
+                    //有历史搜索的:由JSON字符串转换为JSON对象
+                    var html_str = &quot;&quot;;
+                    $(&quot;.history&quot;).removeClass('none');
+                    for (var i = 0; i &lt; slen; i++) {
+                        var url=JSON.parse(searchList[i]).search_url;
+
+                        if(url.indexOf(&quot;?q&quot;)==-1) {
+
+                            url=url+&quot;?q=&quot;+ JSON.parse(searchList[i]).keywords;
+                        }
+                        html_str += &quot;&lt;li&gt;&lt;a href=&quot;+url+&quot;&gt;&quot; + JSON.parse(searchList[i]).keywords + &quot;&lt;/a&gt;&lt;img src='images/searchClose.png' class='del'&gt;&lt;/li&gt;&quot;;
+ 
+                    }
+
+                    $(&quot;.history ul&quot;).append(html_str);
+                    $(&quot;.icon_tips&quot;).addClass('none');
+                    $(&quot;.history&quot;).removeClass('none');
+
+                } else {
+
+                    $(&quot;.icon_tips&quot;).removeClass('none');
+
+                }
+
+            }
+
+</code></pre>
+<p>清除单个历史记录,我们需要找到当前对应的索引.来删除这个对应的历史记录.</p>
+<pre><code class="language-javascript">        //单个历史记录清除:
+        $(&quot;img.del&quot;).each(function(index, el) {
+                
+                $(el).off().on('tap click', function() {
+                var searchList = JSON.parse(localStorage.getItem(&quot;array&quot;));
+                searchList.splice(index, 1); //删除对应的索引的历史记录
+                localStorage.array = JSON.stringify(searchList);
+                $(el).parent('li').remove();
+
+                if($(&quot;.history li&quot;).length==0) {
+                    $(&quot;.history&quot;).addClass('none');
+                    $(&quot;.icon_tips&quot;).removeClass('none');
+                }
+
+            })
+        }); 
+</code></pre>
+<p>清除所有历史记录,即清空localStorage里面对应存储搜索历史记录的值即可(localStorage.removeItem).</p>
+<pre><code class="language-javascript">    //清除所有历史记录点击事件
+        $(&quot;.clearHistory&quot;).off().on('tap click', function() {
+
+
+            localStorage.removeItem(&quot;array&quot;);
+            $(&quot;.history ul li&quot;).remove();
+            $(&quot;.history&quot;).addClass('none');
+            $(&quot;.icon_tips&quot;).removeClass('none');
+
+        })
+
+</code></pre>
+<p>最后重点的内容就是如何存储的localStorage为我们所需的那种格式呢.我们按了Enter键,从搜索下拉展示到搜索结果页面.肯定会有一个关键词带过来.文本框中搜索的关键词.</p>
+<pre><code class="language-javascript">        var keywords;
+        if(fromurl.indexOf(&quot;?q&quot;)&gt;-1) {
+            keywords = LeadBase.GetQueryString(&quot;q&quot;);
+        } else {
+            keywords = localStorage.getItem(&quot;KEYWORDS&quot;);
+        }
+</code></pre>
+<p>历史搜索记录存储localStorage函数方法:</p>
+<pre><code class="language-javascript">  getSaveHistroy:function(obj){
+            var getSearchHistory = [];
+            if (localStorage.array != null) {
+                getSearchHistory = $.parseJSON(localStorage.array);
+            }
+            if (keywords != &quot;null&quot;) {
+
+                obj.keywords = keywords;
+                obj.search_url = search_url+&quot;?q=&quot;+keywords;
+                var index = -1
+
+                for(var i in getSearchHistory) {
+
+                    if(keywords==$.parseJSON(getSearchHistory[i]).keywords){
+
+                        index=i;
+                        break;
+                    }
+                }
+                
+                if (index &gt; -1) getSearchHistory.splice(index, 1);
+
+                getSearchHistory.unshift(JSON.stringify(obj));
+
+                getSearchHistory.splice(10, 1);
+
+                localStorage.array = JSON.stringify(getSearchHistory);
+
+            }
+
+        }
+</code></pre>
+<p>localStorage中我们存储的格式如下:</p>
+<pre><code class="language-javascript">[
+ &quot;{\&quot;keywords\&quot;:\&quot;223\&quot;,\&quot;search_url\&quot;:\&quot;search_result.html?q=223\&quot;}&quot;,
+ &quot;{\&quot;keywords\&quot;:\&quot;1\&quot;,\&quot;search_url\&quot;:\&quot;search_result.html?q=1\&quot;}&quot;,
+ &quot;{\&quot;keywords\&quot;:\&quot;12\&quot;,\&quot;search_url\&quot;:\&quot;search_result.html?q=12\&quot;}&quot;
+]
+</code></pre>
+<h2 id="写在最后">写在最后</h2>
+<p>对于这个历史搜索记录的小功能,虽然说不是很难,但是还是有很多的细节和注意点的,也体现了自己的基础知识还是不到位,有数组的添加,删除,去重复,字符串的查找,还有json的一些相关知识点等等.不过都是一些基础的东西,还是希望自己在写东西之前能够想清楚整个需求的逻辑,这样才能提高效率,少走弯路.</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://blog.901web.com/tag/yi-dong-duan/" class="tag">
+                    移动端
+                  </a>
+                
+                  <a href="https://blog.901web.com/tag/web-huan-cun/" class="tag">
+                    web缓存
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/K6Q2_6dER/">
+                  <h3 class="post-title">
+                    Ajax跨域请求之jsonp
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

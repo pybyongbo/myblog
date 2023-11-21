@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>React基础知识概念相关 | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">React基础知识概念相关</h2>
+            <div class="post-date">2020-11-06 17:11:33</div>
+            
+            <div class="post-content">
+              <h3 id="jsx语法相关">jsx语法相关</h3>
+<p>jsx语法中,如果我们要使用自己创建的组件,直接使用标签名.如果使用自己的组件,组件名必须大写开头.</p>
+<p>小写的则为html标签.注意className和htmlFor(因为for和class是关键字).</p>
+<!-- more -->
+<p>jsx 注释:</p>
+<p>{} -&gt;js表达式</p>
+<p>{/* 这里是注释  */}</p>
+<p>// 这里是单行注释</p>
+<h3 id="解析html标签">解析html标签:</h3>
+<p>不需要自动转义:</p>
+<pre><code class="language-javascript">   dangerouslySetInnerHTML,__html
+</code></pre>
+<h3 id="深入理解jsx">深入理解JSX:</h3>
+<p>jsx代码会在运行或者打包阶段,被bable进行编译,生成浏览器可以识别的代码.</p>
+<p>一个页面或者组件的渲染逻辑,应该与其他的UI逻辑放在一起,比如:事件的绑定,状态改变后渲染内容的变化,就被称为组件.</p>
+<h3 id="在jsx中使用表达式">在JSX中使用表达式:</h3>
+<ul>
+<li>jsx本身也是表达式:</li>
+</ul>
+<pre><code class="language-javascript">    const element &lt;h1&gt;Hello World&lt;/h1&gt;
+</code></pre>
+<ul>
+<li>在属性中使用表达式:</li>
+</ul>
+<pre><code class="language-javascript">    &lt;MyComponent foo =  {1+2+3+4}/&gt;
+</code></pre>
+<ul>
+<li>延展属性:</li>
+</ul>
+<pre><code class="language-javascript">    const props = {firstName:'Ben',lastName:'Hector'};
+    const greeting = &lt;Greeting {...props}/&gt;
+</code></pre>
+<ul>
+<li>表达式作为子元素</li>
+</ul>
+<pre><code class="language-javascript">    const element = &lt;li&gt;{props.message}&lt;/li&gt;
+</code></pre>
+<h3 id="约定自定义组件以大写字母开头">约定:自定义组件以大写字母开头</h3>
+<p>1.React认为小写的tag是原生DOM节点,如div<br>
+2.大写字母开头的为自定义组件<br>
+3.JSX标记可以直接使用属性语法,例如&lt;menu.Item/&gt;</p>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/fTeiXAi4T/">
+                  <h3 class="post-title">
+                    2019年年终总结
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

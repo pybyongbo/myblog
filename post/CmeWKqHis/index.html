@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>markdown语法格式书写博客 | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">markdown语法格式书写博客</h2>
+            <div class="post-date">2015-02-10 10:02:42</div>
+            
+            <div class="post-content">
+              <p><strong>Raysnote</strong>是一款简洁而优秀的在线笔记工具，同时支持HTML富文本编辑和markdown语法，界面简洁优雅，中文排版优秀，具有优秀的书写和阅读体验。</p>
+<!-- more -->
+<blockquote>
+<p>Raysnote，为笔记而生！</p>
+</blockquote>
+<hr>
+<h2 id="使用raysnote可以做什么">使用Raysnote可以做什么</h2>
+<p>可用Raysnote可以便捷高效地书写和整理笔记，同时可以享受优雅的阅读体验。</p>
+<blockquote>
+<ul>
+<li>十分简洁和优雅的记笔记和阅读的界面</li>
+<li>简洁和高效地管理笔记</li>
+<li>记笔记同时支持HTML富文本编辑和Markdown语法</li>
+<li>笔记支持代码高亮</li>
+<li>笔记支持MathJax公式</li>
+<li>优雅美观的中文排版，注重阅读体验</li>
+<li>一键保存网络文章，一致排版、十分方便</li>
+</ul>
+</blockquote>
+<h2 id="markdown语法简介">Markdown语法简介</h2>
+<blockquote>
+<p>Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面。<br>
+—— <a href="https://zh.wikipedia.org/wiki/Markdown">维基百科</a></p>
+</blockquote>
+<p>例如本文，使用简单的符号可以标识不同的标题，将某些文字标记为<strong>粗体</strong>， <em>斜体</em>， <s>删除线</s>，还可以插入代码<code>puts &quot;helloworld&quot;</code>，更高级地还可以插入表格、代码块和公式，例如：</p>
+<h3 id="代码块">代码块</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+   int a = 23, b = 47;
+   
+   printf(&quot;Before. a: %d, b: %d\n&quot;, a, b);
+   a ^= b;
+   b ^= a;
+   a ^= b;
+   printf(&quot;After.  a: %d, b: %d\n&quot;, a, b);
+   return 0;
+}
+
+</code></pre>
+<blockquote>
+<p>其他语言的代码高亮示例请查看文档<a href="http://raysnote.com/advise/notes/d955bad3fde04cc8860e9d105f2b1334">Raysnote代码高亮示例</a>。</p>
+</blockquote>
+<h3 id="mathjax-公式math">MathJax 公式<a href="http://www.mathjax.org/">^math</a></h3>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo>(</mo><mi>E</mi><mo>)</mo><mo>=</mo><mrow><mo fence="true">(</mo><mfrac linethickness="0px"><mi>n</mi><mi>k</mi></mfrac><mo fence="true">)</mo></mrow><msup><mi>p</mi><mi>k</mi></msup><mo>(</mo><mn>1</mn><mo>−</mo><mi>p</mi><msup><mo>)</mo><mrow><mi>n</mi><mo>−</mo><mi>k</mi></mrow></msup></mrow><annotation encoding="application/x-tex">P(E)   = {n \choose k} p^k (1-p)^{ n-k}   
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.40003em;vertical-align:-0.95003em;"></span><span class="mord"><span class="mord"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1075599999999999em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">)</span></span></span></span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.149108em;vertical-align:-0.25em;"></span><span class="mord mathdefault">p</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mbin mtight">−</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<h3 id="表格">表格</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">商品</th>
+<th style="text-align:right">价格</th>
+<th style="text-align:center">数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Macbook Pro</td>
+<td style="text-align:right">1,299.00 USD</td>
+<td style="text-align:center">8</td>
+</tr>
+<tr>
+<td style="text-align:left">iPhone 5S</td>
+<td style="text-align:right">674.97 USD</td>
+<td style="text-align:center">128</td>
+</tr>
+<tr>
+<td style="text-align:left">iPad Air</td>
+<td style="text-align:right">1.00 USD</td>
+<td style="text-align:center">1024</td>
+</tr>
+</tbody>
+</table>
+<h2 id="相关链接">相关链接</h2>
+<ul>
+<li><a href="http://raysnote.com/markdown-get-started">Markdown简明语法速成</a></li>
+<li><a href="http://raysnote.com/math-examples">数学公式示例</a></li>
+<li><a href="http://raysnote.com/code-examples">代码高亮示例</a></li>
+<li><a href="http://raysnote.com/advise">反馈和建议</a></li>
+</ul>
+<hr>
+<p>感谢您阅读本帮助文档，希望Raysnote能够帮助到您，祝您使用愉快！</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://blog.901web.com/tag/markdown-yu-fa/" class="tag">
+                    Markdown语法
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/ot92MNY6X/">
+                  <h3 class="post-title">
+                    博客功能添加改版记录说明 
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

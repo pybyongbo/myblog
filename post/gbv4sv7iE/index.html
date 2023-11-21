@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Antd 表格单元格合并记录 | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Antd 表格单元格合并记录</h2>
+            <div class="post-date">2020-12-28 15:12:07</div>
+            
+            <div class="post-content">
+              <p>在做流量平台后台管理产品分流策略的需求的时候,遇到一个表格单元格合并的页面展示需求.页面展示的效果实现其实并不难,但是自己在实现的过程中还是遇到一些坑,记录一下:</p>
+<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://images.901web.com/2020-12-28-070427.png" alt="页面效果" title="单元格合并" loading="lazy"></figure>
+<p>首先拿到后端接口返回的数据,然后进行重新处理.</p>
+<pre><code class="language-javascript">{
+  &quot;code&quot; : &quot;0&quot;,
+  &quot;message&quot; : &quot;成功&quot;,
+  &quot;result&quot; : {
+    &quot;records&quot; : [ {
+      &quot;id&quot; : 6348,
+      &quot;channelCode&quot; : &quot;DY&quot;,
+      &quot;channelName&quot; : &quot;抖音&quot;,
+      &quot;channelSource&quot; : &quot;jdkshfd&quot;,
+      &quot;channelSourceName&quot; : null,
+      &quot;onlineProductShuntConfigId&quot; : 1,
+      &quot;versionName&quot; : &quot;华海投保&quot;,
+      &quot;insurerName&quot; : null,
+      &quot;insurerCode&quot; : null,
+      &quot;shuntPercent&quot; : 20,
+      &quot;effectiveTime&quot; : &quot;2020-12-18 15:23:18&quot;,
+      &quot;available&quot; : &quot;Y&quot;,
+      &quot;modifier&quot; : &quot;za-dingwanyue&quot;,
+      &quot;gmtModified&quot; : null
+    }, {
+      &quot;id&quot; : 6349,
+      &quot;channelCode&quot; : &quot;DY&quot;,
+      &quot;channelName&quot; : &quot;抖音&quot;,
+      &quot;channelSource&quot; : &quot;jdkshfd&quot;,
+      &quot;channelSourceName&quot; : null,
+      &quot;onlineProductShuntConfigId&quot; : 2,
+      &quot;versionName&quot; : &quot;前海投保&quot;,
+      &quot;insurerName&quot; : null,
+      &quot;insurerCode&quot; : null,
+      &quot;shuntPercent&quot; : 80,
+      &quot;effectiveTime&quot; : &quot;2020-12-18 15:23:18&quot;,
+      &quot;available&quot; : &quot;Y&quot;,
+      &quot;modifier&quot; : &quot;za-dingwanyue&quot;,
+      &quot;gmtModified&quot; : null
+    }, {
+      &quot;id&quot; : 6343,
+      &quot;channelCode&quot; : &quot;DY&quot;,
+      &quot;channelName&quot; : &quot;抖音&quot;,
+      &quot;channelSource&quot; : &quot;test&quot;,
+      &quot;channelSourceName&quot; : null,
+      &quot;onlineProductShuntConfigId&quot; : 1,
+      &quot;versionName&quot; : &quot;华海投保&quot;,
+      &quot;insurerName&quot; : null,
+      &quot;insurerCode&quot; : null,
+      &quot;shuntPercent&quot; : 0,
+      &quot;effectiveTime&quot; : &quot;2020-12-18 12:14:05&quot;,
+      &quot;available&quot; : &quot;Y&quot;,
+      &quot;modifier&quot; : &quot;za-dingwanyue&quot;,
+      &quot;gmtModified&quot; : null
+    }, {
+      &quot;id&quot; : 6344,
+      &quot;channelCode&quot; : &quot;DY&quot;,
+      &quot;channelName&quot; : &quot;抖音&quot;,
+      &quot;channelSource&quot; : &quot;test&quot;,
+      &quot;channelSourceName&quot; : null,
+      &quot;onlineProductShuntConfigId&quot; : 5,
+      &quot;versionName&quot; : &quot;现代财投保&quot;,
+      &quot;insurerName&quot; : null,
+      &quot;insurerCode&quot; : null,
+      &quot;shuntPercent&quot; : 0,
+      &quot;effectiveTime&quot; : &quot;2020-12-18 12:14:05&quot;,
+      &quot;available&quot; : &quot;Y&quot;,
+      &quot;modifier&quot; : &quot;za-dingwanyue&quot;,
+      &quot;gmtModified&quot; : null
+    }, {
+      &quot;id&quot; : 6342,
+      &quot;channelCode&quot; : &quot;DY&quot;,
+      &quot;channelName&quot; : &quot;抖音&quot;,
+      &quot;channelSource&quot; : &quot;test&quot;,
+      &quot;channelSourceName&quot; : null,
+      &quot;onlineProductShuntConfigId&quot; : 2,
+      &quot;versionName&quot; : &quot;前海投保&quot;,
+      &quot;insurerName&quot; : null,
+      &quot;insurerCode&quot; : null,
+      &quot;shuntPercent&quot; : 100,
+      &quot;effectiveTime&quot; : &quot;2020-12-18 12:14:05&quot;,
+      &quot;available&quot; : &quot;Y&quot;,
+      &quot;modifier&quot; : &quot;za-dingwanyue&quot;,
+      &quot;gmtModified&quot; : null
+    }, {
+      &quot;id&quot; : 6341,
+      &quot;channelCode&quot; : &quot;DY&quot;,
+      &quot;channelName&quot; : &quot;抖音&quot;,
+      &quot;channelSource&quot; : &quot;hhzx_zt24_002&quot;,
+      &quot;channelSourceName&quot; : null,
+      &quot;onlineProductShuntConfigId&quot; : 5,
+      &quot;versionName&quot; : &quot;现代财投保&quot;,
+      &quot;insurerName&quot; : null,
+      &quot;insurerCode&quot; : null,
+      &quot;shuntPercent&quot; : 0,
+      &quot;effectiveTime&quot; : &quot;2020-12-18 11:11:00&quot;,
+      &quot;available&quot; : &quot;Y&quot;,
+      &quot;modifier&quot; : &quot;za-tongjianyang&quot;,
+      &quot;gmtModified&quot; : null
+    }, {
+      &quot;id&quot; : 6340,
+      &quot;channelCode&quot; : &quot;DY&quot;,
+      &quot;channelName&quot; : &quot;抖音&quot;,
+      &quot;channelSource&quot; : &quot;hhzx_zt24_002&quot;,
+      &quot;channelSourceName&quot; : null,
+      &quot;onlineProductShuntConfigId&quot; : 1,
+      &quot;versionName&quot; : &quot;华海投保&quot;,
+      &quot;insurerName&quot; : null,
+      &quot;insurerCode&quot; : null,
+      &quot;shuntPercent&quot; : 0,
+      &quot;effectiveTime&quot; : &quot;2020-12-18 11:11:00&quot;,
+      &quot;available&quot; : &quot;Y&quot;,
+      &quot;modifier&quot; : &quot;za-tongjianyang&quot;,
+      &quot;gmtModified&quot; : null
+    }, {
+      &quot;id&quot; : 6339,
+      &quot;channelCode&quot; : &quot;DY&quot;,
+      &quot;channelName&quot; : &quot;抖音&quot;,
+      &quot;channelSource&quot; : &quot;hhzx_zt24_002&quot;,
+      &quot;channelSourceName&quot; : null,
+      &quot;onlineProductShuntConfigId&quot; : 3,
+      &quot;versionName&quot; : &quot;众安投保&quot;,
+      &quot;insurerName&quot; : null,
+      &quot;insurerCode&quot; : null,
+      &quot;shuntPercent&quot; : 100,
+      &quot;effectiveTime&quot; : &quot;2020-12-18 11:11:00&quot;,
+      &quot;available&quot; : &quot;Y&quot;,
+      &quot;modifier&quot; : &quot;za-tongjianyang&quot;,
+      &quot;gmtModified&quot; : null
+    }, {
+      &quot;id&quot; : 6322,
+      &quot;channelCode&quot; : &quot;DY&quot;,
+      &quot;channelName&quot; : &quot;抖音&quot;,
+      &quot;channelSource&quot; : &quot;hhzx_kt18_035&quot;,
+      &quot;channelSourceName&quot; : null,
+      &quot;onlineProductShuntConfigId&quot; : 5,
+      &quot;versionName&quot; : &quot;现代财投保&quot;,
+      &quot;insurerName&quot; : null,
+      &quot;insurerCode&quot; : null,
+      &quot;shuntPercent&quot; : 100,
+      &quot;effectiveTime&quot; : &quot;2020-12-18 10:28:14&quot;,
+      &quot;available&quot; : &quot;Y&quot;,
+      &quot;modifier&quot; : &quot;za-tongjianyang&quot;,
+      &quot;gmtModified&quot; : null
+    }, {
+      &quot;id&quot; : 6321,
+      &quot;channelCode&quot; : &quot;DY&quot;,
+      &quot;channelName&quot; : &quot;抖音&quot;,
+      &quot;channelSource&quot; : &quot;hhzx_kt18_035&quot;,
+      &quot;channelSourceName&quot; : null,
+      &quot;onlineProductShuntConfigId&quot; : 1,
+      &quot;versionName&quot; : &quot;华海投保&quot;,
+      &quot;insurerName&quot; : null,
+      &quot;insurerCode&quot; : null,
+      &quot;shuntPercent&quot; : 0,
+      &quot;effectiveTime&quot; : &quot;2020-12-18 10:28:14&quot;,
+      &quot;available&quot; : &quot;Y&quot;,
+      &quot;modifier&quot; : &quot;za-tongjianyang&quot;,
+      &quot;gmtModified&quot; : null
+    } ],
+    &quot;total&quot; : 378,
+    &quot;size&quot; : 10,
+    &quot;current&quot; : 1,
+    &quot;orders&quot; : [ ],
+    &quot;searchCount&quot; : true,
+    &quot;pages&quot; : 38
+  }
+}
+
+</code></pre>
+<p><strong>channelName和channelSource一致的时候我们才进行合并单元格</strong></p>
+<pre><code class="language-javascript">
+// 合并数组单元格
+  const createNewArr = (data) =&gt; {
+    return data.reduce((result, item, index) =&gt; {
+      // 首先将name字段作为新数组result取出
+      if (result.indexOf(item.channelSource) &lt; 0 &amp;&amp; result.indexOf(item.channelName) &lt; 0) {
+        let flag = false;
+        if (index &gt; 0 &amp;&amp; (item.channelSource === result[index - 1].channelSource &amp;&amp; item.channelName === result[index - 1].channelName)) {
+          flag = true;
+        }
+        result.push({
+          channelName: item.channelName,
+          channelSource: item.channelSource,
+          flag,
+        })
+      }
+      return result
+    }, []).reduce((result, name, index, arr) =&gt; {
+      // 将name相同的数据作为新数组取出，并在其内部添加新字段**rowSpan**
+      const children = data.filter(item =&gt; (item.channelSource === name.channelSource &amp;&amp; item.channelName === name.channelName));
+      if (name.flag) return result; //直接返回,否则进行concat链接
+      result = result.concat(
+        children.map((item, index) =&gt; ({
+          ...item,
+          rowSpan: index === 0 ? children.length : 0,// 将第一行数据添加rowSpan字段
+        }))
+      )
+      return result;
+    }, [])
+  }
+  
+</code></pre>
+<p>最后在要合并的字段中添加rowSpan属性即可: (定义列的数组中)</p>
+<pre><code class="language-javascript"> const columns = [
+  {
+      title: '一级渠道名称',
+      dataIndex: 'channelName',
+      align: 'center',
+      render(_, row) {
+        return {
+          children: row.channelName,
+          props: {
+            rowSpan: row.rowSpan,
+          }
+        }
+      }
+    },
+ ]
+</code></pre>
+<p>最后表格调用的地方,调用这个函数处理好data在传入Table组件即可:<code> dataSource={createNewArr(insurerList)}</code></p>
+<p>参考笔记:<a href="http://www.imooc.com/article/296460">react antd Table动态合并单元格</a></p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://blog.901web.com/tag/antdtable-biao-ge-he-bing/" class="tag">
+                    Antd+Table表格合并
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/kaEsx9gc1/">
+                  <h3 class="post-title">
+                    箭头函数和普通函数的区别:
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

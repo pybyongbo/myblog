@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>VUE版拼图小游戏开发(拼拼乐) | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">VUE版拼图小游戏开发(拼拼乐)</h2>
+            <div class="post-date">2020-11-29 11:11:28</div>
+            
+            <div class="post-content">
+              <h3 id="拼拼乐小游戏开发vue版本">拼拼乐小游戏开发(VUE版本)</h3>
+<p>深秋的某一天,在地铁上面刷着手机,看到徐小夕的公众号推送的一篇文章,介绍的是一个移动端端的拼图小游戏,于是自己尝试着识别二维码完了下,感觉还挺有意思的.周末抽空研究了一下,看了下这个小游戏有哪些功能.问了下原作者,他用的是原生JS写的一版.自己本身在学习使用VUE开发项目,于是便萌发了用VUE尝试改版一下.正好可以学习学习一下.于是看了下游戏的大体效果,决定尝试用VUE改写一版玩一下,说干就干.也欢迎有兴趣,有想法的小伙伴可以一起讨论.</p>
+<!-- more -->
+<p>下面列一下用到的一些知识点:</p>
+<ul>
+<li>洗牌算法</li>
+<li>CSS3动画切换(图片切割样式定位)</li>
+<li>用FileReader API实现本地预览文件</li>
+<li>用Canvas生成海报</li>
+<li>webpack打包(不同难度等级切换样式问题)</li>
+</ul>
+<p>零零碎碎的花了2~3个周末的时间,然后部署了下页面.虽然存在一些问题,代码也比较粗糙.但是还是实现了自己想要的效果.</p>
+<p>大致的实现思路可以参考<code>趣谈前端</code>公众号里面的文章,<a href="https://mp.weixin.qq.com/s/12xXHdhz-yFod6y15aC_Tw">教你用200行代码写一个爱豆拼拼乐H5小游戏（附源码）</a>.这里我对这个游戏VUE实现了相关的功能.而且还增加了一些自己的想法.</p>
+<p>主要有<code>相邻元素才可以挪动</code>和<code>难度等级</code>选择,发版的是两个不同的版本.当然在实现的过程中也遇到了一些问题.不过经过自己的折腾还是基本实现出来自己想要的效果啦.</p>
+<figure data-type="image" tabindex="1"><img src="https://images.901web.com/2020-11-18-611605665816_.pic_hd.jpg" alt="游戏界面" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://images.901web.com/2020-11-18-631605665822_.pic_hd.jpg" alt="等级选择" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://images.901web.com/2020-11-18-641605666371_.pic_hd.jpg" alt="挑战结果" loading="lazy"></figure>
+<p>先来看看大致的实现功能模块:</p>
+<figure data-type="image" tabindex="4"><img src="https://images.901web.com/2020-11-29-lct-pic.jpeg" alt="功能模块流程图" loading="lazy"></figure>
+<p>具体实现:</p>
+<p>1.根据选择的难度等级生成n*n的矩阵图切割图片</p>
+<pre><code class="language-javascript">// 生成n维矩阵
+generateMatrix(n, dx, dy) {
+  var arr = [],
+    index = 0;
+  for (var i = 0; i &lt; n; i++) {
+    for (var j = 0; j &lt; n; j++) {
+      arr.push({ x: j * dx, y: i * dy, index: index });
+      index++;
+    }
+  }
+  return arr;
+}
+
+</code></pre>
+<p>2.数组乱序(重新排列)</p>
+<pre><code class="language-javascript">    upsetArr(arr) {
+      return arr.sort(function() {
+        return Math.random() &gt; 0.5 ? -1 : 1;
+      });
+    }
+</code></pre>
+<p>3.点击高亮并且切换对应的位置(当前点击的和你要交换的)</p>
+<pre><code class="language-javascript">   // 点击高亮并且切换对应位置 (想办法交换对应索引位置的x,y值即可)
+    changePositon(e, item) {
+      //点击小图片切换位置方法
+      let reg = /active/g;
+      this.boxArractivelass = item;
+      let pieces = document.querySelectorAll(&quot;.piece&quot;);
+      if (!this.wall) {
+        this.wall = 1;
+        this.prevEl = e.target;
+        for (var i = 0, len = pieces.length; i &lt; len; i++) {
+          // 使用replace为了避免元素后期加入其他类名
+          pieces[i].className = pieces[i].className.replace(&quot; active&quot;, &quot;&quot;);
+        }
+        !reg.test(this.className) &amp;&amp; (this.className += &quot; active&quot;);
+      } else {
+        this.wall = 0;
+        var prevIndex = +this.prevEl.getAttribute(&quot;index&quot;),
+          curIndex = +e.target.getAttribute(&quot;index&quot;);
+
+        // 置换数组
+        this.swap(this.pool, prevIndex, curIndex);
+        this.prevEl.style.transform =
+          &quot;translate(&quot; +
+          this.pool[prevIndex].x +
+          &quot;vw,&quot; +
+          this.pool[prevIndex].y +
+          &quot;vh&quot; +
+          &quot;)&quot;;
+        e.target.style.transform =
+          &quot;translate(&quot; +
+          this.pool[curIndex].x +
+          &quot;vw,&quot; +
+          this.pool[curIndex].y +
+          &quot;vh&quot; +
+          &quot;)&quot;;
+        // 清除样式
+        this.boxArractivelass = -1;
+
+        // 校验是否成功
+        if (this.isTestSuccess(this.pool)) {
+    
+          clearInterval(this.timer);
+          this.startDx -= 100;
+          this.issuccess = true;
+          this.transformX(this.$refs.wrap, this.startDx + &quot;vw&quot;);
+       
+        }
+      }
+    }
+</code></pre>
+<p>4.点击交换图片的位置</p>
+<pre><code class="language-javascript">    // 置换数组(对应索引的x,y值进行交换)
+    swap(arr, indexA, indexB) {
+      // ES6的解耦交换方式： [arr[index], arr[n]] = [arr[n], arr[index]];
+      [arr[indexA], arr[indexB]] = [arr[indexB], arr[indexA]];
+    },
+</code></pre>
+<p>5.检验是否成功方法:</p>
+<pre><code class="language-javascript">    //对比数组中的每一个值是否与之前的值相等
+    isTestSuccess(arr) {
+      return arr.every(function(item, i) {
+        return item.index === i;
+      });
+    }
+</code></pre>
+<p>在实现的过程中,遇到一个印象比较深的问题就是,当在第一个页面选择<code>简单</code>等级,然后点击开始游戏,然后返回重新选择<code>中级</code>等级,由于样式加载顺序,导致页面展示的还是之前<code>简单</code>等级的页面样式.</p>
+<p>之前出现这种问题的原因是由于,我这边是通过判断选择等级,然后import引入不同的样式文件导致的.</p>
+<p>例如:实现的思路判断:</p>
+<pre><code class="language-javascript">if(this.gradeSelected==3) {
+    import('../assets/style/default.css');
+} else if(this.gradeSelected===4){
+    import('../assets/style/middle.css');
+} else if(this.gradeSelected===5) {
+    import('../assets/style/senior.css');
+}
+</code></pre>
+<figure data-type="image" tabindex="5"><img src="https://images.901web.com/2020-11-20-WeChata949c6b189cd9d96e842d75f63fbd298.png" alt="打包样式问题" loading="lazy"></figure>
+<p>后来重新换了一种思路,直接写了一个方法,本地存储选中的等级,用来设置选中不同难度等级的样式文件.然后动态的插入到head标签中.</p>
+<pre><code class="language-javascript">    // 引入设置和获取本地存储的挑战等级标识
+    import localStorage from &quot;./storage&quot;; 
+    const skin = {};
+    let getSkinStyle = (skin) =&gt; {
+    if (!skin) {
+        return &quot;&quot;;
+    }
+    if (skin === 'three') {
+        return `简单等级的样式文件`
+    } else if(skin==='four') {
+        return `中等等级的样式文件`
+    } else if(skin==='five') {
+        return `高级等级的样式文件`
+    }
+    
+    let setSkinStyle = (skin) =&gt; {
+    let styleText = getSkinStyle(skin);
+    let oldStyle = document.getElementById(&quot;skin&quot;);
+    const style = document.createElement(&quot;style&quot;);
+    style.id = &quot;skin&quot;;
+    style.type = &quot;text/css&quot;;
+    style.innerHTML = styleText;
+    oldStyle ? document.head.replaceChild(style, oldStyle) : document.head.appendChild(style);
+};
+// 设置不同等级图片切割样式
+skin[localStorage.getSkin()] &amp;&amp; setSkinStyle(skin[localStorage.getSkin()]);
+export { skin, setSkinStyle }
+</code></pre>
+<p>至此,现在不同等级的选择切换,再也不会造成选择等级与图片分割界面样式不符啦.也可以愉快的玩耍啦.</p>
+<p>当然代码还是比较粗糙,也存在一些问题的.还有就是不同版本的手机也没有经过兼容性测试,代码都在一个页面,也没有进行合理的组件拆分等等.</p>
+<p>以上游戏纯属娱乐,有兴趣的小伙伴也欢迎交流,有什么问题也可以一起探讨,源码地址也放到了我的<code>Github</code>上面,欢迎大家一起交流探讨,共同进步.</p>
+<p><a href="https://github.com/pybyongbo/vue-pinpngle">Github项目地址:https://github.com/pybyongbo/vue-pinpngle</a></p>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/gjJkY1YD4/">
+                  <h3 class="post-title">
+                    React中props,state与render函数
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

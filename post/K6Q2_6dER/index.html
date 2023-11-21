@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Ajax跨域请求之jsonp | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Ajax跨域请求之jsonp</h2>
+            <div class="post-date">2016-06-05 15:06:49</div>
+            
+            <div class="post-content">
+              <h2 id="什么是jsonp">什么是JSONP</h2>
+<p>一个众所周知的问题，Ajax直接请求普通文件存在跨域无权限访问的问题，甭管你是静态页面、动态网页、web服务、WCF，只要是跨域请求，一律不准；</p>
+<p>为了便于客户端使用数据，逐渐形成了一种非正式传输协议，人们把它称作JSONP，该协议的一个要点就是允许用户传递一个callback参数给服务端，然后服务端返回数据时会将这个callback参数作为函数名来包裹住JSON数据，这样客户端就可以随意定制自己的函数来自动处理返回数据了。</p>
+<!-- more -->
+<h2 id="同源策略">同源策略</h2>
+<p>ajax之所以需要“跨域”，罪魁祸首就是浏览器的同源策略。即，一个页面的ajax只能获取这个页面相同源或者相同域的数据。</p>
+<p>如何叫“同源”或者“同域”呢？——'协议'、'域名'、'端口号'都必须相同。</p>
+<p>根据同源策略，我自己做的一个网页 http://localhost:8080/test.html 就无法通过ajax直接获取 http://google.com 的数据。</p>
+<figure data-type="image" tabindex="1"><img src="https://images.901web.com/hexoblog/demo_jsonp.png" alt="jsonp报错" title="jsonp报错" loading="lazy"></figure>
+<p>大家想想，这样其实也有道理。如果没有同源策略，你我都可以随便通过ajax直接获取其他网站的信息，这还不乱套了。。。我自己做一个搜索界面，搜索时直接用ajax从百度获取数据，那不成了小偷了。。。</p>
+<p>但是跨域访问是少不了的，mail.163.com 的网页可能需要从 news.163.com 域下获取新闻信息，那怎么办？——开始咱们的'跨域之旅'。（当然用iframe也可以实现）</p>
+<h2 id="从盗链说起">从“盗链”说起</h2>
+<p>互联网的许多网站之间图片相互盗链，A网站网页的img.src直接链接到B网站的图片地址，这是常有的事儿。说到“盗链”，大家第一想到的可能是如何去防止盗链，今儿咱不管那个。</p>
+<p>你再想想“盗链”和“同源策略”这两个词之间有什么关系？——对，矛盾！既然都“同源策略”了，怎么还能“盗链”呢？</p>
+<p>世间万物都有矛盾，有矛盾了照样可以和谐共处，并不一定非要你死我活。</p>
+<p>重点： 'img'的src（获取图片），'link'的href（获取css）,'script' 的src（获取javascript）这三个都不符合同源策略，它们可以跨域获取数据。因此，你可以直接从一些cdn上获取jQuery，并且你网站上的图片也随时可能被别人盗用，所有最好加上水印！</p>
+<p>而我们今天的主角——jsonp——就是因为'script'的src不符合同源策略而来的。</p>
+<h2 id="jsonp">JSONP</h2>
+<p>例如，域名 a.com 下有一个 a.com/test.html 网页，域名 b.com 下有一个 b.com/data.html 网页和 b.com/alert.js 文件。</p>
+<p>引导第一步：简单引用js<br>
+编写 b.com/alert.js 如下：</p>
+<pre><code class="language-javascript">alert(123);
+</code></pre>
+<p>对 a.com/test.html 编写如下代码：</p>
+<pre><code class="language-javascript">&lt;script type='text/javascript' src='http://b.com/alert.js'/&gt;
+</code></pre>
+<p>运行 a.com/test.html，结果很明显，就是弹出 【123】 。</p>
+<h3 id="引导第二步引用js返回数据">引导第二步：引用js返回数据</h3>
+<p>将 b.com/alert.js 修改为：</p>
+<pre><code class="language-javascript">myFn(100);
+</code></pre>
+<p>将 a.com/test.html 修改为：</p>
+<pre><code class="language-javascript">
+    function myFn ( data ) {
+        alert( data + 'px' );
+    }
+&lt;script type='text/javascript' src='http://b.com/alert.js'/&gt;
+</code></pre>
+<p>运行 a.com/test.html，结果是弹出【 100px 】，这个应该也没有什么疑问。</p>
+<h3 id="引导第三步已经跨域成功">引导第三步：已经跨域成功！</h3>
+<p>第二步中，如果data——即100——是我要跨域在b.<br>
+com下获取的一个数据，那么咱们这不就是已经实现跨域请求了吗！！！<br>
+把这个过程再清晰的捋一遍：</p>
+<blockquote>
+<ul>
+<li>script的src不符合同源策略；</li>
+<li>我通过给script的src赋值一个跨域的文件的网址（可能不是一个js文件），这个文件返回的字符串，浏览器会当作javascript来解析；</li>
+<li>而这段javascript中，就可以包含着我所需要的跨域服务器端的数据；</li>
+<li>最后，我在本页面定义一个myFn函数用来展示数据，而这段javascript中就可以直接调用myFn函数；</li>
+</ul>
+</blockquote>
+<h3 id="引导第四步引用html格式">引导第四步：引用html格式</h3>
+<p>script的src不一定仅仅指向javascript文件，可以指向任何地址。例如：<br>
+将 a.com/test.html 修改为：</p>
+<pre><code class="language-javascript">    function myFn ( data ) {
+        alert( data + 'px' );
+    }
+
+&lt;script type='text/javascript' src='http://b.com/data.html'/&gt;
+</code></pre>
+<p>将 b.com/data.html 编写为：（注意，data.html中就写以下一行代码，多了不写）</p>
+<pre><code class="language-javascript">myFn(100); 
+</code></pre>
+<p>运行 a.com/test.html ，结果依然是【 100px 】<br>
+其中，“100”就是我们要跨域请求的数据。</p>
+<h3 id="引导第五步动态数据">引导第五步：动态数据</h3>
+<p>如果要请求的数据是动态的，那就要在动态页面中编写。<br>
+那么我们就让 a.com/test.html 去调用一个动态的aspx页面：</p>
+<pre><code class="language-javascript">    function myFn ( data ) {
+        alert( data + 'px' );
+    }
+&lt;script type='text/javascript' src='http://b.com/data.aspx?callback=myFn'/&gt;
+</code></pre>
+<p>大家注意，我们在 src 地址中增加了“?callback=myFn”，意思是把'显示数据的函数也动态传过去了'，而第二步、第四步都是静态的写在被调用的文件中的。</p>
+<p>至于callback参数后台如何接收，如何使用，请接着看：<br>
+在 b.com 下增加一个 b.com/data.aspx 页面，后台代码如下：</p>
+<pre><code class="language-c">    protected void Page_Load(object sender, EventArgs e)
+        {
+            if (this.IsPostBack == false)
+            {
+                string callback = &quot;&quot;;
+                if (Request[&quot;callback&quot;] != null)
+                {
+                    callback = Request[&quot;callback&quot;];
+
+                    //服务器端要返回的数据
+                    string data = &quot;1024&quot;;
+
+                    Response.Write(callback + &quot;(&quot; + data + &quot;)&quot;);
+                }
+            }
+        }
+</code></pre>
+<p>代码很简单，获取callback参数，然后组成一个函数的形式返回。如果“b.com/data.aspx?callback=myFn”调用的话，那么返回的就是&quot; myFn(1024) &quot;。</p>
+<p>返回的数据变成动态的了（“1024”），前端页面用于显示数据的函数也编程了动态的了（“callback=myFn”），但是归根结底，形式还是一样的。</p>
+<h3 id="引导第六步调用封装">引导第六步：调用封装</h3>
+<p>a.com/test.html 中，仅仅有一个<em>script</em>静静的躺在那里，执行一次之后，就没有作用了。</p>
+<p>而实际情况是，a.com/test.html 中，可能随着用户的操作发生若干次的调用。怎么办？——动态增加呗。</p>
+<pre><code class="language-javascript">    function addScriptTag(src) {
+        var script = document.createElement(&quot;script&quot;);
+        script.setAttribute(&quot;type&quot;, &quot;text/javascript&quot;);
+        script.src = src;
+        document.body.appendChild(script);
+    }
+
+    function myFn (data) {
+        alert(data + 'px');  
+    }
+
+    //需要调用时：
+    //addScriptTag('b.com/data.aspx?callback=myFn');
+</code></pre>
+<h2 id="总结">总结</h2>
+<p>以上层层描述的就是JSONP，你不必去记住它的定义，看明白了上述文字，就全能理解。<br>
+<strong>重点在于:同源策略<code>&lt;script&gt;</code>的src不属于同源策略,通过<code>&lt;script&gt;</code>的src指向的文件返回服务器端数据</strong><br>
+OK,就这些啦~</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://blog.901web.com/tag/ajax-kua-yu-jsonp/" class="tag">
+                    ajax 跨域 jsonp
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/4UTriED7m/">
+                  <h3 class="post-title">
+                    javascript中的跨域总结和解决办法
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>React中props,state与render函数 | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">React中props,state与render函数</h2>
+            <div class="post-date">2020-11-06 17:11:45</div>
+            
+            <div class="post-content">
+              <h3 id="propsstate与render函数">Props,State与render函数:</h3>
+<p>当组件的state或者props发生改变的时候,render函数就会重新执行.</p>
+<p>render函数重新执行,页面就会被重新渲染.</p>
+<p>一个组件的生命周期函数可以不写,但是render函数必须的.</p>
+<p>当父组件的render函数被运行时,它的子组件的render都将被重新运行一次.</p>
+<p>每个组件都有自己独立的生命周期函数</p>
+<!-- more -->
+<h3 id="react中虚拟dom的diff算法">React中虚拟DOM的diff算法:</h3>
+<p>1.state -&gt; 数据<br>
+2.jsx   -&gt; 模板<br>
+3.数据+模板  生成虚拟DOM (虚拟DOM就是一个JS对象,它用来描述真实的DOM) (损耗了性能)</p>
+<p>['div',{id:'abc'},['span',{},'hello world']]</p>
+<p>4.用虚拟DOM的解构生成真实的DOM,来显示</p>
+<p><code>&lt;div id=&quot;abc&quot;&gt;&lt;span&gt;hello world&lt;/span&gt;&lt;/div&gt;</code></p>
+<p>5.state 发生变化<br>
+6.数据 + 模板 生成新的虚拟DOM (极大的提升了性能)<br>
+7.比较原始DOM和新的虚拟DOM的区别,找到区别就是span中的内容发生改变(极大的提升性能)<br>
+8.直接操作DOM,改变span中的内容</p>
+<p>优点:</p>
+<p>1.性能提升了.</p>
+<p>2.它使得跨端应用得以实现.React Native.</p>
+<h3 id="react中setstate方法">React中setState方法</h3>
+<p>setState方法是异步的,为了提升React底层的性能,多次setState会合并到一次.做一次虚拟DOM的比对,然后进行更新.(设计成异步函数)</p>
+<p>diff算法:</p>
+<p>同级比较原则</p>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/qIhkttHxC/">
+                  <h3 class="post-title">
+                    React基础知识概念相关
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

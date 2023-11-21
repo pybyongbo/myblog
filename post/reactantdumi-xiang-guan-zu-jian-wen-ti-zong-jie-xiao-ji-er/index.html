@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>React+Antd+Umi相关组件问题总结小计(二) | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">React+Antd+Umi相关组件问题总结小计(二)</h2>
+            <div class="post-date">2022-03-06 18:03:53</div>
+            
+            <div class="post-content">
+              <h3 id="antd-时间日期选择显示英文问题">Antd 时间日期选择显示英文问题</h3>
+<p>时间日期选择框展示的内容显示英文,如何修改为中文?</p>
+<pre><code class="language-javascript">
+    import { Popover,Divider,ConfigProvider } from 'antd'
+    import zhCN from 'antd/lib/locale/zh_CN';
+    import moment from &quot;moment&quot;;
+    import &quot;moment/locale/zh-cn&quot;;
+    moment.locale(&quot;zh-cn&quot;);
+    
+    
+    // 在最外层的组件处包裹一下即可.
+    
+    &lt;ConfigProvider locale={zhCN}&gt;
+    
+    
+    &lt;/ConfigProvider&gt;
+
+</code></pre>
+<!-- more -->
+<h3 id="reactantdumi-使用connect后refcurrent为undefined">React+Antd+Umi 使用connect后,ref.current为undefined</h3>
+<p>在用<code>React</code>开发项目的过程中,遇到一个问题,使用<code>connect</code>链接组件包装成高阶组件<code>HOC</code>后,父组件通过<code>ref</code>调用子组件方法时,提示<code>XXXRef.current</code>为<code>undefined</code>报错.</p>
+<p>外层父组件代码:</p>
+<pre><code class="language-javascript">import React, { useEffect, useState, useRef } from 'react';
+
+import CreateLabelForm from './components/createLabel';
+
+const SmartLabelList = (props) =&gt; {
+
+    const formRef = useRef();
+    
+    let createLabelConfigform = {
+        loading: record.id ? true : false,
+        form: addLabelForm,
+        corpId: scorpList,
+        formValues: record, //编辑时表单初始值,
+    }
+    
+    &lt;CreateLabelForm
+          {...createLabelConfigform}
+          ref={formRef}
+          getCorpId={(value) =&gt; getCorpId(value)}
+    /&gt;
+
+}
+
+</code></pre>
+<p>子组件部分代码:</p>
+<pre><code class="language-javascript">
+import React, {
+  useState,
+  useEffect,
+  forwardRef,
+  useImperativeHandle
+} from 'react';
+import {
+  connect
+} from 'umi';
+
+
+const CreateLabelTaskForm = forwardRef((props, refInstance) =&gt; {
+
+const {
+    form,
+    tagGroupList,
+    labelLoading,
+    // refInstance
+  } = props;
+
+ useImperativeHandle(refInstance, () =&gt; ({
+    // resetCusLabels 就是暴露给父组件的方法
+    resetCusLabels: () =&gt; {
+      setSelectedTags([])
+    }
+  }));
+
+
+})
+
+// 方法1:(定义组件时候,需要用`forwardRef`进行包裹)
+
+export default connect(({ loading, global, PUSHMANAGEMODEL, SOPSALES }) =&gt; ({
+  // corpList: global.corpList,
+  // dataSourceList: PUSHMANAGEMODEL.dataSourceList,
+  // shortRelationList: PUSHMANAGEMODEL.shortRelationList,
+  // shortProList: PUSHMANAGEMODEL.shortProList,
+  // workTarget: PUSHMANAGEMODEL.workTarget,
+  // tagGroupList: SOPSALES.tagGroupList,
+  // labelLoading: loading.effects[`SOPSALES/getAllTagGroup`]
+}), null, null, { forwardRef: true })(CreateLabelTaskForm);
+
+
+// 方法2: (定义组件时候,不需要用`forwardRef`进行包裹)
+
+const CreateLabelTaskFormConnect = connect(({ loading, global, PUSHMANAGEMODEL, SOPSALES }) =&gt; ({
+  // corpList: global.corpList,
+  // dataSourceList: PUSHMANAGEMODEL.dataSourceList,
+  // shortRelationList: PUSHMANAGEMODEL.shortRelationList,
+  // shortProList: PUSHMANAGEMODEL.shortProList,
+  // workTarget: PUSHMANAGEMODEL.workTarget,
+  // tagGroupList: SOPSALES.tagGroupList,
+  // labelLoading: loading.effects[`SOPSALES/getAllTagGroup`]
+
+}))(CreateLabelTaskForm);
+
+const CreateLabelTaskFormConnectRef = forwardRef((props, ref) =&gt; &lt;CreateLabelTaskFormConnect  {...props} refInstance={ref} /&gt;);
+
+export default CreateLabelTaskFormConnectRef
+
+</code></pre>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/wo-de-2021hui-gu-yu-nian-zhong-zong-jie/">
+                  <h3 class="post-title">
+                    我的2021,回顾与年终总结
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

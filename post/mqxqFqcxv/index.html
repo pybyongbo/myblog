@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Vue+React单页应用Nodejs部署踩坑记录 | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Vue+React单页应用Nodejs部署踩坑记录</h2>
+            <div class="post-date">2019-06-26 11:06:22</div>
+            
+            <div class="post-content">
+              <p>我们在用vue,或者react做单页应用的时候,部署到线上的时候,一般采用nginx作为web服务器,之前也部署过nodejs项目,用的PM2+Nginx,(用PM2启动,Nginx做反向代理),单页应用还没尝试过,第一次部署单页应用也遇到了不少问题,不过在悉心的请教和搜索,查找相关问题下面,解决了问题.在此做一个简单的笔记记录,加深自己的印象.</p>
+<!-- more -->
+<p>我们在开发单页应用的时候,一般都是分为不同的环境,开发环境和线上环境会有不同的配置文件,开发环境,我们要方便调试,进行热更新,懒加载,显示报错信息等.线上环境则需要压缩代码,屏蔽错误提示,提高性能等.所有我们会执行不同的配置文件进行打包生成.这里我就不多说啦.网上有很多相关的教程,大家可以自行参考学习.</p>
+<h3 id="部署vue版本的项目的时候vue-router有两种模式">部署VUE版本的项目的时候,(vue-router有两种模式):</h3>
+<h4 id="hash模式">hash模式</h4>
+<p><strong>即地址栏URL中的#符号</strong>比如这个url:<code>http://www.abc.com/#/hello</code>,hash的值为<code>#/hello</code>.它的特点在于:hash虽然出现在url中,但不会被包括在http请求中,对后端完全没有影响,因此改变hash不会重新加载页面.</p>
+<h4 id="history模式">history模式</h4>
+<p><strong>利用了HTML5 History Interface中新增的pushState()和replaceState方法</strong>(需要特定浏览器支持)</p>
+<p>这两个方法引用于浏览器的历史记录栈,在当前已有的back,forward,go的基础之上,他们提供了对历史记录进行修改的功能.只是当他们执行修改时,虽然改变了当前的URL,但浏览器不会立即向后端发送请求.</p>
+<p>因此可以说,hash模式和history模式都属于浏览器自身的特性,Vue-Router只是利用了这两个特性(通过调用浏览器提供的接口)来实现前端路由.</p>
+<p>由于VUE版本项目采用的是hash路由模式,nginx配置值做了接口请求的代理.</p>
+<pre><code class="language-nginx">    location /api {
+        proxy_pass http://admintest.happymmall.com; 
+        proxy_redirect default;
+    }
+</code></pre>
+<p>没有问题,访问的时候,地址栏上面也有对应的#,nginx里面只需做简单的配置即可.</p>
+<h3 id="而在reactreact-router做spa项目点击路由出现404页面">而在React+React-router做SPA项目,点击路由出现404页面</h3>
+<p>路由模式为BrowserHistory,在Nginx下访问项目,默认地址为:<code>http://firekylin.901web.com/</code>,点击路由<code>http://firekylin.901web.com/goods</code>就报错</p>
+<h4 id="问题分析">问题分析</h4>
+<p>这是因为nginx访问firekylin.901web.com/goods会去找goods.html,实际上我们是没有这个文件的,所有内容都是通过路由去渲染React组件,自然会报404错误.</p>
+<h4 id="解决方法">解决方法</h4>
+<p>通过配置nginx,访问任何URI都指向index.html,浏览器上的path,会自动被React-router处理,进行无刷新跳转</p>
+<p>配置文件参考如下:</p>
+<pre><code class="language-nginx">server {
+    listen 80;
+    server_name firekylin.901web.com;
+    index  index.html;
+    root /www/html/firekylin.901web.com;
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+    location /manage {
+        proxy_pass http://admintest.happymmall.com;
+        proxy_redirect default;
+    }
+}
+</code></pre>
+<p>最后附上不同版本的访问地址,项目接口都是同一套,慕课网实战课程,作为业余自学之后进行了实践,然后部署到了线上:</p>
+<p>Vue+Element UI:  <a href="http://vueadmin.901web.com/"><strong>VUE版本访问地址</strong></a></p>
+<p>React+Bootstrap: <a href="http://firekylin.901web.com/"><strong>React版本访问地址</strong></a></p>
+<p>再次刷新页面,完美解决~没有报404错误啦.有时候还是要懂点后端和服务端的相关知识,这样的话自己就会少走弯路少采坑.</p>
+<p>每当自己多一分努力,也许就会少一次求助于他人.愿自己的折腾没有白费.😝</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://blog.901web.com/tag/vuereactnodejs-bu-shu/" class="tag">
+                    VUE+React+NodeJS部署
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/JJ0tHlPdy/">
+                  <h3 class="post-title">
+                    近期生活状态的感想和总结
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

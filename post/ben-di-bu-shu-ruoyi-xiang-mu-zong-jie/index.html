@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>本地部署RuoYi项目总结 | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">本地部署RuoYi项目总结</h2>
+            <div class="post-date">2022-06-03 16:06:49</div>
+            
+            <div class="post-content">
+              <p>最近在看vue3相关的的知识点,搜了下相关的开源项目,本地部署<code>若依</code>项目进行相关的学习.ruoyi是一个前后端分离的项目,前端是<code>Vue</code>,后端是<code>Java</code>,一个基于<code>SpringBoot+Vue</code>前后端分离的开源项目.下面对本地部署中遇到的相关问题总结记录下:</p>
+<!-- more -->
+<h5 id="基于springbootvue前后端分离的java快速开发框架">基于SpringBoot+Vue前后端分离的Java快速开发框架</h5>
+<p>系统需求:</p>
+<ul>
+<li>JDK &gt;= 1.8</li>
+<li>MySQL &gt;= 5.7</li>
+<li>Maven &gt;= 3.0</li>
+<li>redis&gt;=3.0</li>
+</ul>
+<p>(1).克隆项目到本地电脑</p>
+<pre><code class="language-shell">    git clone git@gitee.com:y_project/RuoYi-Vue.git
+</code></pre>
+<p>(2).安装项目对应所需的软件环境,记得修改maven的镜像地址为阿里云镜像<br>
+进入 maven 的安装目录,找到settings.xml</p>
+<pre><code class="language-xml">&lt;mirror&gt;
+      &lt;id&gt;alimaven&lt;/id&gt;
+      &lt;name&gt;aliyun maven&lt;/name&gt;
+      &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;
+      &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;        
+&lt;/mirror&gt;
+</code></pre>
+<p>(3).将对应的数据库文件导入到本地数据库中,修改对应的数据库配置和redis配置文件,搜索相关的文件进行修改.还需开启redis服务器.</p>
+<pre><code class="language-shell">    redis-server
+</code></pre>
+<p>(4).进入到项目根目录下面,执行命令安装相应的依赖包</p>
+<pre><code class="language-shell">    mvn clean install
+</code></pre>
+<p>(5).进入到RuoYi-Vue/ruoyi-admin/target文件夹里面.执行以下命令:</p>
+<pre><code class="language-shell">    java -jar ruoyi-admin.jar
+</code></pre>
+<p>后端java项目默认的启动端口是:<code>8080</code>,还可以进行修改默认的启动端口:</p>
+<pre><code class="language-shell">    java -jar ruoyi-admin.jar --server.port=8066
+</code></pre>
+<p>或者修改项目文件夹下面ruoyi-admin/src/main/resources/application.yml中的</p>
+<pre><code class="language-txt"># 开发环境配置
+server:
+  # 服务器的HTTP端口，默认为8080
+  port: 8066
+
+</code></pre>
+<p>(6).修改项目logs配置文件路径,不然启动一直报异常,日志文件找不到.</p>
+<pre><code class="language-xml">    &lt;property name=&quot;log.path&quot; value=&quot;&quot; /&gt;
+</code></pre>
+<p>(7).修改路径配置后,记得重新打包生成<code>jar</code>的文件包.然后在启动项目.</p>
+<pre><code class="language-shell">    mvn clean install
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://images.901web.com/2022-05-22-081333.png" alt="页面效果" title="项目启动提示" loading="lazy"></figure>
+<p>(8).后端项目本地启动后,默认的跑在<code>8080</code>端口.我们可以本地测试看下接口.下面验证码接口</p>
+<figure data-type="image" tabindex="2"><img src="https://images.901web.com/2022-05-22-081814.png" alt="页面效果" title="验证码接口" loading="lazy"></figure>
+<p>(9).前端项目的启动,进入项目文件夹<code>ruoyi-ui</code>,安装前端项目所需要的依赖.进入文件夹,执行</p>
+<pre><code class="language-shell">    npm install
+</code></pre>
+<p>项目依赖安装完成后,启动前端项目,执行命令</p>
+<pre><code class="language-shell">   npm run dev
+</code></pre>
+<p>(10).项目启动成功后,前端项目默认的端口是<code>1024</code>,后端默认的是<code>8080</code>,这时候我们访问页面,页面应该会报接口<code>404</code>的.我们需要配置nginx代理.<span style="color:red">注意关闭nginx默认的8080端口</span> (可以注释掉),nginx的配置如下:</p>
+<pre><code class="language-nginx">
+server {
+    listen 80;
+    server_name localhost;
+    location /dev-api/ {
+            proxy_pass http://localhost:8080/;
+    }
+}
+
+</code></pre>
+<p>到此,项目前后端已经都可以正常跑起来啦.页面接口也没有报异常.我们就可以自己折腾折腾玩啦.</p>
+<figure data-type="image" tabindex="3"><img src="https://images.901web.com/2022-06-03-085536.png" alt="页面效果" title="验证码接口" loading="lazy"></figure>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/reactantdumi-xiang-guan-zu-jian-wen-ti-zong-jie-xiao-ji-er/">
+                  <h3 class="post-title">
+                    React+Antd+Umi相关组件问题总结小计(二)
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

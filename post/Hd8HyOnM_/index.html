@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>vue组件通信弹框表单问题记录 | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">vue组件通信弹框表单问题记录</h2>
+            <div class="post-date">2019-02-20 16:02:22</div>
+            
+            <div class="post-content">
+              <p>如今数据驱动视图的框架已经成为前端开发的主流，如 react、vue、angular 等，当然还包括我们用的 regular。这些框架大大提高了我们的开发效率，但同时现在的页面结构越来越复杂，虽然有这些 mv*的框架，但如果我们使用不当，也会造成状态数据管理混乱，代码难以维护的困扰。</p>
+<!-- more -->
+<p>因此组件化的思想就是为了提高开发效率和后期维护的效率。在做 SAAS 与腾讯企点合作的一个任务时候,遇到一个小问题.调用接口,在父组件里面完成,在子组件中通过 Props 获取.然后子组件的值修改更新通过<code>$emit</code>传达给父组件来更新.</p>
+<h3 id="什么是组件化">什么是组件化</h3>
+<blockquote>
+<p>一个组件只做一件事，基于功能做好职责划分。</p>
+</blockquote>
+<h3 id="组件拆分原则">组件拆分原则</h3>
+<blockquote>
+<ul>
+<li>原则：可复用、可组合；</li>
+<li>两大类：页面组件、功能组件 (基础组件,业务组件)；</li>
+</ul>
+</blockquote>
+<p>对组件的封装都是为了对数据逻辑业务的梳理，使得不同组件各司其职，即把大块的业务界面，拆分成若干小块，然后进行组装。当然这里不局限与 js，其实 css 同样适用（如 nec 规范）。</p>
+<figure data-type="image" tabindex="1"><img src="https://images.901web.com/hexoblog/vue-zj.jpg" alt="组件的划分" title="组件的划分" loading="lazy"></figure>
+<p>开始点击列表的分配账号,弹出框,调用一个借口,获取到相关的数据信息赋值给表单域.这个接口提供的是一套数据,包含两个表单域的一个对象,而对于两个表单模块,是拆分成两个子组件的.就需要进行数据的分离进行绑定.</p>
+<figure data-type="image" tabindex="2"><img src="https://images.901web.com/2019-02-21-082922.png" alt="组件的划分" title="模块截图" loading="lazy"></figure>
+<p>这里对于表单数据的绑定有点问题.最后跟同事交流讨论了后,父组件里面共用一份数据绑定.到组件中绑定表单进行字段拆分.</p>
+<pre><code class="language-javascript">&lt;!--分配企点账号弹框 (division.vue)--&gt;
+&lt;el-dialog class=&quot;mo-dialog&quot; id=&quot;account-dialog&quot; :title=&quot;`${qidianAccount?'编辑':'分配'}企点账号`&quot; :visible.sync=&quot;qidianaccountVisible&quot; width=&quot;780px&quot;&gt;
+            &lt;el-row class=&quot;page-body&quot; :gutter=&quot;40&quot;&gt;
+                &lt;el-col :span=&quot;12&quot;&gt;
+                    &lt;AccountInfoForm v-if=&quot;qidianaccountVisible&quot; ref=&quot;qdaccountInfo&quot; :qdData=&quot;qdData&quot; @updateinfo=&quot;updateinfo&quot;&gt;&lt;/AccountInfoForm&gt;
+                &lt;/el-col&gt;
+                &lt;el-col :span=&quot;12&quot;&gt;
+                    &lt;ShowInfoForm v-if=&quot;qidianaccountVisible&quot; ref=&quot;showDatainfo&quot; :qdData=&quot;qdData&quot; @updateinfo=&quot;updateinfo&quot;&gt;&lt;/ShowInfoForm&gt;
+                &lt;/el-col&gt;
+            &lt;/el-row&gt;
+            &lt;div class=&quot;page-bottom&quot;&gt;
+                &lt;el-button class=&quot;mo-button&quot; plain type=&quot;primary&quot; @click=&quot;closeqidianDialog&quot;&gt;取消&lt;/el-button&gt;
+                &lt;el-button v-if=&quot;qidianAccount&quot; class=&quot;mo-button&quot; type=&quot;primary&quot; @click=&quot;onSubmit&quot;&gt;保存&lt;/el-button&gt;
+                &lt;el-button v-else class=&quot;mo-button&quot; type=&quot;primary&quot; @click=&quot;onSubmit&quot;&gt;确认分配&lt;/el-button&gt;
+
+            &lt;/div&gt;
+&lt;/el-dialog&gt;
+</code></pre>
+<p>表单组件加入<code>v-if=&quot;qidianaccountVisible&quot;</code>,显示的时候,才会渲染,然后才会执行子组件里面的 create 方法.(每次打开弹框都会执行),否则只会执行一次,里面绑定的值不会更新.</p>
+<p>获取到员工信息后,进行赋值</p>
+<pre><code class="language-javascript">//获取员工信息
+getEmployeeInfo(id) {
+    getEmployee({ id: id }).then(res =&gt; {
+        const resData = res.data.data;
+        this.qdData = res.data.data;
+        this.qidianaccountVisible = true;
+    });
+},
+</code></pre>
+<pre><code class="language-javascript">&lt;template&gt;
+    &lt;div class=&quot;account-info-form&quot;&gt;
+        &lt;header&gt;
+            &lt;h3&gt;企点账号信息&lt;/h3&gt;
+        &lt;/header&gt;
+        &lt;el-form class=&quot;form&quot; ref=&quot;qdform&quot; :rules=&quot;rules&quot; :model=&quot;qdaccountform&quot; label-width=&quot;70px&quot;&gt;
+            &lt;el-form-item prop=&quot;name&quot; label=&quot;姓名&quot;&gt;
+                &lt;el-input class=&quot;mo-input&quot; v-model=&quot;qdaccountform.name&quot; placeholder=&quot;请输入&quot;&gt;&lt;/el-input&gt;
+            &lt;/el-form-item&gt;
+            &lt;el-form-item prop=&quot;sex&quot; label=&quot;性别&quot;&gt;
+                &lt;el-select class=&quot;mo-select block&quot; v-model=&quot;qdaccountform.sex&quot; placeholder=&quot;请选择&quot;&gt;
+                    &lt;el-option label=&quot;男&quot; :value=&quot;1&quot;&gt;&lt;/el-option&gt;
+                    &lt;el-option label=&quot;女&quot; :value=&quot;2&quot;&gt;&lt;/el-option&gt;
+                &lt;/el-select&gt;
+            &lt;/el-form-item&gt;
+            &lt;el-form-item prop=&quot;deptName&quot; label=&quot;部门&quot;&gt;
+                &lt;el-input class=&quot;mo-input&quot; v-model=&quot;qdaccountform.deptName&quot; placeholder=&quot;请输入&quot; :disabled=true&gt;&lt;/el-input&gt;
+            &lt;/el-form-item&gt;
+            &lt;el-form-item prop=&quot;mobile&quot; label=&quot;手机号&quot;&gt;
+                &lt;el-input class=&quot;mo-input&quot; v-model=&quot;qdaccountform.mobile&quot; placeholder=&quot;请输入&quot;&gt;&lt;/el-input&gt;
+                &lt;p class=&quot;tel-info&quot;&gt;(用于接收企点账号和密码)&lt;/p&gt;
+            &lt;/el-form-item&gt;
+        &lt;/el-form&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+</code></pre>
+<pre><code class="language-javascript">export default {
+  props: {
+    qdData: {
+      type: Object,
+      default() {
+        return {};
+      }
+    }
+  },
+  watch: {
+    qdaccountform: {
+      handler(newVal) {
+        this.$emit(&quot;updateinfo&quot;, this.qdaccountform);
+      },
+      deep: true
+    }
+  },
+  data() {
+    return {
+      qdaccountform: {}
+    };
+  },
+  created() {
+    this.initFormdata();
+  },
+  methods: {
+    loadOptions({ action, searchQuery, callback }) {},
+    //将接口对象分离开,绑定不同的子组件.
+    getFormfiles(obj) {
+      var o = {},
+        attr = Array.prototype.slice.call(arguments).slice(1);
+      attr.forEach(function(val, index) {
+        if (val in obj) {
+          o[val] = obj[val];
+        }
+      });
+
+      return o;
+    },
+    initFormdata() {
+      //分离表单对象,接口所需要的字段值.
+      this.qdaccountform = this.getFormfiles(
+        this.qdData,
+        &quot;name&quot;,
+        &quot;sex&quot;,
+        &quot;deptName&quot;,
+        &quot;mobile&quot;
+      );
+    },
+
+    async sendqdaccountInfo() {
+      //编辑保存和新增保存
+      const valid = await this.$refs.qdform.validate();
+      //新增企点用户
+      if (valid) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+};
+</code></pre>
+<p>另外一个组件也是用相同的方法.(子组件表单域赋值分开,父组件传递共用一份数据.)</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://blog.901web.com/tag/vuereactnodejs-bu-shu/" class="tag">
+                    VUE+React+NodeJS部署
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/LCXD9Myxr/">
+                  <h3 class="post-title">
+                    总结2018年~展望2019年
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

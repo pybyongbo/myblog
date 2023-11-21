@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>input属性 disabled和readonly的区别 | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">input属性 disabled和readonly的区别</h2>
+            <div class="post-date">2021-08-14 10:08:07</div>
+            
+            <div class="post-content">
+              <h4 id="disabled和readonly的区别">disabled和readonly的区别:</h4>
+<p>这两种写法都会使显示出来的文本框不能输入文字，都能做到使用户不能够更改表单域中的内容，但：</p>
+<br/>
+<ul>
+<li><code>disabled</code> 会使文本框变灰，而 <code>readonly</code> 只是使文本框不能输入，外观没有变化。</li>
+<li><code>readonly</code> 只针对 <code>input</code> 和 <code>textarea</code> 有效，而 <code>disabled</code> 对于所有的表单元素都有效。</li>
+<li>将表单以 POST 或 GET 的方式提交的话，使用了 disabled 后，这个元素的值不会被传递出去，而 readonly 会将该值传递出去。</li>
+<li>当元素具有禁用属性时,不会触发任何事件.而<code>readonly</code>将被触发.</li>
+</ul>
+<!-- more -->
+<h4 id="disabled和readonly的用法">disabled和readonly的用法:</h4>
+<pre><code class="language-html">
+&lt;input type=&quot;text&quot; name=&quot;name&quot; value=&quot;xxx&quot; disabled=&quot;true&quot;/&gt;
+&lt;input type=&quot;text&quot; name=&quot;name&quot; value=&quot;xxx&quot; readonly=&quot;true&quot;/&gt;
+
+</code></pre>
+<p>以下任何一项都不会被触发。</p>
+<pre><code class="language-javascript">$(&quot;[disabled]&quot;).click( function(){ console.log(&quot;clicked&quot;) });//No Impact
+$(&quot;[disabled]&quot;).hover( function(){ console.log(&quot;hovered&quot;) });//No Impact
+$(&quot;[disabled]&quot;).dblclick( function(){ console.log(&quot;double clicked&quot;) });//No Impact
+
+</code></pre>
+<p>而<code>readonly</code>将被触发.</p>
+<pre><code class="language-javascript">
+$(&quot;[readonly]&quot;).click( function(){ console.log(&quot;clicked&quot;) });//log - clicked
+$(&quot;[readonly]&quot;).hover( function(){ console.log(&quot;hovered&quot;) });//log - hovered
+$(&quot;[readonly]&quot;).dblclick( function(){ console.log(&quot;double clicked&quot;) });//log - double clicked
+
+</code></pre>
+<p>例如以下测试效果截图:</p>
+<pre><code class="language-html">
+&lt;form action=&quot;https://baidu.com&quot;&gt;
+
+    &lt;select name=&quot;city&quot; id=&quot;city&quot; readonly=&quot;readonly&quot; &gt;
+        &lt;option value=&quot;1&quot;&gt;上海&lt;/option&gt;
+        &lt;option value=&quot;2&quot;&gt;北京&lt;/option&gt;
+        &lt;option value=&quot;3&quot;&gt;武汉&lt;/option&gt;
+        &lt;option value=&quot;4&quot;&gt;长沙&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;input type=&quot;text&quot; name=&quot;input1&quot; value=&quot;disabled&quot; disabled &gt;
+    &lt;input type=&quot;text&quot; name=&quot;input2&quot; value=&quot;readonly&quot; readonly=&quot;readonly&quot; &gt;
+
+    &lt;button type=&quot;submit&quot;&gt;submit&lt;/button&gt;
+
+  &lt;/form&gt;
+
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://images.901web.com/2021-08-11-022835.png" alt="验证1截图" title="绑定事件" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://images.901web.com/2021-08-11-023035.png" alt="验证2截图" title="表单提交" loading="lazy"></figure>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://blog.901web.com/tag/htmlcss/" class="tag">
+                    HTML+CSS
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/javascript-yin-shi-lei-xing-zhuan-huan-he-ji-ben-gui-ze-zong-jie/">
+                  <h3 class="post-title">
+                    Javascript隐式类型转换和基本规则总结
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

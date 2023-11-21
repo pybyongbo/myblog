@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>React+Antd+Webpack+Css模块化相关知识点记录 | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">React+Antd+Webpack+Css模块化相关知识点记录</h2>
+            <div class="post-date">2021-08-28 21:08:06</div>
+            
+            <div class="post-content">
+              <h3 id="reactantdwebpackcss模块化相关知识点记录">React+Antd+Webpack+Css模块化相关知识点记录</h3>
+<h4 id="css模块化相关">Css模块化相关</h4>
+<p>webpack打包配置处理CSS样式的时候,如果设置了<code>modules:true</code>的话,就开启了css模块化配置.</p>
+<!-- more -->
+<pre><code class="language-javascript">
+// Modular loader components styles
+{
+      test: /\.(css|less|scss)$/,
+        exclude: config.nodeModules,
+        include: config.src,
+        use: [
+        {
+        loader: prodMode ? MiniCssExtractPlugin.loader : 'style-loader'
+        },
+        {
+            loader: 'css-loader',
+            options: {
+                // sourceMap: true,
+                modules: true,
+                localIdentName: '[local]___[hash:base64:5]'
+            }
+            },
+            {
+                loader: 'postcss-loader',
+                options: {
+                    plugins: () =&gt; [require('autoprefixer')()]
+                }
+            },
+            {
+                loader: 'less-loader',
+                options: {
+                    javascriptEnabled: true
+                }
+            }
+        ]
+   },
+   // Customize antd themes
+    {
+          test: /\.(css|less|scss)$/,
+           exclude: config.src,
+           use: [
+        {
+            loader: prodMode ? MiniCssExtractPlugin.loader : 'style-loader'
+         },
+        {
+          loader: 'css-loader'
+        },
+         {
+             loader: 'less-loader',
+              options: {
+                      modifyVars: config.theme,
+                      javascriptEnabled: true,
+                      // sourceMap: true
+                        }
+                    }
+        ]
+  },
+
+</code></pre>
+<p>页面引入css样式的方式有两种:</p>
+<ul>
+<li>import './index.scss';</li>
+<li>import style from './index.scss'</li>
+</ul>
+<p>第一种方式,css样式是全局引入的.样式文件中需要加入<code>:global</code>,样式文件才会生效.(如果不加的话,在<code>webpack</code>配置中将<code>modules:false</code>也可以,但不建议这么操作)</p>
+<p>第二种方式的引入样式的话,不需要再样式文件里加入<code>:global</code>,但是在<code>jsx</code>中使用样式的时候,要用对象的写法读取.这时webpack会自动加入唯一的<code>hash</code>值. 例如:</p>
+<pre><code class="language-jsx">
+&lt;div className=&quot;header&quot;&gt;&lt;/div&gt;
+
+&lt;div className={style.header}&gt;
+
+&lt;/div&gt;
+
+</code></pre>
+<h4 id="webpack-proxy-配置多个代理">webpack proxy 配置多个代理</h4>
+<pre><code class="language-javascript">
+ proxy: {
+        '/api/base': {
+            target: 'http://base.901web.com',
+            changeOrigin: true,
+            pathRewrite: {
+                '^/api/base': ''
+            }
+        },
+        '/api/sales': {
+            target: 'http://sales.901web.com',
+            changeOrigin: true,
+            pathRewrite: {
+                '^/api/sales': ''
+            }
+        },
+        '/api/goods': {
+            target: 'http://goods.901web.com',
+            changeOrigin: true,
+            pathRewrite: {
+                '^/api/goods': ''
+            }
+        }
+    }
+    
+</code></pre>
+<h4 id="配置storeredux中间件以及使用antd分页弹框中文化配置">配置store,redux中间件,以及使用Antd,分页弹框,中文化配置</h4>
+<p>// 创建store文件:</p>
+<pre><code class="language-javascript">    import { createStore, applyMiddleware, compose } from 'redux';
+    import thunkMiddleware from &quot;redux-thunk&quot;;
+    import logger from 'redux-logger'
+    import reducer from './reducer.js';
+    
+    
+    const middlewares = [thunkMiddleware, logger];
+    
+    
+    const storeEnhancers = compose(
+      applyMiddleware(...middlewares),
+      window.__REDUX_DEVTOOLS_EXTENSION__ ?window.__REDUX_DEVTOOLS_EXTENSION__() : f =&gt; f
+    );
+    
+    const store = createStore(reducer, {}, storeEnhancers);
+    
+    export default store;
+
+</code></pre>
+<pre><code class="language-javascript">import { Provider } from 'react-redux';
+import zhCN from 'antd/lib/locale-provider/zh_CN';
+import App from './App';
+// 引入项目中的store文件
+import store from './store/store';
+    
+&lt;Provider store={store}&gt;
+    &lt;ConfigProvider locale={zhCN}&gt;
+        &lt;App&gt;   
+            {
+                
+                // 其他代码
+            
+            }
+        &lt;/App&gt;
+    &lt;/ConfigProvider&gt;
+&lt;/Provider&gt;
+
+</code></pre>
+<p>// 模板文件中通过connect连接后,通过props拿到reducer中的值.</p>
+<pre><code class="language-javascript">
+import { connect } from 'react-redux';
+    
+function NewsList(props){
+    
+    const {list} = props;
+        
+}
+    
+    
+const mapStateToProps = state =&gt; ({
+  ...state
+});
+
+const mapDispatchToProps = dispatch =&gt; ({ dispatch });
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewsList);
+    
+
+</code></pre>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/javascript-zhong-functionprototype-shi-dui-xiang-huan-shi-han-shu/">
+                  <h3 class="post-title">
+                    javascript中Function.prototype是对象还是函数?
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>let/var/const和无关键字声明变量有有何不同? | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">let/var/const和无关键字声明变量有有何不同?</h2>
+            <div class="post-date">2021-09-19 11:09:10</div>
+            
+            <div class="post-content">
+              <h3 id="letvarconst和无关键字声明变量有有何不同">let/var/const和无关键字声明变量有有何不同?</h3>
+<p><strong>没有关键字</strong></p>
+<p>在变量赋值之前没有关键字存在,要么赋值给一个不存在的全局变量,要么重新分配给已声明的变量.在非严格模式下,如果变量没有声明,它将赋值为全局对象(浏览器中的<code>window</code>)的一个属性.在严格模式下,它将抛出一个错误阻止不需要的全局变量被创建.</p>
+<!-- more -->
+<p><strong>var</strong></p>
+<p>直到ES2015<code>var</code>仍是默认的声明语句.它创建了一个函数作用域,可以重新分配和重新声明.然而,由于缺少块作用域,如果变量在一个包含异步回调的循环中再次使用的话.他可能会造成问题,因为变量将继续存在于块作用域之外.</p>
+<p>下面,等到setTimeout回调执行时,循环已经完成啦.而且变量<code>i</code>的值是<code>10</code>,因此,所有这10个回调在这个函数作用域下引用了同一个可用的变量</p>
+<pre><code class="language-javascript">
+for (var i = 0; i &lt; 10; i++) {
+  setTimeout(() =&gt; {
+    // 打印 `10` 10 次
+    console.log(i)
+  })
+}
+
+/* 使用 `var` 的解决方案 */
+for (var i = 0; i &lt; 10; i++) {
+  // 作为参数传递进去
+  setTimeout(console.log, 0, i)
+}
+
+for (var i = 0; i &lt; 10; i++) {
+  // 创建一个函数作用域
+  ;(i =&gt; {
+    setTimeout(() =&gt; {
+      console.log(i)
+    })
+  })(i)
+}
+
+</code></pre>
+<p><strong>let</strong></p>
+<p><code>let</code> 在ES2015中引入,而且是新的变量声明推荐的方法,它之后将被重新分配.试图重新声明一个变量将会抛出错误.它是块级作用域,因此在循环中可以在迭代中保持它的作用域.</p>
+<pre><code class="language-javascript">
+for (let i = 0; i &lt; 10; i++) {
+  setTimeout(() =&gt; {
+    // 打印 0, 1, 2, 3, ...
+    console.log(i)
+  })
+}
+
+</code></pre>
+<p><strong>const</strong></p>
+<p><code>const</code> 在ES2015中引入,而且是新的变量声明推荐的方法,它之后不能被重新分配,即使对象是可变的(只要对象的引用不变就行).它是块级作用域而且不能被重新分配</p>
+<pre><code class="language-javascript">
+const myObject = {}
+myObject.prop = &quot;hello!&quot; // 没有错误
+myObject = &quot;hello&quot; // 抛出错误
+
+</code></pre>
+<p><strong>小贴士</strong></p>
+<ul>
+<li>所有的声明都会被提升到它们的作用域顶部.</li>
+<li>然而,<code>let</code>和<code>const</code>有一个叫暂时性死区的概念. 虽然声明被提升啦,但有一段时间在进入作用域和被声明之间它们是不能访问的.</li>
+<li>给你一个使用 <code>var</code> 的常见问题，和 <code>let</code> 如何解决它，以及保留 <code>var</code> 的解决方案</li>
+<li><code>var</code>应该尽可能的避免使用,推荐<code>const</code>作为所有变量的默认声明,除非它们之后会被重新分配,则使用<code>let</code></li>
+</ul>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/reactantdwebpackcss-mo-kuai-hua-xiang-guan-zhi-shi-dian-ji-lu/">
+                  <h3 class="post-title">
+                    React+Antd+Webpack+Css模块化相关知识点记录
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

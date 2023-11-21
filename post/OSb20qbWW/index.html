@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>学习设计API | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">学习设计API</h2>
+            <div class="post-date">2015-07-26 10:07:56</div>
+            
+            <div class="post-content">
+              <p>网络应用程序，分为前端和后端两个部分。当前的发展趋势，就是前端设备层出不穷（手机、平板、桌面电脑、其他专用设备......）。<br>
+因此，必须有一种统一的机制，方便不同的前端设备与后端进行通信。这导致API构架的流行.</p>
+<!-- more -->
+<hr>
+<h2 id="介绍">介绍</h2>
+<p>先说说啥是<code>API</code> 以下摘自百度百科 ——<br>
+<code>API</code>（Application Programming Interface,应用程序编程接口）是一些预先定义的函数，目的是提供应用程序与开发人员基于某软件或硬件得以访问一组例程的能力，而又无需访问源码，或理解内部工作机制的细节。<br>
+其实对于我们接触的<code>web</code>前端来说,<code>api</code>就是协商好的一种规范，大家都按这个规范做事，这里主要针对<strong>前&amp;后端交互的接口</strong>进行说明~</p>
+<hr>
+<h2 id="返回值约定">返回值约定</h2>
+<p>返回值是指当前端返回后端给出的接口时返回的数据格式，常见的有这么几种：<code>text</code>, <code>json</code>, <code>xml</code>，现在大多数会用<code>json</code>，因为她传输数据少，可扩展性强，B格高～</p>
+<hr>
+<h3 id="方式一">方式一</h3>
+<p>我们约定返回值如果包含<code>errcode</code>则视为有错误，并会出现可选的<code>msg</code>字段，无错误则使用<code>items</code>表示循环的数据，格式如：</p>
+<pre><code class="language-json">//提交成功，没有返回数据
+{}
+
+//获取成功，返回列表数据
+{
+    &quot;items&quot;:[
+        {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;前端小波&quot;
+        }
+    ]
+}
+
+//获取失败，
+{
+    &quot;errcode&quot;: 1
+}
+
+//提交失败
+{
+    &quot;errcode&quot;: 1,
+    &quot;msg&quot;: &quot;用户名为空&quot;
+}
+
+//返回一个链接
+{
+    &quot;url&quot;: &quot;/login/&quot;
+}
+
+</code></pre>
+<p>这种格式通常<code>errcode</code>会有一个公用的错误码，比如<code>1001</code>没登录，<code>2001</code>用户被锁定等，注意的是这个值是强制类型，前端判断</p>
+<pre><code class="language-javascript">function success (res){
+    if(res.errcode){//有错了
+        if(res.errcode === 1001){
+            alert('请先登录');
+        } else {
+            //no
+        }
+    } else {
+           //成功
+    }
+}
+</code></pre>
+<h3 id="方式二">方式二</h3>
+<p>约定返回值必须有<code>errcode</code>，为<code>0</code>则是成功，否则失败，<code>errcode</code>也会对应公用的状态码，<code>msg</code>可选，<code>data</code>为数据，比如：</p>
+<pre><code class="language-javascript">//成功
+{
+    &quot;errcode&quot;: 0
+}
+
+//提交失败
+{
+    &quot;errcode&quot;: 1,
+    &quot;msg&quot;: &quot;参数错误&quot;
+}
+
+//获取链接
+{
+    &quot;errcode&quot;: 0,
+    &quot;data&quot;: &quot;/&quot;
+}
+
+//获取列表
+{
+    &quot;errcode&quot;: 0,
+    &quot;data&quot; []
+}
+
+</code></pre>
+<p>还有就是返回状态码，通常使用<code>200</code>，然后用<code>errcode</code>表示，但也有些以<code>401</code>未登录，<code>403</code>权限验证失败等~</p>
+<p>返回值的格式大家约定好按着写就行，没有什么好与不好～</p>
+<h1 id="接口的路径风格">接口的路径风格</h1>
+<hr>
+<p>路径是指后端提供给前端调用该接口的地址，其实就是该接口的链接，最好以一个较为明显的词为目前开头，或者说以单独的域开头，路径还要向语义化靠拢，这里只是路径，不涉及到参数，比如：</p>
+<blockquote>
+<ul>
+<li><code>/api/user/info</code></li>
+<li><code>http://api.xuexb.com/user/info</code></li>
+</ul>
+</blockquote>
+<hr>
+<p>注：通常是复数时会在词后加s，比如照片是photo，但照片集，多个照片时是photos，当然这不是硬性规定，具体还要看你～</p>
+<h2 id="隐式语义化风格">隐式语义化风格</h2>
+<blockquote>
+<ul>
+<li><code>/api/photos/</code>获取所有照片列表，类似默认的index为主页的意思</li>
+<li><code>/api/photos/create</code> 创建照片</li>
+<li><code>/api/photos/delete</code> 删除照片</li>
+<li><code>/api/photos/update</code> 更新照片</li>
+<li><code>/api/photos/{id}</code> 获取单个照片信息</li>
+</ul>
+</blockquote>
+<h2 id="显式语义化风格">显式语义化风格</h2>
+<blockquote>
+<ul>
+<li><code>/api/photos/get-list</code> 获取照片列表</li>
+<li><code>/api/photos/create</code> 创建照片</li>
+<li><code>/api/photos/delete</code> 删除照片</li>
+<li><code>/api/photos/set</code> 更新</li>
+<li><code>/api/photos/set-xx</code> 更新某项</li>
+<li><code>/api/photos/get/{id}</code> 创建单个</li>
+</ul>
+</blockquote>
+<p>查看更多关于restful的信息：http://www.ruanyifeng.com/blog/2014/05/restful_api.html</p>
+<h3 id="参数">参数</h3>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th style="text-align:right">必选</th>
+<th style="text-align:center">类型及范围</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>page</td>
+<td style="text-align:right">false</td>
+<td style="text-align:center">int</td>
+<td style="text-align:center">当前页, 默认为1</td>
+</tr>
+<tr>
+<td>page_size</td>
+<td style="text-align:right">false</td>
+<td style="text-align:center">int</td>
+<td style="text-align:center">每页多少条数据, 默认为20</td>
+</tr>
+<tr>
+<td>status</td>
+<td style="text-align:right">true</td>
+<td style="text-align:center">int</td>
+<td style="text-align:center">专辑状态, 1未开始, 2进行中, 3已完成, 4已删除</td>
+</tr>
+</tbody>
+</table>
+<h2 id="文档">文档</h2>
+<p>接口文档常用的字段：</p>
+<blockquote>
+<ul>
+<li>名称，该接口的名称</li>
+<li>备注，该接口的一些使用场景，注意问题等说明</li>
+<li>路径，表明出访问该接口的地址</li>
+<li>返回值格式，通常为<code>json</code></li>
+<li>请求方式，请求该接口的方式</li>
+<li>参数，详情列出接口需要的参数，分可选、必选</li>
+<li>返回字段说明，以文字描述出返回值比较重要的字段</li>
+<li>返回值例子，分多种状态列出该接口可能出现的返回值</li>
+</ul>
+</blockquote>
+<p>文档demo (http://www.xuexb.com/html/api.html)</p>
+<h2 id="版本控制">版本控制</h2>
+<p>如果在客户端应用接口还要涉及到版本控制，比如你发的App1.0使用的接口跟2.0使用的可能不一样，可能会有接口字段调整，类型调整等，这时你又不能丢弃老的用户，还要兼容新的版本，那么这样的版本总体来说可以分大版本和小版本</p>
+<h2 id="大版本">大版本</h2>
+<p>以版本号为路径，比如 /api/v1/*，在App做一次大的升级，会出现多个接口大的迁移，这时要考虑到数据库的兼容，在适当时候整体新版本里应用v2资源，当然这个应该是在App加载的时候获取的配置文件里带的，升级大版本后相关调整的接口一定要跟客户端开发者约定好，避免兼容问题</p>
+<h2 id="小版本">小版本</h2>
+<p>实际工作中难免会经常<code>fix</code>一些问题，或者小的需求改动，比如在登录里加个验证码，这小的改动遵循<strong>只添加不删除</strong>的规则，因客户端在请求接口时都会带有<code>App</code>当前的版本号，后端可根据该版本来做一些兼容，比如<code>1.0.1</code>的时候登录不用验证码，<code>1.0.2</code>的时候必须有验证码这样的需求，当然还有一些设备的兼容，比如<code>ios</code>和<code>android</code>等，当一个接口里小的版本过多时就得考虑升级了</p>
+<p>最后说：版本的升级是件&quot;大事&quot;，一定要跟所有的相关人员密切的沟通，当然希望你的沟通者是女的吧～</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://blog.901web.com/tag/gong-zuo-bi-ji/" class="tag">
+                    工作笔记
+                  </a>
+                
+                  <a href="https://blog.901web.com/tag/api-she-ji/" class="tag">
+                    API设计
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/PU2dUkMka/">
+                  <h3 class="post-title">
+                    移动端web开发记录笔记
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

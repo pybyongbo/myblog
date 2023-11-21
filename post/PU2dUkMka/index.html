@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>移动端web开发记录笔记 | pyb永波的技术博客</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+<link rel="shortcut icon" href="https://blog.901web.com/favicon.ico?v=1700564855826">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://blog.901web.com/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.901web.com">
+        <img src="https://blog.901web.com/images/avatar.png?v=1700564855826" class="site-logo">
+        <h1 class="site-title">pyb永波的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/mylife" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-weibo"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-zhihu"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://github.com/pybyongbo" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.901web.com/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">移动端web开发记录笔记</h2>
+            <div class="post-date">2015-07-20 21:07:02</div>
+            
+            <div class="post-content">
+              <p>最近在接触移动端前端开发的相关工作任务,自己在制作前端页面的过程中遇到了不少的坑,今天有时间就特意的总结一下在这次项目中遇到的相关问题.</p>
+<!-- more -->
+<h2 id="移动前端开发框架frozenui">移动前端开发框架frozenUI</h2>
+<p>我们在项目中使用的是腾讯的QQ会员开源前端框架,Frozen UI是腾讯ISUX团队（社交用户体验设计团队）根据最新的手机QQ设计规范制作的移动端Web框架，包括CSS基础样式和组件、JavaScript基础组件和一些动画效果库。<br>
+之前接触过Bootstrap前端框架,这个是接触到的第二个移动端前端框架,使用起来感觉效果还蛮不错的.当然,由于不太熟悉移动端的相关js事件,和zepto.js的库,踩到了不少的坑,正好这也是我学习新知识和增长见识的机会.</p>
+<h2 id="ajax加载更多数据展示在页面上面的实现方法">ajax加载更多数据展示在页面上面的实现方法</h2>
+<p>我主要负责的部分是是房产网站部分前端静态页面的制作,和相关数据的展示.(后端php提供相关API接口的数据),然后我循环,拼接HTML展示到前端页面,并添加一些相关的动画效果,提升用户体验.</p>
+<p>下面是相关页面的展示效果截图,所看到的信息数据均是通过ajax动态插入多少页面上面的.</p>
+<figure data-type="image" tabindex="1"><img src="https://images.901web.com/hexoblog/q1.jpg" alt="" loading="lazy"></figure>
+<p>开始的时候,由于没有相关的项目经验以及自己的基础知识也比较差,导致自己写的ajax代码相当的混乱.之后根据相关的需求进行了更改和代码的相关统一和封装整理.以至于代码不至于那么稀乱....</p>
+<p>最开始令我自己比较纠结的问题就是点击更多选项的时候,进行相关的筛选条件判断,这里的布局结构是使用ul li进行相关的排版布局,并且点击对应的栏目需要传递相关的参数和高亮显示.</p>
+<p>最开始难倒我的就是双重ajax拼接HTML代码显示这里的相关内容,自己的思路都没有理解清楚.导致ajax方法中拼接HTML代码无法进行.(最后同事帮忙解决了此问题.)</p>
+<figure data-type="image" tabindex="2"><img src="https://images.901web.com/hexoblog/q2.jpg" alt="" loading="lazy"></figure>
+<p>其中,点击对应的下拉框的时候,也就是下拉框触发change事件的时候,我们要执行ajax方法获取对应的数据,其他没有选中的都给默认值0(或者为空都行,这个后台可以判断),我们这里没有选择的话,默认的是给的空值的.</p>
+<p>其次是执行对应的ajax方法,一进入页面的时候,执行一下getmoreData()函数,取得第一页的数据展示在页面上.然后请求之前显示加载动画,完成后影藏加载动画,并且p++;其中传递的data参数如下</p>
+<h2 id="传递的参数即相关的意义">传递的参数即相关的意义：</h2>
+<table>
+<thead>
+<tr>
+<th>单词</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>g</td>
+<td style="text-align:center">Entrust(g表示模块)</td>
+</tr>
+<tr>
+<td>m</td>
+<td style="text-align:center">newhouse(m表示控制器)</td>
+</tr>
+<tr>
+<td>a</td>
+<td style="text-align:center">newhouse(a表示方法)</td>
+</tr>
+<tr>
+<td>what</td>
+<td style="text-align:center">newhouse(请求房屋状态类型)</td>
+</tr>
+<tr>
+<td>areaid</td>
+<td style="text-align:center">0(不限,请求的区域)</td>
+</tr>
+<tr>
+<td>property_type</td>
+<td style="text-align:center">0(不限,房屋需求类型)</td>
+</tr>
+<tr>
+<td>choose_price</td>
+<td style="text-align:center">0(不限,房屋价格)</td>
+</tr>
+<tr>
+<td>n_apartment_type</td>
+<td style="text-align:center">房屋户型(0,不限)</td>
+</tr>
+<tr>
+<td>properties</td>
+<td style="text-align:center">楼盘特色(0,不限)</td>
+</tr>
+<tr>
+<td>measure</td>
+<td style="text-align:center">房屋面积(0,不限)</td>
+</tr>
+<tr>
+<td>limit</td>
+<td style="text-align:center">每页显示的条数</td>
+</tr>
+<tr>
+<td>p</td>
+<td style="text-align:center">当前第几页</td>
+</tr>
+</tbody>
+</table>
+<p>其中在判断下拉框选中的事件时,在zepto.js中,与jquery的select选中事件不太一样,用jquery的语法直接报错.<br>
+应该使用如下语法选中.</p>
+<pre><code class="language-javascript"> var area = $('select[name=area] option').not(function() {
+        return !this.selected
+    }).val();
+    var property_type = $('select[name=property_type] option').not(function() {
+        return !this.selected
+    }).val();
+    var choose_price = $('select[name=choose_price] option').not(function() {
+        return !this.selected
+    }).val();
+</code></pre>
+<p>其次在点击更多的条件展开的数据筛选过程中,给对应的li点击事件的时候,添加了相关的自定义属性值,如data-type=&quot;select&quot;,还有就是title,和name属性值.然后通过该自定义的属性值来进行获取对应的值.</p>
+<p>这个是上面的头部的搜索以及下拉筛选部分的实现思路.</p>
+<p>其次就是在一个难点的内容就是如何共用一个函数来实现点击加载更多的内容展示在页面上面,并且相关条件下面的点击加载更多请求的数据的正确性.这里我们就给自定义的函数getmoreData()传递参数.<br>
+看是默认的情况下面点击进入的分页还是点击了其他带搜索条件下的分页.如果是点击其他搜索条件下面的点击加载更多的话,要先将curPage赋值为1,然后清空#indexlist里面的内容.在将返回的数据重新的添加到#indexlist里面.</p>
+<p>其次再就是获取搜索框搜索结果的数据,展示到页面上面,搜索部分是另外的API接口部分.另外单独写了一个获取搜索结果数据的方法,getmoresearchData(){} 的函数.只是改变了相关的请求地址和传递的参数.</p>
+<pre><code class="language-javascript">//顶部搜索效果
+     $('.ui-searchbar').tap(function() {
+        $('.ui-searchbar-wrap').addClass('focus');
+        $('.ui-searchbar-input input').focus();
+    });
+    $('.ui-searchbar-cancel').tap(function() {
+        $('.ui-searchbar-wrap').removeClass('focus');
+    });
+  
+    $(&quot;.ui-icon-search&quot;).on('tap', function() {
+
+      $(&quot;#indexlist&quot;).empty();
+       getmoresearchData();
+       //设置自定义属性(搜索情况下给#btn添加自定义属性)
+       $(&quot;#btn1&quot;).attr(&quot;data-type&quot;,&quot;search&quot;);
+
+    })
+
+    $(&quot;#btn1&quot;).tap(function() {
+     //获取自定义属性,看是否为搜索请求情况下面的分页
+      var type = $(&quot;#btn1&quot;).attr(&quot;data-type&quot;);
+
+        if(!type) {
+            getmoreData();
+        } else{
+            getmoresearchData(1);
+        }
+
+    });
+
+
+</code></pre>
+<p>其次值得注意一点的是,frozenUI中移动端的点击事件要用tap,(不能用click),写法可以是:</p>
+<pre><code class="language-javascript">$(&quot;#btn&quot;).tap(function(){
+	
+
+})
+
+或者
+
+$(&quot;#btn&quot;).on('tap',function(){
+	
+
+})
+都是可以的....
+
+
+</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://blog.901web.com/tag/yi-dong-duan/" class="tag">
+                    移动端
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.901web.com/post/RHODamhfo/">
+                  <h3 class="post-title">
+                    ajax滚屏加载效果之修复篇
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>
